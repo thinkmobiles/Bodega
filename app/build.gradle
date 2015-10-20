@@ -21,6 +21,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('libs/estrella-sdk-1.6.jar')
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 }
