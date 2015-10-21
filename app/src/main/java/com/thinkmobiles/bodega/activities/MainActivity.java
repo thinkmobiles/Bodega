@@ -3,10 +3,15 @@ package com.thinkmobiles.bodega.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
+
+import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -23,8 +28,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initApiManager();
+
         initSlidingMenu();
         initUI();
+    }
+
+    private void initApiManager() {
+        final ApiManager apiManager = new ApiManager(getApplicationContext());
+        apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
+            @Override
+            public void managerIsReady() {
+                List<Item> firstLevel = apiManager.getFirstList();
+                Log.d("logs", "" + firstLevel.size());
+            }
+        });
+        apiManager.prepare();
     }
 
     private void initSlidingMenu() {

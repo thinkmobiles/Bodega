@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splashscreen"
-        android:scaleType="fitXY"/>
-</LinearLayout>
+        android:scaleType="fitXY"
+        android:src="@drawable/splashscreen" />
+
+    <TextView
+        android:id="@+id/tvProgress_AS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="@string/prepare_download_SA"
+        android:textColor="@android:color/holo_orange_light"/>
+</RelativeLayout>

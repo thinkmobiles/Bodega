@@ -1,174 +1,177 @@
 package com.thinkmobiles.bodega.api;
 
 import android.content.Context;
-import android.content.ContextWrapper;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.util.Log;
 
+import com.cristaliza.mvc.commands.estrella.AppConfigImpl;
+import com.cristaliza.mvc.commands.estrella.LastUpdateImpl;
 import com.cristaliza.mvc.controllers.estrella.MainController;
 import com.cristaliza.mvc.controllers.estrella.MainViewListener;
+import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppConfig;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
-import com.thinkmobiles.bodega.utils.Network;
+import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by denis on 20.10.15.
  */
-public abstract class ApiManager {
+public class ApiManager {
 
-    private static AppModel model;
-    private static MainViewListener controller;
-    private static String path = null;
+    private static final String LOG_TAG = "ApiManagerSDK";
 
-    public static void setPath(Context context) {
-//        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
-        ContextWrapper cw = new ContextWrapper(context);
-        path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
+    private Context context;
+    private AppModel model;
+    private MainViewListener controller;
+    private PrepareCallback prepareCallback;
+
+    public ApiManager(Context context) {
+        this.context = context;
+        init();
     }
 
-    public static String getPath(Context context) {
-        setPath(context);
-        return path;
-    }
-
-    public static String getPath() {
-        return path;
-    }
-
-    public static void init(Context context) {
+    private void init() {
         model = AppModel.getInstance();
-        ContextWrapper cw = new ContextWrapper(context);
-        path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
         controller = new MainController(model);
         controller.setAppBodega();
-    }
-
-    public static void downloadContent(EventListener listener){
-        File f = new File(path);
-        if(!f.exists()){
-            boolean b = f.mkdirs();
-            System.out.println(b);
-        }
         controller.setAsynchronousMode();
-        controller.downloadAllAppData(listener, path);
+        controller.setProductionEnvironment();
     }
 
-    public static void setOfflineMode(){
+    public void prepare() {
+        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, eventListener);
+        model.addListener(AppModel.ChangeEvent.APP_CONFIG_CHANGED, eventListener);
+        controller.onExecuteWSAppConfig();
+    }
+
+    private String getPath() {
+        //Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
+        return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
+    }
+
+    private EventListener eventListener = new EventListener() {
+        @Override
+        public void onEvent(Event event) {
+            Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
+            switch (event.getType()) {
+                case AppModel.ChangeEvent.APP_CONFIG_CHANGED:
+                    controller.onExecuteWSAppLastUpdate();
+                    break;
+                case AppModel.ChangeEvent.LAST_UPDATE_CHANGED:
+                    if (prepareCallback != null)
+                        prepareCallback.managerIsReady();
+                    break;
+            }
+        }
+    };
+
+    public void downloadContent(EventListener listener) {
+        File f = new File(getPath());
+        if (!f.exists())
+            f.mkdirs();
+        controller.downloadAllAppData(listener, getPath());
+    }
+
+    public boolean needUpdate() {
+        Log.d(LOG_TAG, "last date: " + SharedPrefUtils.getLastUpdate(context) + "; last update: " + getLastModelUpdate());
+        return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate());
+    }
+
+    public String getLastModelUpdate() {
+        return model.getLastUpdate();
+    }
+
+    public void setOfflineMode() {
         controller.setSynchronousMode();
-        model.setOfflinePath(path);
+        model.setOfflinePath(getPath());
     }
 
-    public static void getFirstLevel(EventListener listener){
+    public void getFirstLevel(EventListener listener) {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.FIRST_LEVEL_CHANGED, listener);
         controller.onExecuteWSFirstLevel();
     }
 
-    public static void getSecondLevel(EventListener listener, Item item){
+    public void getSecondLevel(EventListener listener, Item item) {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.SECOND_LEVEL_CHANGED, listener);
         controller.onExecuteWSSecondLevel(item);
     }
 
-    public static void getThirdLevel(EventListener listener, Item item) {
+    public void getThirdLevel(EventListener listener, Item item) {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.THIRD_LEVEL_CHANGED, listener);
         controller.onExecuteWSThirdLevel(item);
     }
 
-    public static void getLastUpdateServer(EventListener listener) {
+    public void getLastUpdateServer(EventListener listener) {
         model.removeListeners();
         controller.setSynchronousMode();
         model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
         controller.onExecuteWSAppLastUpdate();
     }
 
-    public static String getDateUpdate() {
-        return model.getLastUpdate();
-    }
-
-    public static List<Item> getFirstList() {
+    public List<Item> getFirstList() {
         List<Item> list = model.getFirstLevel();
 
-        for (int i = 0; i < list.size(); ++i){
-            for(int j = i+1; j < list.size(); ++j){
-                if(list.get(j).getId().trim().compareTo(list.get(i).getId().trim())<0){
+        /*for (int i = 0; i < list.size(); ++i) {
+            for (int j = i + 1; j < list.size(); ++j) {
+                if (list.get(j).getId().trim().compareTo(list.get(i).getId().trim()) < 0) {
                     Item temp = list.get(j);
-                    list.set(j,list.get(i));
-                    list.set(i,temp);
+                    list.set(j, list.get(i));
+                    list.set(i, temp);
                 }
             }
-        }
+        }*/
         return list;
     }
 
-    public static List<Item> getSecondList() {
+    public List<Item> getSecondList() {
         return model.getSecondLevel();
     }
 
-    public static List<Item> getThirdList() {
+    public List<Item> getThirdList() {
         return model.getThirdLevel();
     }
 
-    public static List<Product> getProductsList() {
+    public List<Product> getProductsList() {
         return model.getProducts();
     }
 
-    public static void getProducts(EventListener listener, Item item) {
+    public void getProducts(EventListener listener, Item item) {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, listener);
         controller.onExecuteWSProducts(item);
     }
 
-    private static void setAppConfig(){
-        String url = path + "/" + model.getApp().getId() + "/" + "levels" + "/app-config.xml";
-        model.setOnlineMode(true);
-
-        Network.LoaderConfig loader = new Network.LoaderConfig();
-        loader.execute(model);
-
-        AppConfig res = null;
-        try {
-            res = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        model.setAppConfig(res);
+    public final boolean isInternetConnectionAvailable(final Context _context) {
+        final ConnectivityManager connectivityManager = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static String getDate(){
-        setAppConfig();
-        model.setOnlineMode(false);
-        String url = null;
-        try {
-            url = model.getAppConfig().getParameter("base-url")
-                    + model.getAppConfig().getParameter("ws-plv-last-update");
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            return "2000-01-01 00:00:00";
-        }
-        Network.LoaderDateOfUpdate loader = new Network.LoaderDateOfUpdate();
-        loader.execute(url);
-
-        List lItems = null;
-        try {
-            lItems = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        AppModel.getInstance().setLastUpdate(((Item) lItems.get(0)).getUpdate());
-        return ((Item)lItems.get(0)).getUpdate();
+    public void finalizeManager() {
+        model.removeListeners();
     }
 
+    public void setPrepareCallback(PrepareCallback prepareCallback) {
+        this.prepareCallback = prepareCallback;
+    }
+
+    public interface PrepareCallback {
+        void managerIsReady();
+    }
 }
