@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Base Colors-->
+    <color name="black">#000</color>
+
+
+    <!--text color-->
+    <color name="text_grey">#EEEEEE</color>
+    <color name="text_white">#FFFFFF</color>
+
+</resources>
