@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.cristaliza.mvc.events.Event;
+import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
+    private ApiManager apiManager;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -46,12 +49,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initApiManager() {
-        final ApiManager apiManager = new ApiManager(getApplicationContext());
+        apiManager = new ApiManager(getApplicationContext());
         apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
             @Override
             public void managerIsReady() {
-                List<Item> firstLevel = apiManager.getFirstList();
-                Log.d("logs", "" + firstLevel.size());
+                apiManager.getAllLevels();
             }
         });
         apiManager.prepare();
@@ -69,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 mSlidingMenuController.toggle();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void loadIndex() {
