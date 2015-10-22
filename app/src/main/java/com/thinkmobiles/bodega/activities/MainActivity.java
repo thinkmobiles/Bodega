@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.cristaliza.mvc.events.Event;
-import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
@@ -23,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
-    private ApiManager apiManager;
+    private ApiManager mApiManager;
+    private List<Item> mFirstLevel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -35,40 +34,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initFragmentNAvgator();
+        initFragmentNavgator();
         initApiManager();
 
         initSlidingMenu();
         initUI();
-        loadIndex();
     }
 
-    private void initFragmentNAvgator() {
+    private void initFragmentNavgator() {
         mFragmentNavigator = new FragmentNavigator();
         mFragmentNavigator.register(getSupportFragmentManager(), R.id.container);
     }
 
     private void initApiManager() {
-        apiManager = new ApiManager(getApplicationContext());
-        apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
+        mApiManager = new ApiManager(getApplicationContext());
+        mApiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
             @Override
             public void managerIsReady() {
-                apiManager.getAllLevels();
+                mApiManager.getAllLevels();
             }
         });
-        apiManager.setLoadDataCallback(new ApiManager.LoadDataCallback() {
+        mApiManager.setLoadDataCallback(new ApiManager.LoadDataCallback() {
             @Override
             public void dataIsLoaded() {
-                List<Item> firstLevelList = apiManager.getFirstLevelList();
-                Log.d("ApiManagerSDK", "loaded list: " + (firstLevelList == null));
-                if (firstLevelList != null) {
-                    for (Item item : firstLevelList) {
-                        Log.d("ApiManagerSDK", "" + item.getName());
+                mFirstLevel = mApiManager.getFirstLevelList();
+                loadIndex();
+                Log.d("ApiManagerSDK", "loaded list: " + (mFirstLevel == null));
+                if (mFirstLevel != null) {
+                    for (Item item : mFirstLevel) {
+                        Log.d("ApiManagerSDK", "" + item.getId() + " " + item.getName() + " " + item.getIcon());
                     }
                 }
             }
         });
-        apiManager.prepare();
+        mApiManager.prepare();
     }
 
     private void initSlidingMenu() {
@@ -96,5 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
     public FragmentNavigator getFragmentNavigator() {
         return mFragmentNavigator;
+    }
+
+    public ApiManager getApiManager() {
+        return mApiManager;
+    }
+
+    public List<Item> getFirstLevel() {
+        return mFirstLevel;
     }
 }

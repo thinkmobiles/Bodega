@@ -8,4 +8,7 @@
     <color name="text_grey">#EEEEEE</color>
     <color name="text_white">#FFFFFF</color>
 
+    <!--IndexFragment-->
+    <color name="grid_selector_color">#20a0a0a0</color>
+
 </resources>

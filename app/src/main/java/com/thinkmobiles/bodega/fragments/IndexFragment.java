@@ -3,21 +3,25 @@ package com.thinkmobiles.bodega.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
+import android.text.TextUtils;
+import android.widget.GridView;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.adapters.GridAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by illia on 22.10.15.
  */
 public class IndexFragment extends BaseFragment {
 
-    private ImageView ivCalidad;
-    private ImageView ivLogistica;
-    private ImageView ivInstalacion;
-    private ImageView ivImagen;
-    private ImageView ivImplantacion;
-    private ImageView ivPlv;
+    private GridView mGrid;
+    private GridAdapter mAdapter;
+
+    private List<Item> mFirstLevel;
 
     public static BaseFragment newInstance() {
         return new IndexFragment();
@@ -38,25 +42,30 @@ public class IndexFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        mAdapter = new MyInsuranceCardAdapter(mActivity);
+        initData();
         findView();
-        setUpIcons();
-//        initActionBar();
-//        initListeners();
-//        downloadData();
-//        setUpList();
+        setUpGrid();
+    }
+
+    private void initData() {
+        mFirstLevel = mActivity.getFirstLevel();
+        List<Item> validItems = new ArrayList<>();
+        for (Item item : mFirstLevel) {
+            if (!TextUtils.isEmpty(item.getName())
+                    && !TextUtils.isEmpty(item.getIcon())) {
+                validItems.add(item);
+            }
+        }
+        mFirstLevel = validItems;
     }
 
     private void findView() {
-        ivCalidad       = $(R.id.ivCalidad_FI);
-        ivLogistica     = $(R.id.ivLogistica_FI);
-        ivInstalacion   = $(R.id.ivInstalacion_FI);
-        ivImagen        = $(R.id.ivImagen_FI);
-        ivImplantacion  = $(R.id.ivImplantacion_FI);
-        ivPlv           = $(R.id.ivPlv_FI);
+        mGrid = $(R.id.gvGrid_FI);
     }
 
-    private void setUpIcons() {
-
+    private void setUpGrid() {
+        mAdapter = new GridAdapter(mActivity);
+        mAdapter.setItems(mFirstLevel);
+        mGrid.setAdapter(mAdapter);
     }
 }

@@ -1,8 +1,6 @@
 package com.thinkmobiles.bodega.api;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.cristaliza.mvc.controllers.estrella.MainController;
@@ -29,6 +27,7 @@ public class ApiManager {
     private MainViewListener controller;
     private PrepareCallback prepareCallback;
     private LoadDataCallback loadDataCallback;
+    private static String path;
 
     public ApiManager(Context context) {
         this.context = context;
@@ -41,6 +40,7 @@ public class ApiManager {
         controller.setAppBodega();
         controller.setAsynchronousMode();
         controller.setProductionEnvironment();
+        path = context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
     }
 
     public void prepare() {
@@ -50,9 +50,9 @@ public class ApiManager {
         controller.onExecuteWSAppConfig();
     }
 
-    private String getPath() {
+    public static String getPath() {
         //Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
-        return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
+        return path;
     }
 
     private EventListener prepareEventListener = new EventListener() {

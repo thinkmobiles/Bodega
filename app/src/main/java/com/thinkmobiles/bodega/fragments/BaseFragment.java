@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thinkmobiles.bodega.activities.MainActivity;
+import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 
 public abstract class BaseFragment extends Fragment {
@@ -18,6 +19,7 @@ public abstract class BaseFragment extends Fragment {
     protected MainActivity              mActivity;
     protected View                      inflatedView;
     protected FragmentNavigator         mFragmentNavigator;
+    protected ApiManager                mApiManager;
 
     //_____________________ Private variables ____________________//
     private int             fragmentResId = -1;
@@ -36,6 +38,7 @@ public abstract class BaseFragment extends Fragment {
 
         mActivity = (MainActivity) getActivity();
         mFragmentNavigator = mActivity.getFragmentNavigator();
+        mApiManager = mActivity.getApiManager();
     }
 
     @Override
