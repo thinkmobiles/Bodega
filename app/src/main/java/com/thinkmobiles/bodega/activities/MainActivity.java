@@ -68,24 +68,24 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-        apiManager.prepare();
+        mApiManager.prepare();
     }
 
     private void dataIsReady() {
-        mFirstLevel = apiManager.getFirstLevelList();
+        mFirstLevel = mApiManager.getFirstLevelList();
         Log.d(LOG_TAG, "loaded list: " + (mFirstLevel == null));
         if (mFirstLevel != null) {
             for (Item item : mFirstLevel) {
                 Log.d(LOG_TAG, "" + item.getName());
-                List<Item> secondLevelList = apiManager.getSecondLevelListById(item.getId());
+                List<Item> secondLevelList = mApiManager.getSecondLevelListById(item.getId());
                 if (secondLevelList != null)
                     for (Item secondLevelItem : secondLevelList) {
                         Log.d(LOG_TAG, "\t--" + secondLevelItem.getName());
-                        List<Item> thirdLevelList = apiManager.getThirdLevelListById(secondLevelItem.getId());
+                        List<Item> thirdLevelList = mApiManager.getThirdLevelListById(secondLevelItem.getId());
                         if (thirdLevelList != null)
                             for (Item thirdLevelItem : thirdLevelList) {
                                 Log.d(LOG_TAG, "\t\t--" + thirdLevelItem.getName());
-                                List<Item> fourthLevelList = apiManager.getFourthLevelListById(thirdLevelItem.getId());
+                                List<Item> fourthLevelList = mApiManager.getFourthLevelListById(thirdLevelItem.getId());
                                 if (fourthLevelList != null)
                                     for (Item fourthLevelItem : fourthLevelList) {
                                         Log.d(LOG_TAG, "\t\t\t--" + fourthLevelItem.getName());
