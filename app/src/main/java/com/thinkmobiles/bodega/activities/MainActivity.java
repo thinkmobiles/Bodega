@@ -19,6 +19,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "ApiManagerSDK";
+
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
     private ApiManager mApiManager;
@@ -57,17 +59,41 @@ public class MainActivity extends AppCompatActivity {
         mApiManager.setLoadDataCallback(new ApiManager.LoadDataCallback() {
             @Override
             public void dataIsLoaded() {
-                mFirstLevel = mApiManager.getFirstLevelList();
-                loadIndex();
-                Log.d("ApiManagerSDK", "loaded list: " + (mFirstLevel == null));
-                if (mFirstLevel != null) {
-                    for (Item item : mFirstLevel) {
-                        Log.d("ApiManagerSDK", "" + item.getId() + " " + item.getName() + " " + item.getIcon());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadIndex();
+                        dataIsReady();
                     }
-                }
+                });
             }
         });
-        mApiManager.prepare();
+        apiManager.prepare();
+    }
+
+    private void dataIsReady() {
+        mFirstLevel = apiManager.getFirstLevelList();
+        Log.d(LOG_TAG, "loaded list: " + (mFirstLevel == null));
+        if (mFirstLevel != null) {
+            for (Item item : mFirstLevel) {
+                Log.d(LOG_TAG, "" + item.getName());
+                List<Item> secondLevelList = apiManager.getSecondLevelListById(item.getId());
+                if (secondLevelList != null)
+                    for (Item secondLevelItem : secondLevelList) {
+                        Log.d(LOG_TAG, "\t--" + secondLevelItem.getName());
+                        List<Item> thirdLevelList = apiManager.getThirdLevelListById(secondLevelItem.getId());
+                        if (thirdLevelList != null)
+                            for (Item thirdLevelItem : thirdLevelList) {
+                                Log.d(LOG_TAG, "\t\t--" + thirdLevelItem.getName());
+                                List<Item> fourthLevelList = apiManager.getFourthLevelListById(thirdLevelItem.getId());
+                                if (fourthLevelList != null)
+                                    for (Item fourthLevelItem : fourthLevelList) {
+                                        Log.d(LOG_TAG, "\t\t\t--" + fourthLevelItem.getName());
+                                    }
+                            }
+                    }
+            }
+        }
     }
 
     private void initSlidingMenu() {
