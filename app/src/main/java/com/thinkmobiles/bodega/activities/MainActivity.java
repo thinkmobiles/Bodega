@@ -9,7 +9,9 @@ import android.view.View;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
+import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
+import com.thinkmobiles.bodega.fragments.IndexFragment;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MainActivity extends AppCompatActivity {
 
     private SlidingMenuController mSlidingMenuController;
+    private FragmentNavigator mFragmentNavigator;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -29,10 +32,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initFragmentNAvgator();
         initApiManager();
 
         initSlidingMenu();
         initUI();
+        loadIndex();
+    }
+
+    private void initFragmentNAvgator() {
+        mFragmentNavigator = new FragmentNavigator();
+        mFragmentNavigator.register(getSupportFragmentManager(), R.id.container);
     }
 
     private void initApiManager() {
@@ -59,5 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 mSlidingMenuController.toggle();
             }
         });
+    }
+
+    private void loadIndex() {
+        mFragmentNavigator.replaceFragment(IndexFragment.newInstance());
+    }
+
+    public FragmentNavigator getFragmentNavigator() {
+        return mFragmentNavigator;
     }
 }

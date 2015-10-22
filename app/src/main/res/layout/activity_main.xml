@@ -2,7 +2,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                tools:context=".MainActivity"
+                android:background="@color/black">
 
     <ImageView
         android:layout_width="match_parent"
@@ -53,7 +54,11 @@
             android:layout_marginBottom="@dimen/default_margin"
             android:src="@drawable/logo_hdr"
             android:layout_alignParentRight="true"/>
-
     </LinearLayout>
+    <FrameLayout
+        android:layout_below="@+id/llHeader"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
