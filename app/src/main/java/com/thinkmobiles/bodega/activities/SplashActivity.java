@@ -33,6 +33,7 @@ public class SplashActivity extends Activity {
 
         tvProgress = (TextView) findViewById(R.id.tvProgress_AS);
 
+        //runMainActivity();
         initApiManager();
     }
 
@@ -64,15 +65,16 @@ public class SplashActivity extends Activity {
     };
 
     private void performEventListenerAction(Event event) {
-        switch (event.getId()) {
-            case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
+        switch (event.getType()) {
+            case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED:
                 SharedPrefUtils.setLastUpdate(getApplicationContext(), apiManager.getLastModelUpdate());
                 runMainActivity();
                 break;
-            case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
+            case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
                 //restartApp();
+                finish();
                 break;
-            case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
+            case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED:
                 String progress = "Downloading " + event.getMessage() + "...";
                 tvProgress.setText(progress);
                 break;
@@ -88,7 +90,6 @@ public class SplashActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         eventListener = null;
-        apiManager.finalizeManager();
     }
 
     /*private void showDialogClose() {

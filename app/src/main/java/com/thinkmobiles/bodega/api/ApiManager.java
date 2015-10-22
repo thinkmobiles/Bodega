@@ -3,28 +3,19 @@ package com.thinkmobiles.bodega.api;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.cristaliza.mvc.commands.estrella.AppConfigImpl;
-import com.cristaliza.mvc.commands.estrella.LastUpdateImpl;
 import com.cristaliza.mvc.controllers.estrella.MainController;
 import com.cristaliza.mvc.controllers.estrella.MainViewListener;
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
-import com.cristaliza.mvc.models.estrella.AppConfig;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by denis on 20.10.15.
@@ -52,8 +43,9 @@ public class ApiManager {
     }
 
     public void prepare() {
-        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, eventListener);
-        model.addListener(AppModel.ChangeEvent.APP_CONFIG_CHANGED, eventListener);
+        model.removeListeners();
+        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, prepareEventListener);
+        model.addListener(AppModel.ChangeEvent.APP_CONFIG_CHANGED, prepareEventListener);
         controller.onExecuteWSAppConfig();
     }
 
@@ -62,7 +54,7 @@ public class ApiManager {
         return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
     }
 
-    private EventListener eventListener = new EventListener() {
+    private EventListener prepareEventListener = new EventListener() {
         @Override
         public void onEvent(Event event) {
             Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
@@ -86,7 +78,7 @@ public class ApiManager {
     }
 
     public boolean needUpdate() {
-        Log.d(LOG_TAG, "last date: " + SharedPrefUtils.getLastUpdate(context) + "; last update: " + getLastModelUpdate());
+        Log.d(LOG_TAG, "last update performed: " + SharedPrefUtils.getLastUpdate(context) + "; server update available: " + getLastModelUpdate());
         return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate());
     }
 
@@ -94,40 +86,50 @@ public class ApiManager {
         return model.getLastUpdate();
     }
 
-    public void setOfflineMode() {
-        controller.setSynchronousMode();
+    public void getAllLevels() {
+        //controller.setSynchronousMode();
+        model.setOnlineMode(false);
         model.setOfflinePath(getPath());
-    }
-
-    public void getFirstLevel(EventListener listener) {
         model.removeListeners();
-        model.addListener(AppModel.ChangeEvent.FIRST_LEVEL_CHANGED, listener);
+        model.addListener(AppModel.ChangeEvent.FIRST_LEVEL_CHANGED, levelsEventListener);
+        model.addListener(AppModel.ChangeEvent.SECOND_LEVEL_CHANGED, levelsEventListener);
+        model.addListener(AppModel.ChangeEvent.THIRD_LEVEL_CHANGED, levelsEventListener);
+        model.addListener(AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED, levelsEventListener);
+        model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, levelsEventListener);
         controller.onExecuteWSFirstLevel();
     }
 
-    public void getSecondLevel(EventListener listener, Item item) {
-        model.removeListeners();
-        model.addListener(AppModel.ChangeEvent.SECOND_LEVEL_CHANGED, listener);
-        controller.onExecuteWSSecondLevel(item);
-    }
+    private EventListener levelsEventListener = new EventListener() {
+        @Override
+        public void onEvent(Event event) {
+            Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
+            switch (event.getType()) {
+                case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED:
+                    List<Item> firstLevelList = model.getFirstLevel();
+                        Log.d(LOG_TAG, "loaded list: " + (firstLevelList == null));
+                    if (firstLevelList != null)
+                        Log.d(LOG_TAG, "size: " + firstLevelList.size());
 
-    public void getThirdLevel(EventListener listener, Item item) {
-        model.removeListeners();
-        model.addListener(AppModel.ChangeEvent.THIRD_LEVEL_CHANGED, listener);
-        controller.onExecuteWSThirdLevel(item);
-    }
+                    //controller.onExecuteWSSecondLevel();
+                    model.removeListeners();
+                    break;
+                case AppModel.ChangeEvent.SECOND_LEVEL_CHANGED:
+                    break;
+                case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED:
+                    break;
+                case AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED:
+                    break;
+                case AppModel.ChangeEvent.PRODUCTS_CHANGED:
+                    break;
 
-    public void getLastUpdateServer(EventListener listener) {
-        model.removeListeners();
-        controller.setSynchronousMode();
-        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
-        controller.onExecuteWSAppLastUpdate();
-    }
+            }
+        }
+    };
 
-    public List<Item> getFirstList() {
-        List<Item> list = model.getFirstLevel();
+    public List<Item> getFirstLevelList() {
+        /*List<Item> list = model.getFirstLevel();
 
-        /*for (int i = 0; i < list.size(); ++i) {
+        for (int i = 0; i < list.size(); ++i) {
             for (int j = i + 1; j < list.size(); ++j) {
                 if (list.get(j).getId().trim().compareTo(list.get(i).getId().trim()) < 0) {
                     Item temp = list.get(j);
@@ -136,35 +138,23 @@ public class ApiManager {
                 }
             }
         }*/
-        return list;
+        return model.getFirstLevel();
     }
 
-    public List<Item> getSecondList() {
+    public List<Item> getSecondLevelList() {
         return model.getSecondLevel();
     }
 
-    public List<Item> getThirdList() {
+    public List<Item> getThirdLevelList() {
         return model.getThirdLevel();
+    }
+
+    public List<Item> getFourthLevelList() {
+        return model.getFourthLevel();
     }
 
     public List<Product> getProductsList() {
         return model.getProducts();
-    }
-
-    public void getProducts(EventListener listener, Item item) {
-        model.removeListeners();
-        model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, listener);
-        controller.onExecuteWSProducts(item);
-    }
-
-    public final boolean isInternetConnectionAvailable(final Context _context) {
-        final ConnectivityManager connectivityManager = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    public void finalizeManager() {
-        model.removeListeners();
     }
 
     public void setPrepareCallback(PrepareCallback prepareCallback) {
