@@ -28,6 +28,7 @@ public class ApiManager {
     private AppModel model;
     private MainViewListener controller;
     private PrepareCallback prepareCallback;
+    private LoadDataCallback loadDataCallback;
 
     public ApiManager(Context context) {
         this.context = context;
@@ -105,11 +106,10 @@ public class ApiManager {
             Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
             switch (event.getType()) {
                 case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED:
-                    List<Item> firstLevelList = model.getFirstLevel();
-                        Log.d(LOG_TAG, "loaded list: " + (firstLevelList == null));
-                    if (firstLevelList != null)
-                        Log.d(LOG_TAG, "size: " + firstLevelList.size());
 
+
+                    if (loadDataCallback != null)
+                        loadDataCallback.dataIsLoaded();
                     //controller.onExecuteWSSecondLevel();
                     model.removeListeners();
                     break;
@@ -159,6 +159,14 @@ public class ApiManager {
 
     public void setPrepareCallback(PrepareCallback prepareCallback) {
         this.prepareCallback = prepareCallback;
+    }
+
+    public void setLoadDataCallback(LoadDataCallback loadDataCallback) {
+        this.loadDataCallback = loadDataCallback;
+    }
+
+    public interface LoadDataCallback {
+        void dataIsLoaded();
     }
 
     public interface PrepareCallback {

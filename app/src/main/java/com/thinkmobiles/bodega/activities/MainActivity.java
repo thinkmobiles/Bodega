@@ -56,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
                 apiManager.getAllLevels();
             }
         });
+        apiManager.setLoadDataCallback(new ApiManager.LoadDataCallback() {
+            @Override
+            public void dataIsLoaded() {
+                List<Item> firstLevelList = apiManager.getFirstLevelList();
+                Log.d("ApiManagerSDK", "loaded list: " + (firstLevelList == null));
+                if (firstLevelList != null) {
+                    for (Item item : firstLevelList) {
+                        Log.d("ApiManagerSDK", "" + item.getName());
+                    }
+                }
+            }
+        });
         apiManager.prepare();
     }
 

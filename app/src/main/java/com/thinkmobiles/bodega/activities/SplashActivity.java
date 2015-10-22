@@ -33,8 +33,8 @@ public class SplashActivity extends Activity {
 
         tvProgress = (TextView) findViewById(R.id.tvProgress_AS);
 
-        //runMainActivity();
-        initApiManager();
+        runMainActivity();
+        //initApiManager();
     }
 
     private void initApiManager() {
