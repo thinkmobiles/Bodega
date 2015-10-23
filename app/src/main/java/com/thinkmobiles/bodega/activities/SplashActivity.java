@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
@@ -31,8 +32,7 @@ public class SplashActivity extends Activity {
 
         tvProgress = (TextView) findViewById(R.id.tvProgress_AS);
 
-        runMainActivity();
-//        initApiManager();
+        initApiManager();
     }
 
     private void initApiManager() {
@@ -40,9 +40,9 @@ public class SplashActivity extends Activity {
         apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
             @Override
             public void managerIsReady() {
-                if (apiManager.needUpdate())
+                /*if (apiManager.needUpdate())
                     apiManager.downloadContent(eventListener);
-                else
+                else*/
                     runMainActivity();
             }
         });
@@ -69,7 +69,6 @@ public class SplashActivity extends Activity {
                 runMainActivity();
                 break;
             case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
-                //restartApp();
                 finish();
                 break;
             case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED:
@@ -80,8 +79,16 @@ public class SplashActivity extends Activity {
     }
 
     private void runMainActivity() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finish();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent.putExtra(Constants.ALL_LEVELS_MODEL_ARG, apiManager.getAllLevelsModel());
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override

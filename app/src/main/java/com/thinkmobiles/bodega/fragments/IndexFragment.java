@@ -9,6 +9,7 @@ import android.widget.GridView;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GridAdapter;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class IndexFragment extends BaseFragment {
     private GridView mGrid;
     private GridAdapter mAdapter;
 
-    private List<Item> mFirstLevel;
+    private List<ItemWrapper> mFirstLevel;
 
     public static BaseFragment newInstance() {
         return new IndexFragment();
@@ -48,9 +49,9 @@ public class IndexFragment extends BaseFragment {
     }
 
     private void initData() {
-        mFirstLevel = mActivity.getFirstLevel();
-        List<Item> validItems = new ArrayList<>();
-        for (Item item : mFirstLevel) {
+        mFirstLevel = mActivity.getAllLevelsModel().getFirstLevelList();
+        List<ItemWrapper> validItems = new ArrayList<>();
+        for (ItemWrapper item : mFirstLevel) {
             if (!TextUtils.isEmpty(item.getName())
                     && !TextUtils.isEmpty(item.getIcon())) {
                 validItems.add(item);

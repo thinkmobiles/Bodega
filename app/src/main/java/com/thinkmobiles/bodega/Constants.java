@@ -12,4 +12,7 @@ public class Constants {
     public static final int LEVEL_FIRST = 1;
     public static final int LEVEL_SECOND = 1;
     public static final int LEVEL_THIRD = 1;
+
+    // BUNDLE KEYS
+    public static final String ALL_LEVELS_MODEL_ARG = "ALL_LEVELS_MODEL_ARG";
 }
