@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.cristaliza.mvc.models.estrella.Item;
+import com.cristaliza.mvc.models.estrella.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +15,11 @@ import java.util.Map;
  * Created by denis on 23.10.15.
  */
 public class AllLevelsModel implements Parcelable {
-    
+
     private List<ItemWrapper> firstLevel;
     private HashMap<String, List<ItemWrapper>> secondLevel, thirdLevel, fourthLevel;
+    public HashMap<String, List<ProductWrapper>> firstLevelProducts, secondLevelProducts, thirdLevelProducts, fourthLevelProducts;
+
 
     public AllLevelsModel() {
     }
@@ -25,6 +28,40 @@ public class AllLevelsModel implements Parcelable {
         return firstLevel;
     }
 
+    // PRODUCTS
+    public void setFirstLevelProducts(HashMap<String, List<ProductWrapper>> firstLevelProducts) {
+        this.firstLevelProducts = firstLevelProducts;
+    }
+
+    public void setSecondLevelProducts(HashMap<String, List<ProductWrapper>> secondLevelProducts) {
+        this.secondLevelProducts = secondLevelProducts;
+    }
+
+    public void setThirdLevelProducts(HashMap<String, List<ProductWrapper>> thirdLevelProducts) {
+        this.thirdLevelProducts = thirdLevelProducts;
+    }
+
+    public void setFourthLevelProducts(HashMap<String, List<ProductWrapper>> fourthLevelProducts) {
+        this.fourthLevelProducts = fourthLevelProducts;
+    }
+
+    public List<ProductWrapper> getFirstLevelProducts(String id) {
+        return firstLevelProducts.get(id);
+    }
+
+    public List<ProductWrapper> getSecondLevelProducts(String id) {
+        return secondLevelProducts.get(id);
+    }
+
+    public List<ProductWrapper> getThirdLevelProducts(String id) {
+        return thirdLevelProducts.get(id);
+    }
+
+    public List<ProductWrapper> getFourthLevelProducts(String id) {
+        return fourthLevelProducts.get(id);
+    }
+
+    // LEVELS
     public List<ItemWrapper> getSecondLevelListById(String id) {
         return secondLevel.get(id);
     }
@@ -53,10 +90,18 @@ public class AllLevelsModel implements Parcelable {
         this.fourthLevel = fourthLevel;
     }
 
-    public static List<ItemWrapper> getWrappedList(List<Item> itemsList) {
+    public static List<ItemWrapper> getWrappedLevelList(List<Item> itemsList) {
         List<ItemWrapper> wrappedList = new ArrayList<>();
         for (Item item : itemsList) {
             wrappedList.add(new ItemWrapper(item));
+        }
+        return wrappedList;
+    }
+
+    public static List<ProductWrapper> getWrappedProductsList(List<Product> productsList) {
+        List<ProductWrapper> wrappedList = new ArrayList<>();
+        for (Product product : productsList) {
+            wrappedList.add(new ProductWrapper(product));
         }
         return wrappedList;
     }
@@ -72,14 +117,22 @@ public class AllLevelsModel implements Parcelable {
         dest.writeSerializable(this.secondLevel);
         dest.writeSerializable(this.thirdLevel);
         dest.writeSerializable(this.fourthLevel);
+        dest.writeSerializable(this.firstLevelProducts);
+        dest.writeSerializable(this.secondLevelProducts);
+        dest.writeSerializable(this.thirdLevelProducts);
+        dest.writeSerializable(this.fourthLevelProducts);
     }
 
     protected AllLevelsModel(Parcel in) {
-        this.firstLevel = new ArrayList<>();
+        this.firstLevel = new ArrayList<ItemWrapper>();
         in.readList(this.firstLevel, List.class.getClassLoader());
         this.secondLevel = (HashMap<String, List<ItemWrapper>>) in.readSerializable();
         this.thirdLevel = (HashMap<String, List<ItemWrapper>>) in.readSerializable();
         this.fourthLevel = (HashMap<String, List<ItemWrapper>>) in.readSerializable();
+        this.firstLevelProducts = (HashMap<String, List<ProductWrapper>>) in.readSerializable();
+        this.secondLevelProducts = (HashMap<String, List<ProductWrapper>>) in.readSerializable();
+        this.thirdLevelProducts = (HashMap<String, List<ProductWrapper>>) in.readSerializable();
+        this.fourthLevelProducts = (HashMap<String, List<ProductWrapper>>) in.readSerializable();
     }
 
     public static final Creator<AllLevelsModel> CREATOR = new Creator<AllLevelsModel>() {

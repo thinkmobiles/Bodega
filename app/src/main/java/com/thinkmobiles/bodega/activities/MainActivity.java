@@ -6,10 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.cristaliza.mvc.models.estrella.Item;
+import com.cristaliza.mvc.models.estrella.Product;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.AllLevelsModel;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
@@ -52,27 +55,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void extractBundle() {
         allLevelsModel = getIntent().getParcelableExtra(Constants.ALL_LEVELS_MODEL_ARG);
-        /*List<ItemWrapper> firstLevelList = allLevelsModel.getFirstLevelList();
-        if (firstLevelList != null) {
-            for (ItemWrapper item : firstLevelList) {
-                Log.d(LOG_TAG, "" + item.getName());
-                List<ItemWrapper> secondLevelList = allLevelsModel.getSecondLevelListById(item.getId());
-                if (secondLevelList != null)
-                    for (ItemWrapper secondLevelItem : secondLevelList) {
-                        Log.d(LOG_TAG, "\t--" + secondLevelItem.getName());
-                        List<ItemWrapper> thirdLevelList = allLevelsModel.getThirdLevelListById(secondLevelItem.getId());
-                        if (thirdLevelList != null)
-                            for (ItemWrapper thirdLevelItem : thirdLevelList) {
-                                Log.d(LOG_TAG, "\t\t--" + thirdLevelItem.getName());
-                                List<ItemWrapper> fourthLevelList = allLevelsModel.getFourthLevelListById(thirdLevelItem.getId());
-                                if (fourthLevelList != null)
-                                    for (ItemWrapper fourthLevelItem : fourthLevelList) {
-                                        Log.d(LOG_TAG, "\t\t\t--" + fourthLevelItem.getName());
-                                    }
-                            }
-                    }
+
+        printLevels(1, null);
+    }
+
+    private void printLevels(int level, String id) {
+        List<ItemWrapper> itemsList = null;
+        switch (level) {
+            case 1:
+                itemsList = allLevelsModel.getFirstLevelList();
+                break;
+            case 2:
+                itemsList = allLevelsModel.getSecondLevelListById(id);
+                break;
+            case 3:
+                itemsList = allLevelsModel.getThirdLevelListById(id);
+                break;
+            case 4:
+                itemsList = allLevelsModel.getFourthLevelListById(id);
+                break;
+        }
+        if (itemsList != null) {
+            for (ItemWrapper item : itemsList) {
+                String tab = "";
+                for (int i=0; i<level; i++) {
+                    tab += "\t";
+                }
+                Log.d(LOG_TAG, tab + item.getName());
+                int nextLevel = level + 1;
+                printLevels(nextLevel, item.getId());
             }
-        }*/
+        }
     }
 
     private void initSlidingMenu() {

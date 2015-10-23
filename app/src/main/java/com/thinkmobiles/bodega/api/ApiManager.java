@@ -1,9 +1,6 @@
 package com.thinkmobiles.bodega.api;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.cristaliza.mvc.controllers.estrella.MainController;
@@ -13,14 +10,11 @@ import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
-import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by denis on 20.10.15.
@@ -84,7 +78,8 @@ public class ApiManager {
 
     public boolean needUpdate() {
         Log.d(LOG_TAG, "last update performed: " + SharedPrefUtils.getLastUpdate(context) + "; server update available: " + getLastModelUpdate());
-        return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate());
+        File file = new File(getPath(context));
+        return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate()) || !file.exists();
     }
 
     public String getLastModelUpdate() {
@@ -104,9 +99,11 @@ public class ApiManager {
         controller.onExecuteWSFirstLevel();
     }
 
-    private Item current1tLevelItem, current2tLevelItem, current3tLevelItem, current4tLevelItem;
+    private Item current1LevelItem, current2LevelItem, current3LevelItem, current4LevelItem;
     private HashMap<String, List<ItemWrapper>> secondLevel, thirdLevel, fourthLevel;
+    private HashMap<String, List<ProductWrapper>> firstLevelProducts, secondLevelProducts, thirdLevelProducts, fourthLevelProducts;
     private int levelsCounter = -1;
+    private int currentLevel = 0;
 
     private EventListener levelsEventListener = new EventListener() {
         @Override
@@ -116,8 +113,10 @@ public class ApiManager {
                 case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED:
                     levelsCounter = getFirstLevelList().size();
                     for (Item item : getFirstLevelList()) {
-                        current1tLevelItem = item;
+                        current1LevelItem = item;
+                        currentLevel = AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID;
                         //Log.d(LOG_TAG, "" + item.getName());
+                        controller.onExecuteWSProducts(item);
                         controller.onExecuteWSSecondLevel(item);
                         levelsCounter--;
                     }
@@ -125,24 +124,27 @@ public class ApiManager {
                 case AppModel.ChangeEvent.SECOND_LEVEL_CHANGED:
                     if (secondLevel == null)
                         secondLevel = new HashMap<>();
-                    secondLevel.put(current1tLevelItem.getId(), AllLevelsModel.getWrappedList(getSecondLevelList()));
+                    secondLevel.put(current1LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getSecondLevelList()));
                     levelsCounter += getSecondLevelList().size();
                     for (Item item : getSecondLevelList()) {
-                        current2tLevelItem = item;
+                        current2LevelItem = item;
+                        currentLevel = AppModel.ChangeEvent.SECOND_LEVEL_CHANGED_ID;
                         //Log.d(LOG_TAG, "\t--" + item.getName());
+                        controller.onExecuteWSProducts(item);
                         controller.onExecuteWSThirdLevel(item);
-                        //controller.onExecuteWSProducts(item);
                         levelsCounter--;
                     }
                     break;
                 case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED:
                     if (thirdLevel == null)
                         thirdLevel = new HashMap<>();
-                    thirdLevel.put(current2tLevelItem.getId(), AllLevelsModel.getWrappedList(getThirdLevelList()));
+                    thirdLevel.put(current2LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getThirdLevelList()));
                     levelsCounter += getThirdLevelList().size();
                     for (Item item : getThirdLevelList()) {
-                        current3tLevelItem = item;
+                        current3LevelItem = item;
+                        currentLevel = AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID;
                         //Log.d(LOG_TAG, "\t\t--" + item.getName());
+                        controller.onExecuteWSProducts(item);
                         controller.onExecuteWSFourthLevel(item);
                         levelsCounter--;
                     }
@@ -150,23 +152,42 @@ public class ApiManager {
                 case AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED:
                     if (fourthLevel == null)
                         fourthLevel = new HashMap<>();
-                    fourthLevel.put(current3tLevelItem.getId(), AllLevelsModel.getWrappedList(getFourthLevelList()));
+                    fourthLevel.put(current3LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getFourthLevelList()));
                     levelsCounter += getFourthLevelList().size();
                     for (Item item : getFourthLevelList()) {
-                        current4tLevelItem = item;
+                        current4LevelItem = item;
+                        currentLevel = AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED_ID;
                         //Log.d(LOG_TAG, "\t\t\t--" + item.getName());
+                        controller.onExecuteWSProducts(item);
                         levelsCounter--;
                     }
                     break;
                 case AppModel.ChangeEvent.PRODUCTS_CHANGED:
-                    /*if (getProductsList() != null) {
-                        List<Product> productList = getProductsList();
-                        Log.d(LOG_TAG, "prod size: " + productList.size());
-                        for (Product product : productList) {
-                            Log.d(LOG_TAG, "" + product.getName());
-
+                    if (getProductsList() != null) {
+                        List<ProductWrapper> wrappedList = AllLevelsModel.getWrappedProductsList(getProductsList());
+                        switch (currentLevel) {
+                            case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID:
+                                if (firstLevelProducts == null)
+                                    firstLevelProducts = new HashMap<>();
+                                firstLevelProducts.put(current1LevelItem.getId(), wrappedList);
+                                break;
+                            case AppModel.ChangeEvent.SECOND_LEVEL_CHANGED_ID:
+                                if (secondLevelProducts == null)
+                                    secondLevelProducts = new HashMap<>();
+                                secondLevelProducts.put(current2LevelItem.getId(), wrappedList);
+                                break;
+                            case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
+                                if (thirdLevelProducts == null)
+                                    thirdLevelProducts = new HashMap<>();
+                                thirdLevelProducts.put(current3LevelItem.getId(), wrappedList);
+                                break;
+                            case AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED_ID:
+                                if (fourthLevelProducts == null)
+                                    fourthLevelProducts = new HashMap<>();
+                                fourthLevelProducts.put(current4LevelItem.getId(), wrappedList);
+                                break;
                         }
-                    }*/
+                    }
                     break;
             }
             checkLoadingExecutionEnd();
@@ -182,10 +203,14 @@ public class ApiManager {
 
     public AllLevelsModel getAllLevelsModel() {
         AllLevelsModel allLevelsModel = new AllLevelsModel();
-        allLevelsModel.setFirstLevelList(AllLevelsModel.getWrappedList(model.getFirstLevel()));
+        allLevelsModel.setFirstLevelList(AllLevelsModel.getWrappedLevelList(model.getFirstLevel()));
         allLevelsModel.setSecondLevel(secondLevel);
         allLevelsModel.setThirdLevel(thirdLevel);
         allLevelsModel.setFourthLevel(fourthLevel);
+        allLevelsModel.setFirstLevelProducts(firstLevelProducts);
+        allLevelsModel.setSecondLevelProducts(secondLevelProducts);
+        allLevelsModel.setThirdLevelProducts(thirdLevelProducts);
+        allLevelsModel.setFourthLevelProducts(fourthLevelProducts);
         return allLevelsModel;
     }
 
@@ -215,6 +240,7 @@ public class ApiManager {
 
     public interface PrepareCallback {
         void managerIsReady();
+
         void dataIsReady();
     }
 }
