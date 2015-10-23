@@ -40,10 +40,16 @@ public class SplashActivity extends Activity {
         apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
             @Override
             public void managerIsReady() {
-                /*if (apiManager.needUpdate())
+                if (apiManager.needUpdate()) {
                     apiManager.downloadContent(eventListener);
-                else*/
-                    runMainActivity();
+                } else {
+                    apiManager.getAllLevels();
+                }
+            }
+
+            @Override
+            public void dataIsReady() {
+                runMainActivity();
             }
         });
         apiManager.prepare();
@@ -66,7 +72,7 @@ public class SplashActivity extends Activity {
         switch (event.getType()) {
             case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED:
                 SharedPrefUtils.setLastUpdate(getApplicationContext(), apiManager.getLastModelUpdate());
-                runMainActivity();
+                apiManager.getAllLevels();
                 break;
             case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
                 finish();

@@ -33,7 +33,6 @@ public class ApiManager {
     private AppModel model;
     private MainViewListener controller;
     private PrepareCallback prepareCallback;
-    private static String path;
 
     public ApiManager(Context context) {
         this.context = context;
@@ -46,7 +45,6 @@ public class ApiManager {
         controller.setAppBodega();
         controller.setAsynchronousMode();
         controller.setProductionEnvironment();
-        path = context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
     }
 
     public void prepare() {
@@ -56,9 +54,9 @@ public class ApiManager {
         controller.onExecuteWSAppConfig();
     }
 
-    public static String getPath() {
+    public static String getPath(Context context) {
         //Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
-        return path;
+        return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
     }
 
     private EventListener prepareEventListener = new EventListener() {
@@ -70,17 +68,18 @@ public class ApiManager {
                     controller.onExecuteWSAppLastUpdate();
                     break;
                 case AppModel.ChangeEvent.LAST_UPDATE_CHANGED:
-                    getAllLevels();
+                    if (prepareCallback != null)
+                        prepareCallback.managerIsReady();
                     break;
             }
         }
     };
 
     public void downloadContent(EventListener listener) {
-        File f = new File(getPath());
+        File f = new File(getPath(context));
         if (!f.exists())
             f.mkdirs();
-        controller.downloadAllAppData(listener, getPath());
+        controller.downloadAllAppData(listener, getPath(context));
     }
 
     public boolean needUpdate() {
@@ -95,7 +94,7 @@ public class ApiManager {
     public void getAllLevels() {
         controller.setSynchronousMode();
         model.setOnlineMode(false);
-        model.setOfflinePath(getPath());
+        model.setOfflinePath(getPath(context));
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.FIRST_LEVEL_CHANGED, levelsEventListener);
         model.addListener(AppModel.ChangeEvent.SECOND_LEVEL_CHANGED, levelsEventListener);
@@ -107,7 +106,7 @@ public class ApiManager {
 
     private Item current1tLevelItem, current2tLevelItem, current3tLevelItem, current4tLevelItem;
     private HashMap<String, List<ItemWrapper>> secondLevel, thirdLevel, fourthLevel;
-    private int levelsCounter;
+    private int levelsCounter = -1;
 
     private EventListener levelsEventListener = new EventListener() {
         @Override
@@ -115,7 +114,7 @@ public class ApiManager {
             //Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
             switch (event.getType()) {
                 case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED:
-                    levelsCounter += getFirstLevelList().size();
+                    levelsCounter = getFirstLevelList().size();
                     for (Item item : getFirstLevelList()) {
                         current1tLevelItem = item;
                         //Log.d(LOG_TAG, "" + item.getName());
@@ -132,6 +131,7 @@ public class ApiManager {
                         current2tLevelItem = item;
                         //Log.d(LOG_TAG, "\t--" + item.getName());
                         controller.onExecuteWSThirdLevel(item);
+                        //controller.onExecuteWSProducts(item);
                         levelsCounter--;
                     }
                     break;
@@ -159,11 +159,26 @@ public class ApiManager {
                     }
                     break;
                 case AppModel.ChangeEvent.PRODUCTS_CHANGED:
+                    /*if (getProductsList() != null) {
+                        List<Product> productList = getProductsList();
+                        Log.d(LOG_TAG, "prod size: " + productList.size());
+                        for (Product product : productList) {
+                            Log.d(LOG_TAG, "" + product.getName());
+
+                        }
+                    }*/
                     break;
             }
             checkLoadingExecutionEnd();
         }
     };
+
+    private void checkLoadingExecutionEnd() {
+        if (levelsCounter == 0 && prepareCallback != null) {
+            model.removeListeners();
+            prepareCallback.dataIsReady();
+        }
+    }
 
     public AllLevelsModel getAllLevelsModel() {
         AllLevelsModel allLevelsModel = new AllLevelsModel();
@@ -172,13 +187,6 @@ public class ApiManager {
         allLevelsModel.setThirdLevel(thirdLevel);
         allLevelsModel.setFourthLevel(fourthLevel);
         return allLevelsModel;
-    }
-
-    private void checkLoadingExecutionEnd() {
-        if (levelsCounter == 0 && prepareCallback != null) {
-            model.removeListeners();
-            prepareCallback.managerIsReady();
-        }
     }
 
     private List<Item> getFirstLevelList() {
@@ -205,15 +213,8 @@ public class ApiManager {
         this.prepareCallback = prepareCallback;
     }
 
-   /* public void setLoadDataCallback(LoadDataCallback loadDataCallback) {
-        this.loadDataCallback = loadDataCallback;
-    }
-
-    public interface LoadDataCallback {
-        void dataIsLoaded();
-    }*/
-
     public interface PrepareCallback {
         void managerIsReady();
+        void dataIsReady();
     }
 }

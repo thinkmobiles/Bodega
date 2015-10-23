@@ -65,7 +65,7 @@ public class GridAdapter extends BaseAdapter {
         ItemWrapper item = mItems.get(position);
         viewHolder.textView.setText(styleName(item.getName()));
         Glide.with(mContext)
-                .load(ApiManager.getPath() + item.getIcon())
+                .load(ApiManager.getPath(mContext) + item.getIcon())
                 .fitCenter()
                 .into(viewHolder.imageView);
         return convertView;
