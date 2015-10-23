@@ -8,4 +8,7 @@ public class Constants {
     // SHARED PREFS CONSTANTS
     public static final String SHARED_PREFS_NAME = "SHARED_PREFS_NAME";
     public static final String SHARED_PREFS_LAST_UPDATE_KEY = "SHARED_PREFS_LAST_UPDATE_KEY";
+
+    // BUNDLE KEYS
+    public static final String ALL_LEVELS_MODEL_ARG = "ALL_LEVELS_MODEL_ARG";
 }

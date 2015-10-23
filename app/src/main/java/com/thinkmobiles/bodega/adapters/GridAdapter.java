@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.utils.BitmapCreator;
 
 import java.util.List;
@@ -20,19 +21,19 @@ import java.util.List;
  */
 public class GridAdapter extends BaseAdapter {
 
-    private List<Item> mItems;
+    private List<ItemWrapper> mItems;
     private Context mContext;
 
     public GridAdapter(Context _ctx) {
         this.mContext = _ctx;
     }
 
-    public void setItems(List<Item> _items) {
+    public void setItems(List<ItemWrapper> _items) {
         this.mItems = _items;
         notifyDataSetChanged();
     }
 
-    public List<Item> getItems() {
+    public List<ItemWrapper> getItems() {
         return mItems;
     }
 
@@ -42,7 +43,7 @@ public class GridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Item getItem(int position) {
+    public ItemWrapper getItem(int position) {
         return mItems.get(position);
     }
 
@@ -61,7 +62,7 @@ public class GridAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Item item = mItems.get(position);
+        ItemWrapper item = mItems.get(position);
         viewHolder.textView.setText(styleName(item.getName()));
         viewHolder.imageView.setImageBitmap(BitmapCreator.getBitmap(ApiManager.getPath() + item.getIcon()));
         return convertView;

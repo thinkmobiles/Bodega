@@ -6,9 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.cristaliza.mvc.models.estrella.Item;
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.ApiManager;
+import com.thinkmobiles.bodega.api.AllLevelsModel;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
@@ -23,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
-    private ApiManager mApiManager;
-    private List<Item> mFirstLevel;
+
+    private AllLevelsModel allLevelsModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -36,58 +37,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initFragmentNavgator();
-        initApiManager();
+        initFragmentNavigator();
+        extractBundle();
+        loadIndexFragment();
 
         initSlidingMenu();
         initUI();
     }
 
-    private void initFragmentNavgator() {
+    private void initFragmentNavigator() {
         mFragmentNavigator = new FragmentNavigator();
         mFragmentNavigator.register(getSupportFragmentManager(), R.id.container);
     }
 
-    private void initApiManager() {
-        mApiManager = new ApiManager(getApplicationContext());
-        mApiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
-            @Override
-            public void managerIsReady() {
-                mApiManager.getAllLevels();
-            }
-        });
-        mApiManager.setLoadDataCallback(new ApiManager.LoadDataCallback() {
-            @Override
-            public void dataIsLoaded() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadIndex();
-                        dataIsReady();
-                    }
-                });
-            }
-        });
-        mApiManager.prepare();
-    }
-
-    private void dataIsReady() {
-        mFirstLevel = mApiManager.getFirstLevelList();
-        Log.d(LOG_TAG, "loaded list: " + (mFirstLevel == null));
-        if (mFirstLevel != null) {
-            for (Item item : mFirstLevel) {
+    private void extractBundle() {
+        allLevelsModel = getIntent().getParcelableExtra(Constants.ALL_LEVELS_MODEL_ARG);
+        List<ItemWrapper> firstLevelList = allLevelsModel.getFirstLevelList();
+        if (firstLevelList != null) {
+            for (ItemWrapper item : firstLevelList) {
                 Log.d(LOG_TAG, "" + item.getName());
-                List<Item> secondLevelList = mApiManager.getSecondLevelListById(item.getId());
+                List<ItemWrapper> secondLevelList = allLevelsModel.getSecondLevelListById(item.getId());
                 if (secondLevelList != null)
-                    for (Item secondLevelItem : secondLevelList) {
+                    for (ItemWrapper secondLevelItem : secondLevelList) {
                         Log.d(LOG_TAG, "\t--" + secondLevelItem.getName());
-                        List<Item> thirdLevelList = mApiManager.getThirdLevelListById(secondLevelItem.getId());
+                        List<ItemWrapper> thirdLevelList = allLevelsModel.getThirdLevelListById(secondLevelItem.getId());
                         if (thirdLevelList != null)
-                            for (Item thirdLevelItem : thirdLevelList) {
+                            for (ItemWrapper thirdLevelItem : thirdLevelList) {
                                 Log.d(LOG_TAG, "\t\t--" + thirdLevelItem.getName());
-                                List<Item> fourthLevelList = mApiManager.getFourthLevelListById(thirdLevelItem.getId());
+                                List<ItemWrapper> fourthLevelList = allLevelsModel.getFourthLevelListById(thirdLevelItem.getId());
                                 if (fourthLevelList != null)
-                                    for (Item fourthLevelItem : fourthLevelList) {
+                                    for (ItemWrapper fourthLevelItem : fourthLevelList) {
                                         Log.d(LOG_TAG, "\t\t\t--" + fourthLevelItem.getName());
                                     }
                             }
@@ -115,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void loadIndex() {
+    private void loadIndexFragment() {
         mFragmentNavigator.replaceFragment(IndexFragment.newInstance());
     }
 
@@ -123,11 +102,7 @@ public class MainActivity extends AppCompatActivity {
         return mFragmentNavigator;
     }
 
-    public ApiManager getApiManager() {
-        return mApiManager;
-    }
-
-    public List<Item> getFirstLevel() {
-        return mFirstLevel;
+    public AllLevelsModel getAllLevelsModel() {
+        return allLevelsModel;
     }
 }
