@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void extractBundle() {
         allLevelsModel = getIntent().getParcelableExtra(Constants.ALL_LEVELS_MODEL_ARG);
-        List<ItemWrapper> firstLevelList = allLevelsModel.getFirstLevelList();
+        /*List<ItemWrapper> firstLevelList = allLevelsModel.getFirstLevelList();
         if (firstLevelList != null) {
             for (ItemWrapper item : firstLevelList) {
                 Log.d(LOG_TAG, "" + item.getName());
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                     }
             }
-        }
+        }*/
     }
 
     private void initSlidingMenu() {
