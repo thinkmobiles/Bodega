@@ -27,7 +27,7 @@
     <!--IndexFragment-->
     <dimen name="level_one_image_height">330dp</dimen>
     <dimen name="grid_view_margin">18dp</dimen>
-    <dimen name="index_text_size">25sp</dimen>
+    <dimen name="index_text_size">25dp</dimen>
 
 
 </resources>

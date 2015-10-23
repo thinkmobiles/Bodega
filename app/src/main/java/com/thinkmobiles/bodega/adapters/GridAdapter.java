@@ -8,10 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
-import com.thinkmobiles.bodega.utils.BitmapCreator;
 
 import java.util.List;
 
@@ -63,7 +63,10 @@ public class GridAdapter extends BaseAdapter {
         }
         Item item = mItems.get(position);
         viewHolder.textView.setText(styleName(item.getName()));
-        viewHolder.imageView.setImageBitmap(BitmapCreator.getBitmap(ApiManager.getPath() + item.getIcon()));
+        Glide.with(mContext)
+                .load(ApiManager.getPath() + item.getIcon())
+                .fitCenter()
+                .into(viewHolder.imageView);
         return convertView;
     }
 
