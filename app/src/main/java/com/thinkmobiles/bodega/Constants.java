@@ -10,8 +10,8 @@ public class Constants {
     public static final String SHARED_PREFS_LAST_UPDATE_KEY = "SHARED_PREFS_LAST_UPDATE_KEY";
 
     public static final int LEVEL_FIRST = 1;
-    public static final int LEVEL_SECOND = 1;
-    public static final int LEVEL_THIRD = 1;
+    public static final int LEVEL_SECOND = 2;
+    public static final int LEVEL_THIRD = 3;
 
     // BUNDLE KEYS
     public static final String ALL_LEVELS_MODEL_ARG = "ALL_LEVELS_MODEL_ARG";

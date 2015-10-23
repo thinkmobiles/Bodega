@@ -40,9 +40,9 @@ public class SplashActivity extends Activity {
         apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
             @Override
             public void managerIsReady() {
-                /*if (apiManager.needUpdate())
+                if (apiManager.needUpdate())
                     apiManager.downloadContent(eventListener);
-                else*/
+                else
                     runMainActivity();
             }
         });

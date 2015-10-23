@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initSlidingMenu() {
-        mSlidingMenuController = new SlidingMenuController(this);
+        mSlidingMenuController = new SlidingMenuController(this, allLevelsModel);
         mSlidingMenuController.attachSlidingMenu();
     }
 

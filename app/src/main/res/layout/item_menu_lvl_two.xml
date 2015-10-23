@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/black"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginLeft="@dimen/slidingmenu_lvl_two_margin"
+        android:layout_marginStart="@dimen/slidingmenu_lvl_two_margin"
+        android:id="@+id/tvMenuItem_IM"
+        style="@style/ItemSlideMenu"
+        tools:text="¡Ay, caramba!"/>
+</LinearLayout>

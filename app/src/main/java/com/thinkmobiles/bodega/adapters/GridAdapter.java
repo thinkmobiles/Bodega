@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
