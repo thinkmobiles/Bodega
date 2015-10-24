@@ -13,7 +13,6 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -86,7 +85,7 @@ public class ApiManager {
         return model.getLastUpdate();
     }
 
-    public void getAllLevels() {
+    public void fetchAllLevels() {
         controller.setSynchronousMode();
         model.setOnlineMode(false);
         model.setOfflinePath(getPath(context));
@@ -96,141 +95,82 @@ public class ApiManager {
         model.addListener(AppModel.ChangeEvent.THIRD_LEVEL_CHANGED, levelsEventListener);
         model.addListener(AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED, levelsEventListener);
         model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, levelsEventListener);
-        controller.onExecuteWSFirstLevel();
+        allLevelsList = loadNestedLevel(1, null);
+        model.removeListeners();
+        if (prepareCallback != null)
+            prepareCallback.dataIsReady();
     }
 
-    private Item current1LevelItem, current2LevelItem, current3LevelItem, current4LevelItem;
-    private HashMap<String, List<ItemWrapper>> secondLevel, thirdLevel, fourthLevel;
-    private HashMap<String, List<ProductWrapper>> firstLevelProducts, secondLevelProducts, thirdLevelProducts, fourthLevelProducts;
-    private int levelsCounter = -1;
-    private int currentLevel = 0;
+    public AllLevelsModel getAllLevelsModel() {
+        return new AllLevelsModel(allLevelsList);
+    }
+
+    private List<ItemWrapper> allLevelsList;
+
+    private List<ItemWrapper> loadNestedLevel(int level, Item nestedItem) {
+        List<Item> originalList = getListByLevelNum(level, nestedItem);
+        List<ItemWrapper> wrappedList = WrapperUtils.getWrappedLevelList(originalList);
+        if (originalList != null) {
+            for (int i = 0; i < originalList.size(); i++) {
+                Item item = originalList.get(i);
+                int nextLevel = level + 1;
+                List<ItemWrapper> innerLevel = loadNestedLevel(nextLevel, originalList.get(i));
+                ItemWrapper itemWrapper = wrappedList.get(i);
+                itemWrapper.setLevelNumber(level);
+                itemWrapper.setInnerLevel(innerLevel);
+                itemWrapper.setProductList(WrapperUtils.getWrappedProductsList(getProductsList(item)));
+            }
+        }
+        return wrappedList;
+    }
+
+    private List<Item> getListByLevelNum(int level, Item item) {
+        List<Item> originalList = null;
+        switch (level) {
+            case 1:
+                originalList = getFirstLevelList();
+                break;
+            case 2:
+                originalList = getSecondLevelList(item);
+                break;
+            case 3:
+                originalList = getThirdLevelList(item);
+                break;
+            case 4:
+                originalList = getFourthLevelList(item);
+                break;
+        }
+        return originalList;
+    }
 
     private EventListener levelsEventListener = new EventListener() {
         @Override
         public void onEvent(Event event) {
-            //Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
-            switch (event.getType()) {
-                case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED:
-                    levelsCounter = getFirstLevelList().size();
-                    for (Item item : getFirstLevelList()) {
-                        current1LevelItem = item;
-                        currentLevel = AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID;
-                        //Log.d(LOG_TAG, "" + item.getName());
-                        controller.onExecuteWSProducts(item);
-                        controller.onExecuteWSSecondLevel(item);
-                        levelsCounter--;
-                    }
-                    break;
-                case AppModel.ChangeEvent.SECOND_LEVEL_CHANGED:
-                    if (secondLevel == null)
-                        secondLevel = new HashMap<>();
-                    secondLevel.put(current1LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getSecondLevelList()));
-                    levelsCounter += getSecondLevelList().size();
-                    for (Item item : getSecondLevelList()) {
-                        current2LevelItem = item;
-                        currentLevel = AppModel.ChangeEvent.SECOND_LEVEL_CHANGED_ID;
-                        //Log.d(LOG_TAG, "\t--" + item.getName());
-                        controller.onExecuteWSProducts(item);
-                        controller.onExecuteWSThirdLevel(item);
-                        levelsCounter--;
-                    }
-                    break;
-                case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED:
-                    if (thirdLevel == null)
-                        thirdLevel = new HashMap<>();
-                    thirdLevel.put(current2LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getThirdLevelList()));
-                    levelsCounter += getThirdLevelList().size();
-                    for (Item item : getThirdLevelList()) {
-                        current3LevelItem = item;
-                        currentLevel = AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID;
-                        //Log.d(LOG_TAG, "\t\t--" + item.getName());
-                        controller.onExecuteWSProducts(item);
-                        controller.onExecuteWSFourthLevel(item);
-                        levelsCounter--;
-                    }
-                    break;
-                case AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED:
-                    if (fourthLevel == null)
-                        fourthLevel = new HashMap<>();
-                    fourthLevel.put(current3LevelItem.getId(), AllLevelsModel.getWrappedLevelList(getFourthLevelList()));
-                    levelsCounter += getFourthLevelList().size();
-                    for (Item item : getFourthLevelList()) {
-                        current4LevelItem = item;
-                        currentLevel = AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED_ID;
-                        //Log.d(LOG_TAG, "\t\t\t--" + item.getName());
-                        controller.onExecuteWSProducts(item);
-                        levelsCounter--;
-                    }
-                    break;
-                case AppModel.ChangeEvent.PRODUCTS_CHANGED:
-                    if (getProductsList() != null) {
-                        List<ProductWrapper> wrappedList = AllLevelsModel.getWrappedProductsList(getProductsList());
-                        switch (currentLevel) {
-                            case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID:
-                                if (firstLevelProducts == null)
-                                    firstLevelProducts = new HashMap<>();
-                                firstLevelProducts.put(current1LevelItem.getId(), wrappedList);
-                                break;
-                            case AppModel.ChangeEvent.SECOND_LEVEL_CHANGED_ID:
-                                if (secondLevelProducts == null)
-                                    secondLevelProducts = new HashMap<>();
-                                secondLevelProducts.put(current2LevelItem.getId(), wrappedList);
-                                break;
-                            case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
-                                if (thirdLevelProducts == null)
-                                    thirdLevelProducts = new HashMap<>();
-                                thirdLevelProducts.put(current3LevelItem.getId(), wrappedList);
-                                break;
-                            case AppModel.ChangeEvent.FOURTH_LEVEL_CHANGED_ID:
-                                if (fourthLevelProducts == null)
-                                    fourthLevelProducts = new HashMap<>();
-                                fourthLevelProducts.put(current4LevelItem.getId(), wrappedList);
-                                break;
-                        }
-                    }
-                    break;
-            }
-            checkLoadingExecutionEnd();
         }
     };
 
-    private void checkLoadingExecutionEnd() {
-        if (levelsCounter == 0 && prepareCallback != null) {
-            model.removeListeners();
-            prepareCallback.dataIsReady();
-        }
-    }
-
-    public AllLevelsModel getAllLevelsModel() {
-        AllLevelsModel allLevelsModel = new AllLevelsModel();
-        allLevelsModel.setFirstLevelList(AllLevelsModel.getWrappedLevelList(model.getFirstLevel()));
-        allLevelsModel.setSecondLevel(secondLevel);
-        allLevelsModel.setThirdLevel(thirdLevel);
-        allLevelsModel.setFourthLevel(fourthLevel);
-        allLevelsModel.setFirstLevelProducts(firstLevelProducts);
-        allLevelsModel.setSecondLevelProducts(secondLevelProducts);
-        allLevelsModel.setThirdLevelProducts(thirdLevelProducts);
-        allLevelsModel.setFourthLevelProducts(fourthLevelProducts);
-        return allLevelsModel;
-    }
-
     private List<Item> getFirstLevelList() {
+        controller.onExecuteWSFirstLevel();
         return model.getFirstLevel();
     }
 
-    private List<Item> getSecondLevelList() {
+    private List<Item> getSecondLevelList(Item item) {
+        controller.onExecuteWSSecondLevel(item);
         return model.getSecondLevel();
     }
 
-    private List<Item> getThirdLevelList() {
+    private List<Item> getThirdLevelList(Item item) {
+        controller.onExecuteWSThirdLevel(item);
         return model.getThirdLevel();
     }
 
-    private List<Item> getFourthLevelList() {
+    private List<Item> getFourthLevelList(Item item) {
+        controller.onExecuteWSFourthLevel(item);
         return model.getFourthLevel();
     }
 
-    private List<Product> getProductsList() {
+    private List<Product> getProductsList(Item item) {
+        controller.onExecuteWSProducts(item);
         return model.getProducts();
     }
 

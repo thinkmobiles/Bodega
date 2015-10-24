@@ -49,7 +49,7 @@ public class IndexFragment extends BaseFragment {
     }
 
     private void initData() {
-        mFirstLevel = mActivity.getAllLevelsModel().getFirstLevelList();
+        mFirstLevel = mActivity.getAllLevelsModel().getAllLevelsList();
         List<ItemWrapper> validItems = new ArrayList<>();
         for (ItemWrapper item : mFirstLevel) {
             if (!TextUtils.isEmpty(item.getName())

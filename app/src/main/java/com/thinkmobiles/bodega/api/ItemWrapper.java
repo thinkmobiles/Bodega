@@ -4,14 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.cristaliza.mvc.models.estrella.Item;
+import com.cristaliza.mvc.models.estrella.Product;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by denis on 23.10.15.
  */
 public class ItemWrapper implements Serializable {
+
+    private int levelNumber = 0;
+    private List<ItemWrapper> innerLevel = null;
+    private List<ProductWrapper> productList = null;
 
     private String id = null;
     private String name = null;
@@ -50,10 +56,26 @@ public class ItemWrapper implements Serializable {
         extraImages = item.getExtraImages();
         extraImagesDescription = item.getExtraImagesDescription();
         extraVideos = item.getExtraVideos();
-        extraVideosDescription = item.getExtraImagesDescription();
+        extraVideosDescription = item.getExtraVideosDescripton();
         pdf = item.getPdf();
         description = item.getDescription();
         report = item.getReport();
+    }
+
+    public void setInnerLevel(List<ItemWrapper> innerLevel) {
+        this.innerLevel = innerLevel;
+    }
+
+    public void setProductList(List<ProductWrapper> productList) {
+        this.productList = productList;
+    }
+
+    public List<ItemWrapper> getInnerLevel() {
+        return innerLevel;
+    }
+
+    public List<ProductWrapper> getProductList() {
+        return productList;
     }
 
     public String getId() {
@@ -198,5 +220,13 @@ public class ItemWrapper implements Serializable {
 
     public void setReport(String report) {
         this.report = report;
+    }
+
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
+    public void setLevelNumber(int levelNumber) {
+        this.levelNumber = levelNumber;
     }
 }

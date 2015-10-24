@@ -43,7 +43,7 @@ public class SplashActivity extends Activity {
                 if (apiManager.needUpdate()) {
                     apiManager.downloadContent(eventListener);
                 } else {
-                    apiManager.getAllLevels();
+                    apiManager.fetchAllLevels();
                 }
             }
 
@@ -72,7 +72,7 @@ public class SplashActivity extends Activity {
         switch (event.getType()) {
             case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED:
                 SharedPrefUtils.setLastUpdate(getApplicationContext(), apiManager.getLastModelUpdate());
-                apiManager.getAllLevels();
+                apiManager.fetchAllLevels();
                 break;
             case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
                 finish();
@@ -94,13 +94,6 @@ public class SplashActivity extends Activity {
                 finish();
             }
         });
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        eventListener = null;
     }
 
     /*private void showDialogClose() {
@@ -114,31 +107,15 @@ public class SplashActivity extends Activity {
                 })
                 .create()
                 .show();
-    }
-
-    private void showDialogUpdate() {
-        new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.want_update))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        downloadContent();
-                    }
-                })
-                .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openMainActivity();
-                    }
-                })
-                .create()
-                .show();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
-        if (!mIsLoadContent) {
-            super.onBackPressed();
-        }
-    }*/
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        eventListener = null;
+    }
 }
