@@ -38,6 +38,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mSlidingMenu = new SlidingMenu(mActivity);
         mSlidingMenu.setMode(SlidingMenu.LEFT);
         mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        mSlidingMenu.setBackgroundColor(mActivity.getResources().getColor(R.color.black)); // no white line..
         mSlidingMenu.setTouchmodeMarginThreshold((int) mActivity.getResources().getDimension(R.dimen.slidingmenu_swipe_threshold));
         //mSlidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         mSlidingMenu.setFadeEnabled(false);
