@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.api.MenuEntry;
 
 import java.util.List;
 
@@ -16,20 +18,24 @@ import java.util.List;
  */
 public class SlidingMenuAdapter extends BaseAdapter {
 
-    private List<String> mItems;
+    private List<MenuEntry> mItems;
     private Context mContext;
 
     public SlidingMenuAdapter(Context _ctx) {
         this.mContext = _ctx;
     }
 
-    public void setData(List<String> _items) {
+    public void setData(List<MenuEntry> _items) {
         this.mItems = _items;
         notifyDataSetChanged();
     }
 
-    public List<String> getData() {
+    public List<MenuEntry> getData() {
         return mItems;
+    }
+
+    public MenuEntry getEntry(int position) {
+        return mItems.get(position);
     }
 
     @Override
@@ -38,7 +44,7 @@ public class SlidingMenuAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public MenuEntry getItem(int position) {
         return mItems.get(position);
     }
 
@@ -49,16 +55,22 @@ public class SlidingMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        MenuEntry entry = mItems.get(position);
         ViewHolder viewHolder;
         if(convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu, null);
+            if (entry.getLevel() == Constants.LEVEL_FIRST)
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_one, parent, false);
+            if (entry.getLevel() == Constants.LEVEL_SECOND)
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_two, parent, false);
+            if (entry.getLevel() == Constants.LEVEL_THIRD)
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_three, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.tvMenuItem_IM);
             viewHolder = new ViewHolder(textView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.textView.setText(mItems.get(position));
+        viewHolder.textView.setText(entry.getName());
         return convertView;
     }
 
@@ -72,11 +84,11 @@ public class SlidingMenuAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        return mItems.get(position).getLevel();
     }
 
     @Override
     public int getViewTypeCount() {
-        return 8;
+        return 3;
     }
 }

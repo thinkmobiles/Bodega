@@ -1,14 +1,20 @@
 package com.thinkmobiles.bodega.controllers;
 
 import android.app.Activity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
+import com.thinkmobiles.bodega.api.AllLevelsModel;
+import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.api.MenuEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +28,19 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
     private SlidingMenu mSlidingMenu;
     private ListView mMenu;
     private SlidingMenuAdapter mAdapter;
+    private AllLevelsModel mAllLevelsModel;
+    private List<MenuEntry> mEntries;
 
-    public SlidingMenuController(Activity _activity) {
+    public SlidingMenuController(Activity _activity, AllLevelsModel _allLevelsModel) {
         mActivity = _activity;
+        mAllLevelsModel = _allLevelsModel;
     }
 
     public void attachSlidingMenu() {
         initMenu();
         findUi();
+        initMenuEntries();
+        initHeaders();
         initAdapter();
         setListeners();
     }
@@ -54,9 +65,44 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mMenu = (ListView) mSlidingMenu.findViewById(R.id.lvMenu_SM);
     }
 
+    private void initMenuEntries() {
+        mEntries = new ArrayList<>();
+        List<ItemWrapper> levelList = mAllLevelsModel.getAllLevelsList();
+        getLevels(levelList, -1);
+    }
+
+    private void getLevels(List<ItemWrapper> levelList, int level) {
+        if (levelList != null
+                && !levelList.isEmpty()
+                && levelList.get(0).getLevelNumber() < 4
+                && levelList.size() > 1) {
+            level++;
+            for (ItemWrapper item : levelList) {
+                if (!Constants.COMPANIA_ID.equals(item.getId())) {
+                    mEntries.add(new MenuEntry(item.getId(), item.getName(), level));
+                    if (!Constants.TANQUES_ID.equals(item.getId())
+                            && !Constants.LOGOTIPOS_ID.equals(item.getId())
+                            && !Constants.COLUMNAS_ID.equals(item.getId())
+                            && !Constants.ARTICULOS_DE_USO_ID.equals(item.getId())) {
+                        getLevels(item.getInnerLevel(), level);
+                    }
+                }
+            }
+        }
+    }
+
+    private void initHeaders() {
+        MenuEntry footerEntry = new MenuEntry("SHIPMENT", "Envios", 0);
+        MenuEntry headerEntry = new MenuEntry("INDEX", "Inicio", 0);
+        View headerView = LayoutInflater.from(mActivity).inflate(R.layout.sliding_menu_header, mMenu, false);
+        View footerView = LayoutInflater.from(mActivity).inflate(R.layout.sliding_menu_footer, mMenu, false);
+        mMenu.addHeaderView(headerView, headerEntry, true);
+        mMenu.addFooterView(footerView, footerEntry, true);
+    }
+
     private void initAdapter() {
         mAdapter = new SlidingMenuAdapter(mActivity);
-        mAdapter.setData(getDummyItems());
+        mAdapter.setData(mEntries);
         mMenu.setAdapter(mAdapter);
     }
 
@@ -64,25 +110,17 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mMenu.setOnItemClickListener(this);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mActivity, mAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-        mSlidingMenu.toggle();
-    }
-
     public void toggle() {
         mSlidingMenu.toggle();
     }
 
-
-
-    private List<String> getDummyItems() {
-        List<String> list = new ArrayList<>();
-        list.add("Hola");
-        list.add("¿Como estas?");
-        list.add("Que tengas un buen día");
-        return list;
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("OnItemClick", "Position is: " + position);
+        MenuEntry entry = (MenuEntry) parent.getItemAtPosition(position);
+        Toast.makeText(mActivity, entry.getName() + " "
+                + entry.getId() + " "
+                + entry.getLevel(), Toast.LENGTH_SHORT).show();
+        mSlidingMenu.toggle();
     }
-
-
 }

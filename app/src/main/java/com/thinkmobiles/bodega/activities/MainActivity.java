@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
     private AllLevelsModel allLevelsModel;
+    private TextView tvMenuTitle;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initSlidingMenu() {
-        mSlidingMenuController = new SlidingMenuController(this);
+        mSlidingMenuController = new SlidingMenuController(this, allLevelsModel);
         mSlidingMenuController.attachSlidingMenu();
     }
 
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 mSlidingMenuController.toggle();
             }
         });
+        tvMenuTitle = (TextView) findViewById(R.id.tvMenuTitle);
     }
 
     @Override
@@ -81,5 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
     public AllLevelsModel getAllLevelsModel() {
         return allLevelsModel;
+    }
+
+    public void setActionBarTitle(String _title) {
+        tvMenuTitle.setText(_title);
     }
 }

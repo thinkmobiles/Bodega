@@ -7,7 +7,9 @@
               android:layout_height="match_parent">
 
     <TextView
+        android:layout_marginLeft="@dimen/slidingmenu_lvl_three_margin"
+        android:layout_marginStart="@dimen/slidingmenu_lvl_three_margin"
         android:id="@+id/tvMenuItem_IM"
-        style="@style/TitleItemSlideMenu"
+        style="@style/ItemSlideMenu"
         tools:text="¡Ay, caramba!"/>
 </LinearLayout>
