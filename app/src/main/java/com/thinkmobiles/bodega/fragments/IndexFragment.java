@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GridAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
@@ -80,6 +82,9 @@ public class IndexFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ItemWrapper item = mAdapter.getItem(position);
-        mFragmentNavigator.showFragment(LevelTwoFragment.newInstance(item));
+        if (!Constants.LOGISTICA_ID.equals(item.getId()))
+            mFragmentNavigator.showFragment(LevelTwoFragment.newInstance(item));
+        else
+            Toast.makeText(mActivity.getApplicationContext(), item.getName() + " " + item.getId(), Toast.LENGTH_SHORT).show();
     }
 }

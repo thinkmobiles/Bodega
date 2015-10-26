@@ -22,6 +22,7 @@ public class Constants {
     public static final String COLUMNAS_ID = "475";
     public static final String ARTICULOS_DE_USO_ID = "499";
     public static final String COMPANIA_ID = "467";
+    public static final String LOGISTICA_ID = "472";
 
     public static final String EXTRA_MODEL = "extra_model";
     public static final String EXTRA_ID = "extra_id";

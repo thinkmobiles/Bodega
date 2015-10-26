@@ -29,8 +29,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View _view){
             super(_view);
-            this.textView = (TextView) _view.findViewById(R.id.tvText_IG);
-            this.imageView = (ImageView) _view.findViewById(R.id.ivImage_IG);
+            this.textView = (TextView) _view.findViewById(R.id.tvText_IR);
+            this.imageView = (ImageView) _view.findViewById(R.id.ivImage_IR);
         }
     }
 
@@ -39,11 +39,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 //        notifyItemInserted(position);
 //    }
 //
-//    public void remove(String item) {
-//        int position = mLinks.indexOf(item);
-//        mLinks.remove(position);
-//        notifyItemRemoved(position);
-//    }
+    public ItemWrapper getItem(int position) {
+        return mItems.get(position);
+    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public RecyclerAdapter(Context _ctx, List<ItemWrapper> _items) {
@@ -53,7 +51,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_grid, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recycler, viewGroup, false);
         return new ViewHolder(v);
     }
 
