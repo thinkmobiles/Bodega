@@ -1,8 +1,11 @@
 package com.thinkmobiles.bodega.activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -12,7 +15,10 @@ import com.cristaliza.mvc.models.estrella.AppModel;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
+import com.thinkmobiles.bodega.utils.InetChecker;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
+
+import java.io.IOException;
 
 /**
  * Created by BogDan on 10/19/2015.
@@ -33,6 +39,15 @@ public class SplashActivity extends Activity {
         tvProgress = (TextView) findViewById(R.id.tvProgress_AS);
 
         initApiManager();
+        startDownload();
+    }
+
+    private void startDownload() {
+        if (InetChecker.isInternetConnectionAvailable(this)) {
+            apiManager.prepare();
+        } else {
+            showCheckConnectionDialog();
+        }
     }
 
     private void initApiManager() {
@@ -52,7 +67,6 @@ public class SplashActivity extends Activity {
                 runMainActivity();
             }
         });
-        apiManager.prepare();
     }
 
     private EventListener eventListener = new EventListener() {
@@ -75,7 +89,7 @@ public class SplashActivity extends Activity {
                 apiManager.fetchAllLevels();
                 break;
             case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
-                finish();
+                showCheckConnectionDialog();
                 break;
             case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED:
                 String progress = "Downloading " + event.getMessage() + "...";
@@ -96,10 +110,16 @@ public class SplashActivity extends Activity {
         });
     }
 
-    /*private void showDialogClose() {
+    private void showCheckConnectionDialog() {
         new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.check_connection))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.error_check_inet_connection))
+                .setPositiveButton(R.string.error_check_inet_connection_retry_btn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startDownload();
+                    }
+                })
+                .setNegativeButton(R.string.error_check_inet_connection_exit_btn, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -107,10 +127,11 @@ public class SplashActivity extends Activity {
                 })
                 .create()
                 .show();
-    }*/
+    }
 
     @Override
     public void onBackPressed() {
+        // Do nothing on this screen
     }
 
     @Override
