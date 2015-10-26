@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.cristaliza.mvc.models.estrella.Item;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GridAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by illia on 22.10.15.
  */
-public class IndexFragment extends BaseFragment {
+public class IndexFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private GridView mGrid;
     private GridAdapter mAdapter;
@@ -46,9 +47,11 @@ public class IndexFragment extends BaseFragment {
         initData();
         findView();
         setUpGrid();
+        initListeners();
     }
 
     private void initData() {
+        mActivity.setActionBarTitle("");
         mFirstLevel = mActivity.getAllLevelsModel().getAllLevelsList();
         List<ItemWrapper> validItems = new ArrayList<>();
         for (ItemWrapper item : mFirstLevel) {
@@ -68,5 +71,15 @@ public class IndexFragment extends BaseFragment {
         mAdapter = new GridAdapter(mActivity);
         mAdapter.setItems(mFirstLevel);
         mGrid.setAdapter(mAdapter);
+    }
+
+    private void initListeners() {
+        mGrid.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ItemWrapper item = mAdapter.getItem(position);
+        mFragmentNavigator.showFragment(LevelTwoFragment.newInstance(item));
     }
 }

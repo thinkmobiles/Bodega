@@ -66,22 +66,25 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
 
     private void initMenuEntries() {
         mEntries = new ArrayList<>();
-        getLevels(-1, "whatever");
+        List<ItemWrapper> levelList = mAllLevelsModel.getAllLevelsList();
+        getLevels(levelList, -1);
     }
 
-    private void getLevels(int level, String id) {
-        List<ItemWrapper> levelList = mAllLevelsModel.getLevelByNum(level, id);
+    private void getLevels(List<ItemWrapper> levelList, int level) {
         if (levelList != null
-                && level < 2
+                && !levelList.isEmpty()
+                && levelList.get(0).getLevelNumber() < 4
                 && levelList.size() > 1) {
             level++;
             for (ItemWrapper item : levelList) {
-                mEntries.add(new MenuEntry(item.getId(), item.getName(), level));
-                if(!item.getId().equals(Constants.TANQUES_ID)
-                        && !item.getId().equals(Constants.LOGOTIPOS_ID)
-                        && !item.getId().equals(Constants.COLUMNAS_ID)
-                        && !item.getId().equals(Constants.ARTICULOS_DE_USO_ID)) {
-                    getLevels(level, item.getId());
+                if (!Constants.COMPANIA_ID.equals(item.getId())) {
+                    mEntries.add(new MenuEntry(item.getId(), item.getName(), level));
+                    if (!Constants.TANQUES_ID.equals(item.getId())
+                            && !Constants.LOGOTIPOS_ID.equals(item.getId())
+                            && !Constants.COLUMNAS_ID.equals(item.getId())
+                            && !Constants.ARTICULOS_DE_USO_ID.equals(item.getId())) {
+                        getLevels(item.getInnerLevel(), level);
+                    }
                 }
             }
         }

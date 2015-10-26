@@ -13,4 +13,7 @@
     <!--IndexFragment-->
     <color name="grid_selector_color">#20a0a0a0</color>
 
+    <!--Level Two Fragment-->
+    <color name="lvl_two_red">#8C000B</color>
+
 </resources>

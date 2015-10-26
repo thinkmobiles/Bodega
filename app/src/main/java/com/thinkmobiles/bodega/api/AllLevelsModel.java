@@ -16,8 +16,6 @@ public class AllLevelsModel implements Parcelable {
     public AllLevelsModel() {
     }
 
-    }
-
     public AllLevelsModel(List<ItemWrapper> allLevelsList) {
         this.allLevelsList = allLevelsList;
     }
