@@ -59,11 +59,11 @@ public class SlidingMenuAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if(convertView == null){
             if (entry.getLevel() == Constants.LEVEL_FIRST)
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_one, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_one, parent, false);
             if (entry.getLevel() == Constants.LEVEL_SECOND)
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_two, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_two, parent, false);
             if (entry.getLevel() == Constants.LEVEL_THIRD)
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_three, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_three, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.tvMenuItem_IM);
             viewHolder = new ViewHolder(textView);
             convertView.setTag(viewHolder);
@@ -82,13 +82,13 @@ public class SlidingMenuAdapter extends BaseAdapter {
         }
     }
 
-//    @Override
-//    public int getItemViewType(int position) {
-//        return mItems.get(position).getLevel();
-//    }
-//
-//    @Override
-//    public int getViewTypeCount() {
-//        return 3;
-//    }
+    @Override
+    public int getItemViewType(int position) {
+        return mItems.get(position).getLevel();
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 3;
+    }
 }

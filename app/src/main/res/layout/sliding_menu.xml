@@ -1,38 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_height="match_parent"
               android:layout_width="match_parent"
-                android:paddingLeft="@dimen/slidingmenu_padding_left"
-                android:paddingStart="@dimen/slidingmenu_padding_left"
-    android:background="@color/black"
-    android:orientation="vertical">
+              android:layout_height="match_parent"
+    android:background="@color/black">
 
-    <TextView
-        android:id="@+id/tvMenuHeader_SM"
-        style="@style/HeaderSlideMenuItem"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/slidingmenu_divider_size"
-        android:background="@color/grey"
-        android:layout_marginTop="@dimen/slidingmenu_divider_margin"
-        android:layout_marginBottom="@dimen/slidingmenu_divider_margin"/>
-    <ListView
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:id="@+id/lvMenu_SM"
-          android:paddingTop="@dimen/padding"
-          android:background="@color/black"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/slidingmenu_divider_size"
-        android:background="@color/grey"
-        android:layout_marginTop="@dimen/slidingmenu_divider_margin"
-        android:layout_marginBottom="@dimen/slidingmenu_divider_margin"/>
-
-    <TextView
-        android:id="@+id/tvMenuFooter_SM"
-        style="@style/FooterSlideMenuItem"/>
+    <ListView android:id="@+id/lvMenu_SM"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/black"
+              android:paddingLeft="@dimen/slidingmenu_padding_left"
+              android:paddingStart="@dimen/slidingmenu_padding_left"
+        android:clipToPadding="false"
+        android:overScrollMode="never">
+    </ListView>
 </LinearLayout>
-

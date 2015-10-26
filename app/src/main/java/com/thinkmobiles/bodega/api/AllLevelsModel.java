@@ -8,7 +8,6 @@ import com.cristaliza.mvc.models.estrella.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by denis on 23.10.15.
@@ -19,6 +18,22 @@ public class AllLevelsModel implements Parcelable {
     private HashMap<String, List<ItemWrapper>> secondLevel, thirdLevel, fourthLevel;
 
     public AllLevelsModel() {
+    }
+
+    public List<ItemWrapper> getLevelByNum(int num, String id) {
+        if (num == -1) {
+            List<ItemWrapper> fixedFirstLevel = new ArrayList<>(getFirstLevelList());
+            fixedFirstLevel.remove(0);
+            return fixedFirstLevel;
+        }
+        if (num == 0)
+            return getSecondLevelListById(id);
+        if (num == 1)
+            return getThirdLevelListById(id);
+        if (num == 2)
+            return getFourthLevelListById(id);
+        else
+            return null;
     }
 
     public List<ItemWrapper> getFirstLevelList() {
