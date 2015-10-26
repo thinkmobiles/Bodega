@@ -16,4 +16,6 @@
     <!--Level Two Fragment-->
     <color name="lvl_two_red">#8C000B</color>
 
+    <!--Level Three Fragment-->
+    <color name="fragment_background">#fffdfdfe</color>
 </resources>

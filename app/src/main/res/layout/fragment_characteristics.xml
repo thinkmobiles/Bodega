@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="@dimen/padding"
+    android:padding="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fragment_background"
     android:orientation="horizontal">
 
     <android.support.percent.PercentFrameLayout
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical"
-        app:layout_widthPercent="75%">
+        app:layout_widthPercent="65%">
 
         <android.support.percent.PercentFrameLayout
             android:layout_width="match_parent"
@@ -23,20 +23,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                tools:src="@drawable/btn_volver" />
+                android:background="@drawable/btn_volver" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:src="@drawable/btn_add_envio" />
+                android:background="@drawable/btn_add_envio" />
         </android.support.percent.PercentFrameLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:layout_heightPercent="85%">
+            app:layout_heightPercent="70%">
 
             <TextView
                 android:id="@+id/tv_information_FC"
@@ -50,7 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        app:layout_widthPercent="25%">
+        app:layout_widthPercent="25%"
+        android:background="@color/grid_selector_color">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvRecycler_FC"

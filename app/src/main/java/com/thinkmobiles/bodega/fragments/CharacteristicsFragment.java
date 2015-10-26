@@ -18,6 +18,14 @@ public class CharacteristicsFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
     private ItemWrapper mParentItem;
 
+    public static BaseFragment newInstance(ItemWrapper _parentItem) {
+        Bundle args = new Bundle();
+        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        BaseFragment fragment = new CharacteristicsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +38,20 @@ public class CharacteristicsFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         findView();
+        setUpData();
+    }
+
+    private void setUpData() {
+        mInformation.setText(mParentItem.getDescription());
+
+
     }
 
     private void findView() {
         mInformation = $(R.id.tv_information_FC);
         mRecyclerView = $(R.id.rvRecycler_FC);
     }
+
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
