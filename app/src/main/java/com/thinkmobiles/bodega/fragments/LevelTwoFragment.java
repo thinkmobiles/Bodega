@@ -74,10 +74,7 @@ public class LevelTwoFragment extends BaseFragment {
     }
 
     private void initData() {
-        for (ItemWrapper item : mActivity.getAllLevelsModel().getAllLevelsList()) {
-            if (mParentItem.getId().equals(item.getId()))
-                mItems = item.getInnerLevel();
-        }
+        mItems = mParentItem.getInnerLevel();
      }
 
     private void findView() {

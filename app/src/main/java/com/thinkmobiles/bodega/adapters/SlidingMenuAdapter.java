@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.MenuEntry;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 
 import java.util.List;
 
@@ -18,24 +18,16 @@ import java.util.List;
  */
 public class SlidingMenuAdapter extends BaseAdapter {
 
-    private List<MenuEntry> mItems;
+    private List<ItemWrapper> mItems;
     private Context mContext;
 
     public SlidingMenuAdapter(Context _ctx) {
         this.mContext = _ctx;
     }
 
-    public void setData(List<MenuEntry> _items) {
+    public void setData(List<ItemWrapper> _items) {
         this.mItems = _items;
         notifyDataSetChanged();
-    }
-
-    public List<MenuEntry> getData() {
-        return mItems;
-    }
-
-    public MenuEntry getEntry(int position) {
-        return mItems.get(position);
     }
 
     @Override
@@ -44,7 +36,7 @@ public class SlidingMenuAdapter extends BaseAdapter {
     }
 
     @Override
-    public MenuEntry getItem(int position) {
+    public ItemWrapper getItem(int position) {
         return mItems.get(position);
     }
 
@@ -55,14 +47,14 @@ public class SlidingMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MenuEntry entry = mItems.get(position);
+        ItemWrapper entry = mItems.get(position);
         ViewHolder viewHolder;
         if(convertView == null){
-            if (entry.getLevel() == Constants.LEVEL_FIRST)
+            if (entry.getLevelNumber() == Constants.LEVEL_FIRST)
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_one, parent, false);
-            if (entry.getLevel() == Constants.LEVEL_SECOND)
+            if (entry.getLevelNumber() == Constants.LEVEL_SECOND)
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_two, parent, false);
-            if (entry.getLevel() == Constants.LEVEL_THIRD)
+            if (entry.getLevelNumber() == Constants.LEVEL_THIRD)
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_lvl_three, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.tvMenuItem_IM);
             viewHolder = new ViewHolder(textView);
@@ -84,11 +76,11 @@ public class SlidingMenuAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return mItems.get(position).getLevel();
+        return mItems.get(position).getLevelNumber();
     }
 
     @Override
     public int getViewTypeCount() {
-        return 3;
+        return 4;
     }
 }
