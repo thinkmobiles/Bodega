@@ -11,9 +11,9 @@ import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 
 /**
- * Created by sasha on 26.10.2015.
+ * Created by sasha on 27.10.2015.
  */
-public class CharacteristicsFragment extends BaseFragment implements View.OnClickListener{
+public class TirageFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mInformation;
     private RecyclerView mRecyclerView;
@@ -22,7 +22,7 @@ public class CharacteristicsFragment extends BaseFragment implements View.OnClic
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
         args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
-        BaseFragment fragment = new CharacteristicsFragment();
+        BaseFragment fragment = new TirageFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,7 +30,7 @@ public class CharacteristicsFragment extends BaseFragment implements View.OnClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_characteristics);
+        setContentView(R.layout.fragment_tirage);
         checkArgument();
     }
 
@@ -44,19 +44,19 @@ public class CharacteristicsFragment extends BaseFragment implements View.OnClic
     }
 
     private void setBtnListeners() {
-        $(R.id.btn_volver_FC).setOnClickListener(this);
-        $(R.id.btn_add_envio_FC).setOnClickListener(this);
+        $(R.id.btn_volver_FT).setOnClickListener(this);
+        $(R.id.btn_add_envio_FT).setOnClickListener(this);
     }
 
     private void setUpData() {
-        mInformation.setText(mItemWrapper.getDescription());
+//        mInformation.setText(mParentItem.getDescription());
 
 
     }
 
     private void findView() {
-        mInformation = $(R.id.tv_information_FC);
-        mRecyclerView = $(R.id.rvRecycler_FC);
+        mInformation = $(R.id.tv_information_FT);
+        mRecyclerView = $(R.id.rvRecycler_FT);
     }
 
     private void checkArgument() {
@@ -69,11 +69,11 @@ public class CharacteristicsFragment extends BaseFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        switch (id){
-            case R.id.btn_volver_FC:
+        switch (id) {
+            case R.id.btn_volver_FT:
                 mActivity.onBackPressed();
                 break;
-            case R.id.btn_add_envio_FC:
+            case R.id.btn_add_envio_FT:
                 break;
         }
     }
