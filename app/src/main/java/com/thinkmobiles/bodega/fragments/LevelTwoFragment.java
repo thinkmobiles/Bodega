@@ -114,6 +114,14 @@ public class LevelTwoFragment extends BaseFragment {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
                 Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                    mFragmentNavigator.showFragment(CharacteristicsFragment.newInstance(item));
+                        break;
+                    case 1:
+                    mFragmentNavigator.showFragment(TirageFragment.newInstance(item));
+                        break;
+                }
             }
         });
     }

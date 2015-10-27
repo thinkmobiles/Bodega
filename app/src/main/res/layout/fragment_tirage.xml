@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/level_three_padding"
     android:background="@color/fragment_background"
     android:orientation="horizontal"
-    android:layout_marginBottom="@dimen/level_three_padding"
     android:padding="@dimen/level_three_padding">
 
     <android.support.percent.PercentFrameLayout
@@ -21,52 +21,89 @@
             app:layout_heightPercent="15%">
 
             <ImageButton
-                android:id="@+id/btn_volver_FC"
+                android:id="@+id/btn_volver_FT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="@drawable/btn_volver" />
 
             <ImageButton
-                android:id="@+id/btn_add_envio_FC"
+                android:id="@+id/btn_add_envio_FT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@drawable/btn_add_envio" />
         </android.support.percent.PercentFrameLayout>
 
-        <ScrollView
+        <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:layout_heightPercent="82%">
 
-            <TextView
-                android:id="@+id/tv_information_FC"
+            <ImageView
+                android:id="@+id/iv_image_FT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="25%"
+                app:layout_widthPercent="25%" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/iv_image_FT"
+                android:layout_marginLeft="@dimen/level_three_padding"
+                android:layout_marginStart="@dimen/level_three_padding"
+                android:layout_toEndOf="@+id/iv_image_FT"
+                android:layout_toRightOf="@+id/iv_image_FT">
+
+                <TextView
+                    android:id="@+id/tv_information_FT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="INFORMATION" />
+            </ScrollView>
+
+            <android.support.percent.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="information" />
-        </ScrollView>
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/iv_image_FT"
+                android:layout_marginTop="@dimen/level_three_padding">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    app:layout_widthPercent="25%"
+
+                    />
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+        </android.support.percent.PercentRelativeLayout>
     </android.support.percent.PercentFrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/level_three_padding"
         android:layout_gravity="end"
         android:background="@color/grid_selector_color"
         android:orientation="vertical"
+        android:paddingTop="@dimen/level_three_padding"
         app:layout_widthPercent="25%">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/extras"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/level_three_title_text_size"/>
+            android:text="@string/extras"
+            android:textSize="@dimen/level_three_title_text_size" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvRecycler_FC"
+            android:id="@+id/rvRecycler_FT"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
