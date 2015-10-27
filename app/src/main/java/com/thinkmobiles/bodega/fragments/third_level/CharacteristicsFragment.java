@@ -3,6 +3,7 @@ package com.thinkmobiles.bodega.fragments.third_level;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class CharacteristicsFragment extends BaseFragment implements View.OnClic
     }
 
     private void setUpData() {
-        mInformation.setText(mItemWrapper.getDescription());
+        mInformation.setText(Html.fromHtml( mItemWrapper.getDescription()));
 
 
     }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -117,14 +118,11 @@ public class LevelTwoFragment extends BaseFragment {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
                 Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
-                if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item))
-                    return;
-
-                switch (position) {
-                    case 0:
+                switch (item.getId()) {
+                    case Constants.CARACTERISTICS_ID:
                     mFragmentNavigator.showFragment(CharacteristicsFragment.newInstance(item));
                         break;
-                    case 1:
+                    case Constants.TIRAGE_ID:
                     mFragmentNavigator.showFragment(TirageFragment.newInstance(item));
                         break;
                 }

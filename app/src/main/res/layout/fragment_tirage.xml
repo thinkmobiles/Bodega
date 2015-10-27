@@ -55,7 +55,8 @@
                 android:layout_marginLeft="@dimen/level_three_padding"
                 android:layout_marginStart="@dimen/level_three_padding"
                 android:layout_toEndOf="@+id/iv_image_FT"
-                android:layout_toRightOf="@+id/iv_image_FT">
+                android:layout_toRightOf="@+id/iv_image_FT"
+                >
 
                 <TextView
                     android:id="@+id/tv_information_FT"
@@ -71,14 +72,51 @@
                 android:layout_below="@+id/iv_image_FT"
                 android:layout_marginTop="@dimen/level_three_padding">
 
+                <!--<LinearLayout
+                    android:id="@+id/ll_container_for_btn_FT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="vertical"
+                    app:layout_widthPercent="8%">
+                </LinearLayout>
+
                 <ImageView
+                    android:id="@+id/iv_item_of_list_FT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    app:layout_widthPercent="25%"
+                    app:layout_widthPercent="25%" />
 
-                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvRecycler2_FT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toSrartOf="@+id/iv_item_of_list_FT"
+                    android:layout_toLeftOf="@+id/iv_item_of_list_FT"
+                    android:layout_toEndOf="@+id/ll_container_for_btn_FT"
+                    android:layout_toRightOf="@+id/ll_container_for_btn_FT"/>-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp_pager_FT"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <android.support.v4.view.PagerTabStrip
+                            android:id="@+id/pagerTitleStrip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start">
+
+                        </android.support.v4.view.PagerTabStrip>
+                    </android.support.v4.view.ViewPager>
+
+                </FrameLayout>
 
             </android.support.percent.PercentRelativeLayout>
 
@@ -87,6 +125,7 @@
     </android.support.percent.PercentFrameLayout>
 
     <LinearLayout
+        
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -102,10 +141,10 @@
             android:text="@string/extras"
             android:textSize="@dimen/level_three_title_text_size" />
 
-        <android.support.v7.widget.RecyclerView
+        <!--<android.support.v7.widget.RecyclerView
             android:id="@+id/rvRecycler_FT"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" />-->
 
     </LinearLayout>
 </android.support.percent.PercentFrameLayout>

@@ -2,7 +2,14 @@ package com.thinkmobiles.bodega.fragments.third_level;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +26,8 @@ public class TirageFragment extends BaseFragment implements View.OnClickListener
     private TextView mInformation;
     private RecyclerView mRecyclerView;
     private ItemWrapper mItemWrapper;
+    private ViewPager mViewPager;
+    private PagerAdapter pagerAdapter;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
@@ -50,14 +59,11 @@ public class TirageFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void setUpData() {
-//        mInformation.setText(mParentItem.getDescription());
-
 
     }
 
     private void findView() {
         mInformation = $(R.id.tv_information_FT);
-        mRecyclerView = $(R.id.rvRecycler_FT);
     }
 
     private void checkArgument() {
