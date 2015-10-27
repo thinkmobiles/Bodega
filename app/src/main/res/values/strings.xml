@@ -6,6 +6,11 @@
 
     <string name="inicio">Inicio</string>
     <string name="envios">Envíos</string>
+    <string name="envios_caps">ENVÍOS</string>
+    <string name="anadir_a_envios">AÑADIR A ENVÍOS</string>
+    <string name="volver">VOLVER</string>
+    <string name="fichas">FICHAS</string>
+    <string name="locales">LOCALES</string>
 
     <!--Error-->
     <string name="error_check_inet_connection">Connection with server is not available.</string>
