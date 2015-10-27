@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.second_level;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,6 +18,9 @@ import com.thinkmobiles.bodega.adapters.LinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.RecyclerAdapter;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.fragments.third_level.CharacteristicsFragment;
+import com.thinkmobiles.bodega.fragments.third_level.TirageFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;
@@ -114,6 +117,9 @@ public class LevelTwoFragment extends BaseFragment {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
                 Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
+                if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item))
+                    return;
+
                 switch (position) {
                     case 0:
                     mFragmentNavigator.showFragment(CharacteristicsFragment.newInstance(item));

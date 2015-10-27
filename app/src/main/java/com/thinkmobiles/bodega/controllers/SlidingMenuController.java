@@ -13,8 +13,8 @@ import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
 import com.thinkmobiles.bodega.api.AllLevelsModel;
 import com.thinkmobiles.bodega.api.ItemWrapper;
-import com.thinkmobiles.bodega.fragments.IndexFragment;
-import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
+import com.thinkmobiles.bodega.fragments.first_level.IndexFragment;
+import com.thinkmobiles.bodega.fragments.second_level.LevelTwoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,6 +123,10 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mSlidingMenu.toggle();
     }
 
+    public boolean isShown() {
+        return mMenu.isShown();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ItemWrapper entry = (ItemWrapper) parent.getItemAtPosition(position);
@@ -132,7 +136,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
                 changeFirstLevelFragment(entry);
                 break;
             case Constants.LEVEL_SECOND:
-                if (mFragmentNavigator.sheckSecondLevelFragmentOnThirdLvl(entry))
+                if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(entry))
                     break;
                 else
                     /////

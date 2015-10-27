@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.first_level;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GridAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.fragments.second_level.LevelTwoFragment;
 
 import java.util.ArrayList;
 import java.util.List;

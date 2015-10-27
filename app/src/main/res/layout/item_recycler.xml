@@ -19,6 +19,5 @@
         android:id="@+id/tvText_IR"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        tools:text="abc"
-        android:layout_marginBottom="10dp"/>
+        tools:text="abc"/>
 </RelativeLayout>
