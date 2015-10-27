@@ -24,7 +24,8 @@ public class Constants {
     public static final String COMPANIA_ID = "467";
     public static final String CARACTERISTICS_ID = "470";
     public static final String TIRAGE_ID = "471";
-        public static final String LOGISTICA_ID = "472";
+    public static final String LOGISTICA_ID = "472";
+    public static final String STEEL_GALLERY = "477";
     public static final String APLICACIONES_ID = "501";
     public static final String ELEMENTOS_DECORATIVOS_ID = "487";
 
