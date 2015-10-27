@@ -1,8 +1,10 @@
 package com.thinkmobiles.bodega.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
@@ -12,7 +14,7 @@ import com.thinkmobiles.bodega.api.ItemWrapper;
 /**
  * Created by sasha on 26.10.2015.
  */
-public class CharacteristicsFragment extends BaseFragment {
+public class CharacteristicsFragment extends BaseFragment implements View.OnClickListener{
 
     private TextView mInformation;
     private RecyclerView mRecyclerView;
@@ -39,6 +41,12 @@ public class CharacteristicsFragment extends BaseFragment {
 
         findView();
         setUpData();
+        setBtnListeners();
+    }
+
+    private void setBtnListeners() {
+        $(R.id.btn_volver_FC).setOnClickListener(this);
+        $(R.id.btn_add_envio_FC).setOnClickListener(this);
     }
 
     private void setUpData() {
@@ -59,4 +67,15 @@ public class CharacteristicsFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id){
+            case R.id.btn_volver_FC:
+                mActivity.onBackPressed();
+                break;
+            case R.id.btn_add_envio_FC:
+                break;
+        }
+    }
 }
