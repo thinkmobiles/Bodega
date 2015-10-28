@@ -42,6 +42,7 @@
 
     <!--Level Three Fragment-->
     <dimen name="level_three_padding">40dp</dimen>
+    <dimen name="level_three_margin">30dp</dimen>
     <dimen name="level_three_title_text_size">20sp</dimen>
 
     <!--Gallery Fragment-->

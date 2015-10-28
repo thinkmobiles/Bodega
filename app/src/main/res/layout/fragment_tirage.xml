@@ -25,14 +25,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@drawable/btn_volver" />
+                android:background="@color/fragment_background"
+                android:src="@drawable/btn_volver" />
 
             <ImageButton
                 android:id="@+id/btn_add_envio_FT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:background="@drawable/btn_add_envio" />
+                android:background="@color/fragment_background"
+                android:src="@drawable/btn_add_envio" />
         </android.support.percent.PercentFrameLayout>
 
         <android.support.percent.PercentRelativeLayout
@@ -55,8 +57,7 @@
                 android:layout_marginLeft="@dimen/level_three_padding"
                 android:layout_marginStart="@dimen/level_three_padding"
                 android:layout_toEndOf="@+id/iv_image_FT"
-                android:layout_toRightOf="@+id/iv_image_FT"
-                >
+                android:layout_toRightOf="@+id/iv_image_FT">
 
                 <TextView
                     android:id="@+id/tv_information_FT"
@@ -100,17 +101,15 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                 </FrameLayout>
 
             </android.support.percent.PercentRelativeLayout>
-
 
         </android.support.percent.PercentRelativeLayout>
     </android.support.percent.PercentFrameLayout>
 
     <LinearLayout
-        
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
