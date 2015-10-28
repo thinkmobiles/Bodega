@@ -12,7 +12,7 @@ import com.thinkmobiles.bodega.api.AllLevelsModel;
 import com.thinkmobiles.bodega.api.WrapperUtils;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
-import com.thinkmobiles.bodega.fragments.first_level.IndexFragment;
+import com.thinkmobiles.bodega.fragments.IndexFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mSlidingMenuController.isShown())
-            mSlidingMenuController.toggle();
+            mSlidingMenuController.close();
         else
             super.onBackPressed();
     }

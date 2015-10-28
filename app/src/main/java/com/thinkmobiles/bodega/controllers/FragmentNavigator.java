@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
-import com.thinkmobiles.bodega.fragments.second_level.LevelTwoFragment;
+import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
 
 public final class FragmentNavigator  {
 
@@ -148,19 +148,17 @@ public final class FragmentNavigator  {
         return mFragmentManager.beginTransaction();
     }
 
-    public boolean checkSecondLevelFragmentOnThirdLvl(ItemWrapper _entry) {
+    public boolean checkSecondLevelFragmentOnThirdLvl(ItemWrapper _entry, boolean _withBackStack) {
         switch (_entry.getId()) {
-            case Constants.COLUMNAS_ID:
-                showFragment(LevelTwoFragment
-                        .newInstance(_entry));
-                return true;
-            case Constants.APLICACIONES_ID:
-                showFragment(LevelTwoFragment
-                        .newInstance(_entry));
-                return true;
             case Constants.ELEMENTOS_DECORATIVOS_ID:
-                showFragment(LevelTwoFragment
+            case Constants.APLICACIONES_ID:
+            case Constants.COLUMNAS_ID:
+                if (_withBackStack)
+                    showFragment(LevelTwoFragment
                         .newInstance(_entry));
+                else
+                    showFragmentWithoutBackStack(LevelTwoFragment
+                            .newInstance(_entry));
                 return true;
             default:
                 return false;

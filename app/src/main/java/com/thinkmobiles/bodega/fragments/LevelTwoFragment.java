@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments.second_level;
+package com.thinkmobiles.bodega.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,9 +18,6 @@ import com.thinkmobiles.bodega.adapters.LinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.RecyclerAdapter;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
-import com.thinkmobiles.bodega.fragments.BaseFragment;
-import com.thinkmobiles.bodega.fragments.third_level.CharacteristicsFragment;
-import com.thinkmobiles.bodega.fragments.third_level.TirageFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;
@@ -117,15 +114,21 @@ public class LevelTwoFragment extends BaseFragment {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
                 Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
-                if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item))
+                if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
 
                 switch (position) {
                     case 0:
-                    mFragmentNavigator.showFragment(CharacteristicsFragment.newInstance(item));
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
                         break;
                     case 1:
-                    mFragmentNavigator.showFragment(TirageFragment.newInstance(item));
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, true, false));
+                        break;
+                    case 2:
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
+                        break;
+                    case 3:
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, true));
                         break;
                 }
             }

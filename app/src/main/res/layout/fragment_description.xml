@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:background="@color/fragment_background"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="@dimen/description_padding"
+                                            android:paddingTop="@dimen/description_padding"
+                                            android:paddingBottom="@dimen/description_padding"
+                                            android:paddingRight="@dimen/description_padding_big"
+                                            android:paddingStart="@dimen/description_padding_big"
+                                            android:paddingLeft="@dimen/description_padding_big"
+                                            android:paddingEnd="@dimen/description_padding_big"
+              android:baselineAligned="false">
+
+    <com.thinkmobiles.bodega.utils.PercentLinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        app:layout_widthPercent="65%">
+
+        <android.support.percent.PercentFrameLayout
+            android:id="@+id/flButtonsContainer_FD"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/description_buttons_container_height">
+
+            <ImageButton
+                android:id="@+id/btnVolver_FD"
+                android:layout_width="@dimen/description_back_button_width"
+                android:layout_height="@dimen/description_back_button_height"
+                android:layout_gravity="start"
+                android:background="@drawable/btn_volver" />
+
+            <ImageButton
+                android:id="@+id/btnAddEnvio_FD"
+                android:layout_width="@dimen/description_add_button_width"
+                android:layout_height="@dimen/description_add_button_height"
+                android:layout_gravity="end"
+                android:scaleType="fitCenter"
+                android:background="@drawable/btn_add_envio" />
+        </android.support.percent.PercentFrameLayout>
+
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            app:layout_heightPercent="42%"
+            tools:background="#aaffb0">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ivLeftImage_FD"
+                android:layout_width="@dimen/description_image_view_side"
+                android:layout_height="@dimen/description_image_view_side"
+                android:layout_marginRight="@dimen/description_horizontal_padding"
+                android:background="#ccd0cc"/>
+
+            <ScrollView
+                android:layout_toRightOf="@+id/ivLeftImage_FD"
+                android:id="@+id/svScrollableText_FD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:background="#ee5555">
+
+                <TextView
+                    android:id="@+id/tvDescription_FD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="information" />
+            </ScrollView>
+        </android.support.percent.PercentRelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:id="@+id/llBottomPagerContainer_FD"
+            app:layout_heightPercent="42%"
+            android:layout_marginTop="@dimen/description_horizontal_padding"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#aaaaaa">
+        </LinearLayout>
+
+    </com.thinkmobiles.bodega.utils.PercentLinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/description_padding"
+        android:layout_marginStart="@dimen/description_padding"
+        android:id="@+id/llFragmentExtrasContainer_FD"
+        android:layout_width="@dimen/description_extras_container_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="#aaaaaa"
+        android:orientation="vertical">
+    </LinearLayout>
+
+</LinearLayout>
