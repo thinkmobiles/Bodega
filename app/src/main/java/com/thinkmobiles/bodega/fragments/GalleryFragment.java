@@ -2,17 +2,17 @@ package com.thinkmobiles.bodega.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
-import com.thinkmobiles.bodega.adapters.LinearLayoutManager;
-import com.thinkmobiles.bodega.adapters.RecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;
 
@@ -57,6 +57,7 @@ public class GalleryFragment extends BaseFragment {
         findView();
         initData();
         setUpRecycler();
+        setListeners();
     }
 
     private void initData() {
@@ -77,5 +78,17 @@ public class GalleryFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void setListeners() {
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                ItemWrapper item = mAdapter.getItem(position);
+                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
+                Log.d("qqq", item.getId());
+
+            }
+        });
     }
 }

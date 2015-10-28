@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/level_three_padding"
+    android:background="@color/fragment_background">
+
+
+    <ImageView
+        android:id="@+id/iv_image_FVG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btn_close_FVG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/level_three_padding"
+        android:background="@color/fragment_background"
+        android:src="@drawable/btn_close" />
+
+    <ImageButton
+        android:id="@+id/btn_previous_image_FVG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/level_three_padding"
+        android:background="@color/fragment_background"
+        android:src="@drawable/btn_prev" />
+
+    <ImageButton
+        android:id="@+id/btn_next_image_FVG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/level_three_padding"
+        android:background="@color/fragment_background"
+        android:src="@drawable/btn_next" />
+
+
+</android.support.percent.PercentRelativeLayout>

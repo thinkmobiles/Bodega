@@ -35,9 +35,7 @@ public class PageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         pageNumber = getArguments().getInt(ARGUMENT_PAGE_NUMBER);
 
-        Random rnd = new Random();
-        backColor = Color.argb(40, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-    }
+            }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,8 +44,6 @@ public class PageFragment extends Fragment {
 
         TextView tvPage = (TextView) view.findViewById(R.id.tv_information_IVP);
         tvPage.setText("Page " + pageNumber);
-        tvPage.setBackgroundColor(backColor);
-//        view.setRotation(90f);
         return view;
     }
 }
