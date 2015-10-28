@@ -53,4 +53,7 @@
     <dimen name="description_back_button_width">90dp</dimen>
     <dimen name="description_image_view_side">180dp</dimen>
 
+    <!--Gallery Fragment-->
+    <dimen name="item_margin">20dp</dimen>
+
 </resources>

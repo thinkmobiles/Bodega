@@ -117,18 +117,15 @@ public class LevelTwoFragment extends BaseFragment {
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
 
-                switch (position) {
-                    case 0:
+                switch (item.getId()) {
+                    case Constants.CARACTERISTICS_ID:
                         mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
                         break;
-                    case 1:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, true, false));
+                    case Constants.TIRAGE_ID:
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
                         break;
-                    case 2:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
-                        break;
-                    case 3:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, true));
+                    case Constants.STEEL_GALLERY:
+                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item));
                         break;
                 }
             }
