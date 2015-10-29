@@ -22,6 +22,8 @@ public class ApiManager {
 
     private static final String LOG_TAG = "ApiManagerSDK";
 
+    private static final int FILE_DOWNLOAD_TIMEOUT = 20000;
+
     private Context context;
     private AppModel model;
     private MainViewListener controller;
@@ -34,6 +36,7 @@ public class ApiManager {
 
     private void init() {
         model = AppModel.getInstance();
+        model.setFileDownloadTimeout(FILE_DOWNLOAD_TIMEOUT);
         controller = new MainController(model);
         controller.setAppBodega();
         controller.setAsynchronousMode();
@@ -59,11 +62,18 @@ public class ApiManager {
             Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
             switch (event.getType()) {
                 case AppModel.ChangeEvent.APP_CONFIG_CHANGED:
+                    // If app config hasn't been changed, we'll receive ID that corresponds to the error code (-1)
+                    // so we should check event by it's type, because unchanged config fits to our needs
                     controller.onExecuteWSAppLastUpdate();
                     break;
                 case AppModel.ChangeEvent.LAST_UPDATE_CHANGED:
-                    if (prepareCallback != null)
-                        prepareCallback.managerIsReady();
+                    if (prepareCallback != null) {
+                        String update = getLastModelUpdate();
+                        if (update == null || update.isEmpty() || event.getId() == AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID)
+                            prepareCallback.prepareFailed();
+                        else
+                            prepareCallback.managerIsReady();
+                    }
                     break;
             }
         }
@@ -181,7 +191,7 @@ public class ApiManager {
 
     public interface PrepareCallback {
         void managerIsReady();
-
+        void prepareFailed();
         void dataIsReady();
     }
 }

@@ -1,7 +1,6 @@
 package com.thinkmobiles.bodega.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +17,6 @@ import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.utils.InetChecker;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
-import java.io.IOException;
-
 /**
  * Created by BogDan on 10/19/2015.
  */
@@ -28,7 +25,8 @@ public class SplashActivity extends Activity {
     private static final String LOG_TAG = "SplashActivitySDK";
 
     private TextView tvProgress;
-
+    private boolean errorDialogIsShown = false;
+    private boolean activityIsDestroyed = false;
     private ApiManager apiManager;
 
     @Override
@@ -60,6 +58,11 @@ public class SplashActivity extends Activity {
                 } else {
                     apiManager.fetchAllLevels();
                 }
+            }
+
+            @Override
+            public void prepareFailed() {
+                showCheckConnectionDialog();
             }
 
             @Override
@@ -110,23 +113,30 @@ public class SplashActivity extends Activity {
         });
     }
 
-    private void showCheckConnectionDialog() {
-        new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.error_check_inet_connection))
-                .setPositiveButton(R.string.error_check_inet_connection_retry_btn, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startDownload();
-                    }
-                })
-                .setNegativeButton(R.string.error_check_inet_connection_exit_btn, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .create()
-                .show();
+    private synchronized void showCheckConnectionDialog() {
+        if (!errorDialogIsShown && !activityIsDestroyed) {
+            // SDK can produce a lot of errors at the same time, so we have to avoid such circumstances
+            errorDialogIsShown = true;
+            new AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.error_check_inet_connection))
+                    .setPositiveButton(R.string.error_check_inet_connection_retry_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            errorDialogIsShown = false;
+                            startDownload();
+                        }
+                    })
+                    .setNegativeButton(R.string.error_check_inet_connection_exit_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            errorDialogIsShown = false;
+                            finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create()
+                    .show();
+        }
     }
 
     @Override
@@ -137,6 +147,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        activityIsDestroyed = true;
         eventListener = null;
     }
 }
