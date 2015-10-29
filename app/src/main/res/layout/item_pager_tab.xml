@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content">
+    <TextView
+              android:id="@+id/tvTab_IPT"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="@dimen/left_margin"
+              android:background="@color/pager_tab_grey"
+              android:paddingBottom="@dimen/top_bot_padding"
+              android:paddingLeft="@dimen/left_right_padding"
+              android:paddingRight="@dimen/left_right_padding"
+              android:paddingTop="@dimen/top_bot_padding"
+              android:text="@string/opcion"
+              android:textAllCaps="true"
+              android:textColor="@color/black"/>
+</FrameLayout>
+

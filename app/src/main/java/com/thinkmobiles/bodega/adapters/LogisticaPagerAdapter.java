@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by illia on 28.10.15.
  */
-public class LogiscticaPagerAdapter extends FragmentPagerAdapter {
+public class LogisticaPagerAdapter extends FragmentPagerAdapter {
 
     private List<ProductWrapper> mProducts;
 
-    public LogiscticaPagerAdapter(FragmentManager fm) {
+    public LogisticaPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -32,10 +32,5 @@ public class LogiscticaPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mProducts.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return "OPCION " + (1 + position);
     }
 }

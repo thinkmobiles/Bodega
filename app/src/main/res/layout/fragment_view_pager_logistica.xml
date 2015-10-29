@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vpPager_FPL"
-    android:layout_width="match_parent"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+               xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:overScrollMode="never">
+    android:layout_width="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v4.view.PagerTitleStrip
-        android:id="@+id/ptsTitleStrip_FPL"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvRecyclerTabs_FVPL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        tools:background="#33b5e5"
-        android:background="@null"
-        android:textColor="#fff"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp" />
+        android:layout_height="@dimen/tabs_pager_height"
+        android:overScrollMode="never"
+        android:layout_marginBottom="@dimen/double_padding"/>
 
-</android.support.v4.view.ViewPager>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpPager_FVPL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

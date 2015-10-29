@@ -8,6 +8,7 @@
     <dimen name="padding">8dp</dimen>
     <dimen name="double_padding">16dp</dimen>
     <dimen name="bigger_padding">20dp</dimen>
+    <dimen name="triple_padding">24dp</dimen>
 
     <!--Sliding Menu-->
     <dimen name="slidingmenu_swipe_threshold">100dp</dimen>
@@ -56,5 +57,12 @@
 
     <!--Gallery Fragment-->
     <dimen name="item_margin">20dp</dimen>
+
+    <!--View pager logstica-->
+    <dimen name="top_bot_padding">16dp</dimen>
+    <dimen name="left_right_padding">28dp</dimen>
+    <dimen name="left_margin">124dp</dimen>
+    <dimen name="tabs_pager_height">50dp</dimen>
+
 
 </resources>
