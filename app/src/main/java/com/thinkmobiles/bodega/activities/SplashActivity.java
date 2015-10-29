@@ -83,15 +83,15 @@ public class SplashActivity extends Activity {
     };
 
     private void performEventListenerAction(Event event) {
-        switch (event.getType()) {
-            case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED:
+        switch (event.getId()) {
+            case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
                 SharedPrefUtils.setLastUpdate(getApplicationContext(), apiManager.getLastModelUpdate());
                 apiManager.fetchAllLevels();
                 break;
-            case AppModel.ChangeEvent.ON_EXECUTE_ERROR:
+            case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                 showCheckConnectionDialog();
                 break;
-            case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED:
+            case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
                 String progress = "Downloading " + event.getMessage() + "...";
                 tvProgress.setText(progress);
                 break;
