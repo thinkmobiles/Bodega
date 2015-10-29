@@ -17,7 +17,7 @@
     <string name="error_check_inet_connection_retry_btn">Retry</string>
     <string name="error_check_inet_connection_exit_btn">Exit</string>
 
-    <!--Characteristics Fragment-->
+    <!--EXTRAS Fragment-->
     <string name="extras">EXTRAS</string>
 
     <!--Logistica view pager-->

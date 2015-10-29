@@ -47,7 +47,7 @@
     <dimen name="description_padding_big">60dp</dimen>
     <dimen name="description_horizontal_padding">30dp</dimen>
     <dimen name="description_text_size">20sp</dimen>
-    <dimen name="description_extras_container_width">290dp</dimen>
+    <dimen name="description_extras_container_width">298dp</dimen>
     <dimen name="description_buttons_container_height">80dp</dimen>
     <dimen name="description_add_button_height">55dp</dimen>
     <dimen name="description_add_button_width">183dp</dimen>
@@ -63,6 +63,10 @@
     <dimen name="left_right_padding">28dp</dimen>
     <dimen name="left_margin">124dp</dimen>
     <dimen name="tabs_pager_height">50dp</dimen>
+
+    <!-- EXTRAS -->
+    <dimen name="extras_margin">20dp</dimen>
+    <dimen name="extras_title_size">19dp</dimen>
 
 
 </resources>

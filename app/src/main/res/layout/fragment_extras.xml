@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="@dimen/description_extras_container_width"
+              android:layout_height="721dp"
+              tools:background="@drawable/bg_extra">
+
+    <TextView
+        android:layout_marginTop="@dimen/extras_margin"
+        android:textAllCaps="true"
+        android:textSize="@dimen/extras_title_size"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_white"
+        android:text="@string/extras"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/extras_margin"
+    android:id="@+id/rvExtras_FE"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:overScrollMode="never"
+        android:layout_marginLeft="@dimen/extras_margin"
+        android:layout_marginRight="@dimen/extras_margin"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
