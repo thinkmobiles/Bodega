@@ -2,77 +2,73 @@
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="@dimen/description_padding"
     android:background="@color/fragment_background">
 
     <android.support.percent.PercentFrameLayout
-        android:visibility="gone"
-        android:id="@+id/percent_frame_layout_FVG"
+        android:id="@+id/flButtonsContainer_FVG"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/description_padding"
-        android:layout_marginLeft="@dimen/description_padding"
-        android:layout_marginRight="@dimen/description_padding"
-        app:layout_heightPercent="15%">
+        android:layout_height="@dimen/description_buttons_container_height"
+        android:visibility="gone">
 
         <ImageButton
-            android:id="@+id/btn_volver_FC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnVolver_FVG"
+            android:layout_width="@dimen/description_back_button_width"
+            android:layout_height="@dimen/description_back_button_height"
             android:layout_gravity="start"
-            android:background="@color/fragment_background"
-            android:src="@drawable/btn_volver" />
+            android:background="@drawable/btn_volver" />
 
         <ImageButton
-            android:id="@+id/btn_add_envio_FC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnAddEnvio_FVG"
+            android:layout_width="@dimen/description_add_button_width"
+            android:layout_height="@dimen/description_add_button_height"
             android:layout_gravity="end"
-            android:background="@color/fragment_background"
-            android:src="@drawable/btn_add_envio" />
+            android:background="@drawable/btn_add_envio"
+            android:scaleType="fitCenter" />
     </android.support.percent.PercentFrameLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/percent_frame_layout_FVG">
-    <ImageView
 
-        android:id="@+id/iv_image_FVG"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <ImageView
 
-    <ImageButton
-        android:id="@+id/btn_close_FVG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/description_padding"
-        android:background="@color/fragment_background"
-        android:src="@drawable/btn_close" />
+            android:id="@+id/iv_image_FVG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <ImageButton
-        android:id="@+id/btn_previous_image_FVG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/description_padding"
-        android:background="@color/fragment_background"
-        android:src="@drawable/btn_prev" />
+        <ImageButton
+            android:id="@+id/btn_close_FVG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/description_padding"
+            android:background="@color/fragment_background"
+            android:src="@drawable/btn_close" />
 
-    <ImageButton
-        android:id="@+id/btn_next_image_FVG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/description_padding"
-        android:background="@color/fragment_background"
-        android:src="@drawable/btn_next" />
+        <ImageButton
+            android:id="@+id/btn_previous_image_FVG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/description_padding"
+            android:background="@color/fragment_background"
+            android:src="@drawable/btn_prev" />
+
+        <ImageButton
+            android:id="@+id/btn_next_image_FVG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/description_padding"
+            android:background="@color/fragment_background"
+            android:src="@drawable/btn_next" />
     </RelativeLayout>
 </android.support.percent.PercentRelativeLayout>
