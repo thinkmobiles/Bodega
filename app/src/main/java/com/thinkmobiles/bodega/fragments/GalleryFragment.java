@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by sasha on 27.10.2015.
  */
-public class GalleryFragment extends BaseFragment {
+public class GalleryFragment extends BaseFragment implements View.OnClickListener{
 
     private ItemWrapper mItemWrapper;
     private RecyclerView mRecyclerView;
@@ -57,6 +57,7 @@ public class GalleryFragment extends BaseFragment {
         findView();
         initData();
         setUpRecycler();
+        setBtnListeners();
         setListeners();
     }
 
@@ -64,6 +65,11 @@ public class GalleryFragment extends BaseFragment {
         mItems = mItemWrapper.getInnerLevel();
         if (mItems.size()>4) spanCount = 4; else spanCount = 2;
         Log.d("qqq", " " + mItems.size());
+    }
+
+    private void setBtnListeners() {
+        $(R.id.btnVolver_FG).setOnClickListener(this);
+        $(R.id.btnAddEnvio_FG).setOnClickListener(this);
     }
 
     private void findView() {
@@ -90,5 +96,18 @@ public class GalleryFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.btnVolver_FG:
+                mFragmentNavigator.popBackStack();
+                break;
+            case R.id.btnAddEnvio_FG:
+                Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }
