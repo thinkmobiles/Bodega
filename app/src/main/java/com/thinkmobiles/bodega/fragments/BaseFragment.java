@@ -1,5 +1,6 @@
 package com.thinkmobiles.bodega.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -9,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.api.AllLevelsModel;
-import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 
 public abstract class BaseFragment extends Fragment {
@@ -60,6 +61,22 @@ public abstract class BaseFragment extends Fragment {
             return inflatedView;
         }
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    protected void setActionBarTitle(String _title) {
+        mActivity.setActionBarTitle(_title);
+    }
+
+    protected Context getApplicationContext() {
+        return mActivity.getApplicationContext();
+    }
+
+    protected void setDefaultBackground() {
+        mActivity.setBackground(R.drawable.background);
+    }
+
+    protected void setRedBackground() {
+        mActivity.setBackground(R.drawable.background_red_a);
     }
 
     /**

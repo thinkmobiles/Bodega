@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="match_parent"
+                                               xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:id="@+id/svTextContainer_FILP"
+        app:layout_widthPercent="51%"
+        android:layout_marginRight="@dimen/description_horizontal_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+        <TextView
+            android:id="@+id/tvText_FILP"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/padding"
+            android:paddingEnd="@dimen/padding"/>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/ivImage_FILP"
+        android:background="@null"
+        android:src="@drawable/background"
+        android:scaleType="fitCenter"
+        android:layout_toRightOf="@+id/svTextContainer_FILP"
+        android:layout_toEndOf="@+id/svTextContainer_FILP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</android.support.percent.PercentRelativeLayout>

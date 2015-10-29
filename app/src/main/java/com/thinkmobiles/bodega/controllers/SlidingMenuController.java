@@ -1,5 +1,6 @@
 package com.thinkmobiles.bodega.controllers;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
 import com.thinkmobiles.bodega.api.AllLevelsModel;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.DescriptionFragment;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
 
@@ -123,6 +125,16 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mSlidingMenu.toggle();
     }
 
+    public void toggleAsync() {
+        //make post to provide smoother sliding
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                toggle();
+            }
+        });
+    }
+
     public void close() {
         mSlidingMenu.showContent();
     }
@@ -152,11 +164,11 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         Toast.makeText(mActivity, entry.getName() + " "
                 + entry.getId() + " "
                 + entry.getLevelNumber(), Toast.LENGTH_SHORT).show();
-        mSlidingMenu.toggle();
+        toggleAsync();
     }
 
-    private void changeFirstLevelFragment(ItemWrapper _entry) {
-        switch (_entry.getId()) {
+    private void changeFirstLevelFragment(ItemWrapper _item) {
+        switch (_item.getId()) {
             case Constants.INICIO_ID:
                 mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.newInstance());
                 break;
@@ -164,11 +176,11 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
                 //
                 break;
             case Constants.LOGISTICA_ID:
-                //
+                mFragmentNavigator.showFragmentWithoutBackStack(DescriptionFragment.newInstance(_item, true, true, false));
                 break;
             default:
                 mFragmentNavigator.showFragmentWithoutBackStack(LevelTwoFragment
-                                .newInstance(_entry));
+                                .newInstance(_item));
         }
     }
 }

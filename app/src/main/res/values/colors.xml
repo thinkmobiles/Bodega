@@ -3,8 +3,7 @@
     <!--Base Colors-->
     <color name="black">#000</color>
     <color name="grey">#666666</color>
-    
-
+    <color name="transparent">#00000000</color>
 
     <!--text color-->
     <color name="text_grey">#EEEEEE</color>
@@ -17,5 +16,7 @@
     <color name="lvl_two_red">#8C000B</color>
 
     <!--Level Three Fragment-->
-    <color name="fragment_background">#fffdfdfe</color>
+    <color name="fragment_background">#FFFFFF</color>
+    <color name="pager_tab_grey">#E8E8E8</color>
+
 </resources>

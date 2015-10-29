@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
@@ -46,6 +45,7 @@ public class IndexFragment extends BaseFragment implements AdapterView.OnItemCli
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setDefaultBackground();
         initData();
         findView();
         setUpGrid();
@@ -53,7 +53,7 @@ public class IndexFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     private void initData() {
-        mActivity.setActionBarTitle("");
+        setActionBarTitle("");
         mFirstLevel = mActivity.getAllLevelsModel().getAllLevelsList();
         List<ItemWrapper> validItems = new ArrayList<>();
         for (ItemWrapper item : mFirstLevel) {
@@ -85,6 +85,6 @@ public class IndexFragment extends BaseFragment implements AdapterView.OnItemCli
         if (!Constants.LOGISTICA_ID.equals(item.getId()))
             mFragmentNavigator.showFragment(LevelTwoFragment.newInstance(item));
         else
-            Toast.makeText(mActivity.getApplicationContext(), item.getName() + " " + item.getId(), Toast.LENGTH_SHORT).show();
+            mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
     }
 }
