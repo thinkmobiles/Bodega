@@ -26,14 +26,19 @@
         <android.support.percent.PercentFrameLayout
             android:id="@+id/flButtonsContainer_FD"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/description_buttons_container_height">
+            android:layout_height="@dimen/description_buttons_container_height"
+            tools:background="#aaaaee">
 
             <ImageButton
                 android:id="@+id/btnVolver_FD"
+                android:scaleType="fitCenter"
+                android:paddingBottom="15dp"
+                android:paddingRight="15dp"
                 android:layout_width="@dimen/description_back_button_width"
                 android:layout_height="@dimen/description_back_button_height"
                 android:layout_gravity="start"
-                android:background="@drawable/btn_volver" />
+                android:background="@null"
+                android:src="@drawable/btn_volver" />
 
             <ImageButton
                 android:id="@+id/btnAddEnvio_FD"
@@ -41,7 +46,8 @@
                 android:layout_height="@dimen/description_add_button_height"
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
-                android:background="@drawable/btn_add_envio" />
+                android:background="@null"
+                android:src="@drawable/btn_add_envio" />
         </android.support.percent.PercentFrameLayout>
 
 
@@ -66,6 +72,7 @@
                 android:id="@+id/svScrollableText_FD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 tools:background="#ee5555">
 
                 <TextView
@@ -84,7 +91,7 @@
             android:layout_marginTop="@dimen/description_horizontal_padding"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="#aaaaaa">
+            tools:background="#aaaaaa">
         </LinearLayout>
 
     </com.thinkmobiles.bodega.utils.PercentLinearLayout>

@@ -65,6 +65,7 @@ public class LevelTwoFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setDefaultBackground();
         initData();
         findView();
         startAnim();
@@ -95,7 +96,7 @@ public class LevelTwoFragment extends BaseFragment {
                 .load(ApiManager.getPath(mActivity.getApplicationContext()) + mParentItem.getIcon())
                 .fitCenter()
                 .into(mHeadImage);
-        mActivity.setActionBarTitle(mParentItem.getName());
+        setActionBarTitle(mParentItem.getName());
 
     }
 

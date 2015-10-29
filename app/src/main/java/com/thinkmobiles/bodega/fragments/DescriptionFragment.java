@@ -2,6 +2,7 @@ package com.thinkmobiles.bodega.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaFragment;
 
 /**
  * Created by illia on 27.10.15.
@@ -20,7 +22,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
 
 
     private TextView tvDescription;
-    private ItemWrapper mItemWrapper;
+    private ItemWrapper mItem;
     private boolean mBottomContainerIsShown;
     private boolean mExtrasContainerIsShown;
     private boolean mImageViewIsShown;
@@ -51,7 +53,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
             mBottomContainerIsShown = args.getBoolean(Constants.EXTRA_FLAG_1);
             mExtrasContainerIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
             mImageViewIsShown = args.getBoolean(Constants.EXTRA_FLAG_3);
@@ -62,6 +64,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setRedBackground();
         findUi();
         setListeners();
         setContainers();
@@ -81,8 +84,12 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void setContainers() {
-        if (mBottomContainerIsShown)
+        if (mBottomContainerIsShown) {
             llBottomPagerContainer.setVisibility(View.VISIBLE);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.llBottomPagerContainer_FD, ViewPagerLogisticaFragment.newInstance(mItem))
+                    .commit();
+        }
         if (mExtrasContainerIsShown)
             llFragmentExtrasContainer.setVisibility(View.VISIBLE);
         if (mImageViewIsShown)
@@ -90,9 +97,10 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void setUpData() {
-        String description = mItemWrapper.getDescription();
+        setActionBarTitle(TextUtils.isEmpty(mItem.getName()) ? "" : mItem.getName());
+        String description = mItem.getDescription();
         if (!TextUtils.isEmpty(description))
-            tvDescription.setText(/*Html.fromHtml(*/description/*)*/);
+            tvDescription.setText(Html.fromHtml(description));
         else
             tvDescription.setText(getString(R.string.lorem_ipsum));
     }
@@ -105,6 +113,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btnAddEnvio_FD:
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }

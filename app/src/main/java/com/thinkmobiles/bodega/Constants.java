@@ -36,6 +36,7 @@ public class Constants {
     public static final String EXTRA_MODEL = "extra_model";
     public static final String EXTRA_ID = "extra_id";
     public static final String EXTRA_ITEM = "extra_item";
+    public static final String EXTRA_PRODUCT = "extra_product";
     public static final String EXTRA_FLAG_1 = "extra_flag_1";
     public static final String EXTRA_FLAG_2 = "extra_flag_2";
     public static final String EXTRA_FLAG_3 = "extra_flag_3";

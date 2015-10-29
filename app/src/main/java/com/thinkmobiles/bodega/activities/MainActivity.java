@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentNavigator mFragmentNavigator;
     private AllLevelsModel allLevelsModel;
     private TextView tvMenuTitle;
+    private ImageView ivBackgroundMain;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -63,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.ivMenuBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSlidingMenuController.toggle();
+                mSlidingMenuController.toggleAsync();
             }
         });
         tvMenuTitle = (TextView) findViewById(R.id.tvMenuTitle);
+        ivBackgroundMain = (ImageView) findViewById(R.id.ivBackgroundMain);
     }
 
     @Override
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setActionBarTitle(String _title) {
         tvMenuTitle.setText(_title);
+    }
+
+    public void setBackground(int _resId) {
+        ivBackgroundMain.setImageResource(_resId);
     }
 
     @Override

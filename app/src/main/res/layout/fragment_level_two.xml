@@ -24,7 +24,7 @@
         android:id="@+id/llBottomContainer_FLT"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_heightPercent="52%"
+        app:layout_heightPercent="53%"
         android:background="@color/lvl_two_red">
 
         <android.support.v7.widget.RecyclerView
