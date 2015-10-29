@@ -13,7 +13,7 @@
     <string name="locales">LOCALES</string>
 
     <!--Error-->
-    <string name="error_check_inet_connection">Connection with server is not available.</string>
+    <string name="error_check_inet_connection">Connection with server is not available or some error occurred.</string>
     <string name="error_check_inet_connection_retry_btn">Retry</string>
     <string name="error_check_inet_connection_exit_btn">Exit</string>
 
