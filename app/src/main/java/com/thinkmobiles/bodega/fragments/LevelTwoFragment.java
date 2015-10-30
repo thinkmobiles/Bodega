@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.adapters.LinearLayoutManager;
+import com.thinkmobiles.bodega.adapters.FloatingLinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.RecyclerAdapter;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
@@ -29,7 +29,7 @@ public class LevelTwoFragment extends BaseFragment {
 
     private ImageView mHeadImage;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+    private FloatingLinearLayoutManager mLayoutManager;
     private RecyclerAdapter mAdapter;
     private List<ItemWrapper> mItems;
     private ItemWrapper mParentItem;
@@ -101,8 +101,8 @@ public class LevelTwoFragment extends BaseFragment {
     }
 
     private void setUpRecycler() {
-        mLayoutManager  = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        mAdapter        = new RecyclerAdapter(mActivity.getApplicationContext(), mItems);
+        mLayoutManager  = new FloatingLinearLayoutManager(getApplicationContext(), FloatingLinearLayoutManager.HORIZONTAL, false);
+        mAdapter        = new RecyclerAdapter(getApplicationContext(), mItems);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);

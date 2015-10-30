@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ProductWrapper;
@@ -62,9 +63,23 @@ public class PagerItemLogisticaFrag extends BaseFragment {
             tvText.setText(text);
 
         //TODO fix this whe data arrives
-//        Glide.with(getApplicationContext())
-//                .load(ApiManager.getPath(getApplicationContext()) + mProduct.getImage())
-//                .fitCenter()
-//                .into(ivImage);
+        if ((text.charAt(0) + "").equals("1"))
+            Glide.with(getApplicationContext())
+                .fromResource()
+                .load(R.drawable.logistica_camion01_ldpi)
+                .fitCenter()
+                .into(ivImage);
+        if ((text.charAt(0) + "").equals("2"))
+            Glide.with(getApplicationContext())
+                    .fromResource()
+                    .load(R.drawable.logistica_camion02_ldpi)
+                    .fitCenter()
+                    .into(ivImage);
+        if ((text.charAt(0) + "").equals("3"))
+            Glide.with(getApplicationContext())
+                    .fromResource()
+                    .load(R.drawable.logistica_camion03_ldpi)
+                    .fitCenter()
+                    .into(ivImage);
     }
 }

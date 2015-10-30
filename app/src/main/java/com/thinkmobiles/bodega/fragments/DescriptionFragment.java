@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.extras.ExtrasFragment;
 import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaFragment;
 
 /**
@@ -86,19 +87,38 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private void setContainers() {
         if (mBottomContainerIsShown) {
             llBottomPagerContainer.setVisibility(View.VISIBLE);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.llBottomPagerContainer_FD, ViewPagerLogisticaFragment.newInstance(mItem))
-                    .commit();
+            switch (mItem.getId()) {
+                case Constants.LOGISTICA_ID:
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.llBottomPagerContainer_FD, ViewPagerLogisticaFragment.newInstance(mItem))
+                            .commit();
+                    break;
+            }
         }
         if (mExtrasContainerIsShown)
             llFragmentExtrasContainer.setVisibility(View.VISIBLE);
+            switch (mItem.getId()) {
+                case Constants.LOGISTICA_ID:
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(mItem))
+                            .commit();
+                    break;
+            }
         if (mImageViewIsShown)
             ivLeftImage.setVisibility(View.VISIBLE);
     }
 
     private void setUpData() {
         setActionBarTitle(TextUtils.isEmpty(mItem.getName()) ? "" : mItem.getName());
-        String description = mItem.getDescription();
+//        String description = mItem.getDescription();
+        // TODO fix later
+        String description = mItem.getInnerLevel()
+                .get(0)
+                .getInnerLevel()
+                .get(0)
+                .getInnerLevel()
+                .get(0)
+                .getDescription();
         if (!TextUtils.isEmpty(description))
             tvDescription.setText(Html.fromHtml(description));
         else

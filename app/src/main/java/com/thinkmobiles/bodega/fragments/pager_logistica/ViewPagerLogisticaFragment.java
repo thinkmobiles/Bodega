@@ -75,7 +75,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
 
     private void generateDummyProducts() {
         // TODO delete wne data is ok
-        prods = new ArrayList<>(mItem.getProductList());
+        prods = new ArrayList<>();
         ProductWrapper p1 = new ProductWrapper();
         ProductWrapper p2 = new ProductWrapper();
         ProductWrapper p3 = new ProductWrapper();
@@ -84,7 +84,6 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
         p3.setImageDescription("3 " + getString(R.string.lorem_ipsum));
         prods.add(p1);
         prods.add(p2);
-        prods.add(p3);
         prods.add(p3);
     }
 
@@ -105,7 +104,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
         rvTabsView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         rvTabsView.setAdapter(mTabsAdapter);
 
-        mPagerAdapter = new LogisticaPagerAdapter(getFragmentManager());
+        mPagerAdapter = new LogisticaPagerAdapter(getChildFragmentManager());
         mPagerAdapter.setData(prods);
         mPager.setAdapter(mPagerAdapter);
     }

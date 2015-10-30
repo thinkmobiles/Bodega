@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="@dimen/description_extras_container_width"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               tools:background="@drawable/bg_extra">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginTop="@dimen/extras_margin"
         android:text="@string/extras"
         android:textAllCaps="true"
@@ -31,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/extras_back_btn_height"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/extras_bottom_margin"
         android:padding="@dimen/extras_back_btn_padding"
         android:scaleType="fitCenter"
         android:src="@drawable/btn_down"/>

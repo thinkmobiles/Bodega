@@ -2,13 +2,16 @@ package com.thinkmobiles.bodega.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ExtraWrapper;
 
 import java.util.List;
@@ -56,11 +59,26 @@ public class ExtrasAdapter extends RecyclerView.Adapter<ExtrasAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         ExtraWrapper item = mItems.get(i);
-//        viewHolder.textView.setText(item.name);
-//        if (item.isSelected)
-//            viewHolder.textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.pager_tab_grey));
-//        else
-//            viewHolder.textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent));
+        // TODO fix later
+        if (!TextUtils.isEmpty(item.getImage())
+                && !TextUtils.isEmpty(item.getImageDescriprion())) {
+            Glide.with(mContext)
+                    .load(ApiManager.getPath(mContext) + item.getImage())
+                    .fitCenter()
+                    .into(viewHolder.ivPreview);
+            viewHolder.ivPlayBtn.setVisibility(View.GONE);
+            viewHolder.textView.setText(item.getImageDescriprion());
+        }
+        if (!TextUtils.isEmpty(item.getVideo())
+                && !TextUtils.isEmpty(item.getVideoDescription())) {
+            Glide.with(mContext)
+                    .load("http://img.youtube.com/vi/" + item.getVideo() + "/default.jpg")
+                    .fitCenter()
+                    .into(viewHolder.ivPreview);
+            viewHolder.ivPlayBtn.setVisibility(View.VISIBLE);
+            viewHolder.textView.setText(item.getVideoDescription());
+        }
+
     }
 
     @Override

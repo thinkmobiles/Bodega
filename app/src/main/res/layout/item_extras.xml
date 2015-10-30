@@ -9,23 +9,31 @@
         android:id="@+id/tvItemText_IE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/extras_text_size"
+        android:layout_marginBottom="@dimen/extras_small_margin"
         tools:text="Lorem Ipsum"/>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/extras_big_margin">
         <ImageView
             android:id="@+id/ivPreview_IE"
             tools:src="@drawable/cdb_vaaff_android"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
         <ImageView
             android:visibility="gone"
             android:id="@+id/ivPlayBtn_IE"
             android:src="@drawable/btn_circle_send"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
     </RelativeLayout>
 
 </LinearLayout>
