@@ -85,7 +85,7 @@
         </android.support.percent.PercentRelativeLayout>
 
         <LinearLayout
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:id="@+id/llBottomPagerContainer_FD"
             app:layout_heightPercent="45%"
@@ -105,8 +105,13 @@
         android:layout_width="@dimen/description_extras_container_width"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="#aaaaaa"
         android:orientation="vertical">
+
+        <ImageView
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_extra"/>
     </LinearLayout>
 
 </LinearLayout>
