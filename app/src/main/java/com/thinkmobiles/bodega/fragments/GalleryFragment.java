@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -14,19 +15,19 @@ import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by sasha on 27.10.2015.
  */
-public class GalleryFragment extends BaseFragment implements View.OnClickListener{
+public class GalleryFragment extends BaseFragment implements View.OnClickListener {
 
     private ItemWrapper mItemWrapper;
     private RecyclerView mRecyclerView;
     private GalleryRecycleAdapter mAdapter;
-    private List<ItemWrapper> mItems;
+    private List<String> extralImages;
     private GridLayoutManager mGridLayoutManager;
-    private int spanCount;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
@@ -47,6 +48,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
             mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            Log.d("qqq", mItemWrapper.getName());
         }
     }
 
@@ -56,15 +58,15 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
         findView();
         initData();
+        setRedBackground();
         setUpRecycler();
         setBtnListeners();
         setListeners();
     }
 
     private void initData() {
-        mItems = mItemWrapper.getInnerLevel();
-        if (mItems.size()>4) spanCount = 4; else spanCount = 2;
-        Log.d("qqq", " " + mItems.size());
+        setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
+        extralImages = mItemWrapper.getExtraImages();
     }
 
     private void setBtnListeners() {
@@ -78,8 +80,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     private void setUpRecycler() {
 
-        mGridLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(),spanCount);
-        mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mItems);
+        mGridLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
+        mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), extralImages);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
@@ -90,10 +92,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                ItemWrapper item = mAdapter.getItem(position);
-                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
-                Log.d("qqq", item.getId());
-
+                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(extralImages, position, false));
             }
         });
     }

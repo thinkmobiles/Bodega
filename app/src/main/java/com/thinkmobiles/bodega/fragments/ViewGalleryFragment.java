@@ -2,31 +2,40 @@ package com.thinkmobiles.bodega.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sasha on 28.10.2015.
  */
-public class ViewGalleryFragment extends BaseFragment implements View.OnClickListener {
+public class ViewGalleryFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private boolean mTopBarIsShown;
 
-    private ItemWrapper mItemWrapper;
-    private ImageView mImageView;
+    private List<String> mImageList;
+    private int position;
     private FrameLayout flTopBarButtonsContainer;
+    private ImageButton ibPrev, ibNext, ibClose;
+    private ViewPager mViewPager;
+    private ItemGalleryPagerAdapter mAdapter;
 
 
-    public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _topBarIsShown) {
+    public static BaseFragment newInstance(List<String> _parentItem, int _position, boolean _topBarIsShown) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
-        args.putBoolean(Constants.EXTRA_FLAG_1, _topBarIsShown);
+        args.putStringArrayList(Constants.EXTRA_ITEM, (ArrayList<String>) _parentItem);
+        args.putInt(Constants.EXTRA_FLAG_1, _position);
+        args.putBoolean(Constants.EXTRA_FLAG_2, _topBarIsShown);
         BaseFragment fragment = new ViewGalleryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -42,8 +51,10 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
-            mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_1);
+            mImageList = args.getStringArrayList(Constants.EXTRA_ITEM);
+            position = args.getInt(Constants.EXTRA_FLAG_1);
+            mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
+            Log.d("qqq"," "+mImageList.get(position));
         }
     }
 
@@ -52,26 +63,41 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
         super.onActivityCreated(savedInstanceState);
 
         findView();
+        setRedBackground();
         setBtnListeners();
         setContainers();
-    }
-
-    private void setContainers() {
-        if (mTopBarIsShown)
-            flTopBarButtonsContainer.setVisibility(View.VISIBLE);
-    }
-
-    private void setBtnListeners() {
-        $(R.id.btn_close_FVG).setOnClickListener(this);
-        $(R.id.btn_previous_image_FVG).setOnClickListener(this);
-        $(R.id.btn_next_image_FVG).setOnClickListener(this);
-        $(R.id.btnVolver_FVG).setOnClickListener(this);
-        $(R.id.btnAddEnvio_FVG).setOnClickListener(this);
+        setupPager();
     }
 
     private void findView() {
-        mImageView = $(R.id.iv_image_FVG);
         flTopBarButtonsContainer = $(R.id.flButtonsContainer_FVG);
+        mViewPager = $(R.id.vp_item_gallery_FVG);
+        ibPrev = $(R.id.btn_previous_image_FVG);
+        ibNext = $(R.id.btn_next_image_FVG);
+        ibClose = $(R.id.btn_close_FVG);
+    }
+
+    private void setContainers() {
+        if (mTopBarIsShown) {
+            flTopBarButtonsContainer.setVisibility(View.VISIBLE);
+            ibClose.setVisibility(View.GONE);
+        }
+    }
+
+    private void setBtnListeners() {
+        $(R.id.btnVolver_FVG).setOnClickListener(this);
+        $(R.id.btnAddEnvio_FVG).setOnClickListener(this);
+        ibClose.setOnClickListener(this);
+        ibPrev.setOnClickListener(this);
+        ibNext.setOnClickListener(this);
+    }
+
+    private void setupPager() {
+        mAdapter = new ItemGalleryPagerAdapter(getChildFragmentManager());
+        mAdapter.setData(mImageList);
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setOnPageChangeListener(this);
+        mViewPager.setCurrentItem(position);
     }
 
     @Override
@@ -82,14 +108,48 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
                 mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FVG:
-                Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_close_FVG:
-            break;
+                mFragmentNavigator.popBackStack();
+                break;
             case R.id.btn_previous_image_FVG:
-            break;
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+                break;
             case R.id.btn_next_image_FVG:
-            break;
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                break;
         }
+    }
+
+    private void setVisibilityArrows() {
+        if (mImageList.size() == 1) {
+            ibNext.setVisibility(View.GONE);
+            ibPrev.setVisibility(View.GONE);
+        } else if (mViewPager.getCurrentItem() == 0) {
+            ibNext.setVisibility(View.VISIBLE);
+            ibPrev.setVisibility(View.GONE);
+        } else if (mViewPager.getCurrentItem() + 1 == mImageList.size()) {
+            ibPrev.setVisibility(View.VISIBLE);
+            ibNext.setVisibility(View.GONE);
+        } else {
+            ibPrev.setVisibility(View.VISIBLE);
+            ibNext.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setVisibilityArrows();
+        this.position = position;
+        Log.d("qqq", mImageList.size() + " " + position);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 }
