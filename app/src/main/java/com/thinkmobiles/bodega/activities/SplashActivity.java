@@ -1,21 +1,19 @@
 package com.thinkmobiles.bodega.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.cristaliza.mvc.events.Event;
-import com.cristaliza.mvc.events.EventListener;
-import com.cristaliza.mvc.models.estrella.AppModel;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.ApiManager;
-import com.thinkmobiles.bodega.utils.InetChecker;
-import com.thinkmobiles.bodega.utils.SharedPrefUtils;
+import com.thinkmobiles.bodega.api.ApiService;
 
 /**
  * Created by BogDan on 10/19/2015.
@@ -26,8 +24,6 @@ public class SplashActivity extends Activity {
 
     private TextView tvProgress;
     private boolean errorDialogIsShown = false;
-    private boolean activityIsDestroyed = false;
-    private ApiManager apiManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,86 +31,36 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         tvProgress = (TextView) findViewById(R.id.tvProgress_AS);
+    }
 
-        initApiManager();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver();
         startDownload();
     }
 
+    private void registerReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.ACTION_DOWNLOAD_SUCCESS);
+        intentFilter.addAction(Constants.ACTION_DOWNLOAD_FAILED);
+        intentFilter.addAction(Constants.ACTION_FILE_DOWNLOADED);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
     private void startDownload() {
-        if (InetChecker.isInternetConnectionAvailable(this)) {
-            apiManager.prepare();
-        } else {
-            showCheckConnectionDialog();
-        }
+        startService(new Intent(this, ApiService.class));
     }
 
-    private void initApiManager() {
-        apiManager = new ApiManager(getApplicationContext());
-        apiManager.setPrepareCallback(new ApiManager.PrepareCallback() {
-            @Override
-            public void managerIsReady() {
-                if (apiManager.needUpdate()) {
-                    apiManager.downloadContent(eventListener);
-                } else {
-                    apiManager.fetchAllLevels();
-                }
-            }
-
-            @Override
-            public void prepareFailed() {
-                showCheckConnectionDialog();
-            }
-
-            @Override
-            public void dataIsReady() {
-                runMainActivity();
-            }
-        });
-    }
-
-    private EventListener eventListener = new EventListener() {
-        @Override
-        public void onEvent(final Event event) {
-            Log.d(LOG_TAG, event.getType() + " : " + event.getId() + " : " + event.getMessage());
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    performEventListenerAction(event);
-                }
-            });
-        }
-    };
-
-    private void performEventListenerAction(Event event) {
-        switch (event.getId()) {
-            case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
-                SharedPrefUtils.setLastUpdate(getApplicationContext(), apiManager.getLastModelUpdate());
-                apiManager.fetchAllLevels();
-                break;
-            case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                showCheckConnectionDialog();
-                break;
-            case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
-                String progress = "Downloading " + event.getMessage() + "...";
-                tvProgress.setText(progress);
-                break;
-        }
-    }
-
-    private void runMainActivity() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                intent.putExtra(Constants.ALL_LEVELS_MODEL_ARG, apiManager.getAllLevelsModel());
-                startActivity(intent);
-                finish();
-            }
-        });
+    private void runMainActivity(Intent intent) {
+        intent.setClass(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private synchronized void showCheckConnectionDialog() {
-        if (!errorDialogIsShown && !activityIsDestroyed) {
+        if (!errorDialogIsShown) {
             // SDK can produce a lot of errors at the same time, so we have to avoid such circumstances
             errorDialogIsShown = true;
             new AlertDialog.Builder(this)
@@ -139,15 +85,28 @@ public class SplashActivity extends Activity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        // Do nothing on this screen
-    }
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.d(LOG_TAG, action);
+            switch (action) {
+                case Constants.ACTION_DOWNLOAD_SUCCESS:
+                    runMainActivity(intent);
+                    break;
+                case Constants.ACTION_DOWNLOAD_FAILED:
+                    showCheckConnectionDialog();
+                    break;
+                case Constants.ACTION_FILE_DOWNLOADED:
+                    tvProgress.setText(intent.getStringExtra(Constants.DOWNLOADED_FILE_ARG));
+                    break;
+            }
+        }
+    };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        activityIsDestroyed = true;
-        eventListener = null;
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mBroadcastReceiver);
     }
 }

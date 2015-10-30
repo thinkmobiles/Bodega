@@ -56,7 +56,9 @@
     <dimen name="description_image_view_side">180dp</dimen>
 
     <!--Gallery Fragment-->
-    <dimen name="item_margin">20dp</dimen>
+    <dimen name="gallery_item_margin">5dp</dimen>
+    <dimen name="gallery_button_margin">25dp</dimen>
+    <dimen name="gallery_button_padding">35dp</dimen>
 
     <!--View pager logstica-->
     <dimen name="top_bot_padding">16dp</dimen>
