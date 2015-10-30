@@ -10,6 +10,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:layout_height">@dimen/slidingmenu_item_height</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textSize">@dimen/slidingmenu_text_size</item>
         <item name="android:gravity">center_vertical</item>
     </style>
