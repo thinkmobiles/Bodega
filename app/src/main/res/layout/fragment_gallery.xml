@@ -16,18 +16,23 @@
 
         <ImageButton
             android:id="@+id/btnVolver_FG"
+            android:scaleType="fitCenter"
+            android:paddingBottom="15dp"
+            android:paddingRight="15dp"
             android:layout_width="@dimen/description_back_button_width"
             android:layout_height="@dimen/description_back_button_height"
             android:layout_gravity="start"
-            android:background="@drawable/btn_volver" />
+            android:background="@null"
+            android:src="@drawable/btn_volver" />
 
         <ImageButton
             android:id="@+id/btnAddEnvio_FG"
             android:layout_width="@dimen/description_add_button_width"
             android:layout_height="@dimen/description_add_button_height"
             android:layout_gravity="end"
-            android:background="@drawable/btn_add_envio"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:src="@drawable/btn_add_envio" />
     </android.support.percent.PercentFrameLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -36,5 +41,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/flButtonsContainer_FG"
         android:layout_centerInParent="true"
+        android:paddingRight="-7dp"
+        android:paddingLeft="-7dp"
         android:overScrollMode="never" />
 </android.support.percent.PercentRelativeLayout>

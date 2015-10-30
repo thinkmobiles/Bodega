@@ -2,6 +2,7 @@ package com.thinkmobiles.bodega.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAdapter.ViewHolder> {
 
-    private List<ItemWrapper> mItems;
+    private List<String> mItems;
     private Context mContext;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -32,11 +33,11 @@ public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAd
         }
     }
 
-    public ItemWrapper getItem(int position) {
+    public String getItem(int position) {
         return mItems.get(position);
     }
 
-    public GalleryRecycleAdapter(Context _ctx, List<ItemWrapper> _items) {
+    public GalleryRecycleAdapter(Context _ctx, List<String> _items) {
         mContext = _ctx;
         mItems = _items;
     }
@@ -49,9 +50,8 @@ public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
-        ItemWrapper item = mItems.get(i);
         Glide.with(mContext)
-                .load(ApiManager.getPath(mContext) + item.getIcon())
+                .load(ApiManager.getPath(mContext) + mItems.get(i))
                 .fitCenter()
                 .into(viewHolder.imageView);
     }

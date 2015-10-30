@@ -38,7 +38,8 @@ public class ApiManager {
         controller.setAppBodega();
         controller.setAsynchronousMode();
         controller.setDevelopmentEnvironment();
-        //controller.setProductionEnvironment();
+//        controller.setPreproductionEnvironment();
+//        controller.setProductionEnvironment();
     }
 
     public void prepare() {

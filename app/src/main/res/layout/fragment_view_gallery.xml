@@ -9,6 +9,8 @@
         android:id="@+id/flButtonsContainer_FVG"
         android:layout_width="match_parent"
         android:layout_height="@dimen/description_buttons_container_height"
+        android:layout_marginLeft="@dimen/description_padding"
+        android:layout_marginRight="@dimen/description_padding"
         android:visibility="gone">
 
         <ImageButton
@@ -16,59 +18,71 @@
             android:layout_width="@dimen/description_back_button_width"
             android:layout_height="@dimen/description_back_button_height"
             android:layout_gravity="start"
-            android:background="@drawable/btn_volver" />
+            android:background="@null"
+            android:paddingBottom="15dp"
+            android:paddingRight="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_volver" />
 
         <ImageButton
             android:id="@+id/btnAddEnvio_FVG"
             android:layout_width="@dimen/description_add_button_width"
             android:layout_height="@dimen/description_add_button_height"
             android:layout_gravity="end"
-            android:background="@drawable/btn_add_envio"
-            android:scaleType="fitCenter" />
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_add_envio" />
     </android.support.percent.PercentFrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/percent_frame_layout_FVG">
+        android:layout_below="@+id/flButtonsContainer_FVG">
 
-        <ImageView
-
-            android:id="@+id/iv_image_FVG"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_item_gallery_FVG"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <ImageButton
             android:id="@+id/btn_close_FVG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/description_padding"
-            android:background="@color/fragment_background"
+            android:scaleType="fitCenter"
+            android:paddingRight="@dimen/gallery_button_padding"
+            android:paddingLeft="@dimen/gallery_button_padding"
+            android:paddingBottom="@dimen/gallery_button_padding"
+            android:layout_margin="@dimen/gallery_button_margin"
+            android:background="@null"
             android:src="@drawable/btn_close" />
 
         <ImageButton
             android:id="@+id/btn_previous_image_FVG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/description_padding"
-            android:background="@color/fragment_background"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/gallery_button_padding"
+            android:layout_margin="@dimen/gallery_button_margin"
+            android:background="@null"
             android:src="@drawable/btn_prev" />
 
         <ImageButton
             android:id="@+id/btn_next_image_FVG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/description_padding"
-            android:background="@color/fragment_background"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/gallery_button_padding"
+            android:layout_margin="@dimen/gallery_button_margin"
+            android:background="@null"
             android:src="@drawable/btn_next" />
     </RelativeLayout>
 </android.support.percent.PercentRelativeLayout>
