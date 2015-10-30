@@ -39,7 +39,7 @@ public class ApiManager {
         model.setFileDownloadTimeout(FILE_DOWNLOAD_TIMEOUT);
         controller = new MainController(model);
         controller.setAppBodega();
-        controller.setAsynchronousMode();
+        controller.setSynchronousMode();
         // TODO set correct environment
         controller.setDevelopmentEnvironment();
     }

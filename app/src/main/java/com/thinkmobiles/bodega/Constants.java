@@ -15,6 +15,7 @@ public class Constants {
 
     // BUNDLE KEYS
     public static final String ALL_LEVELS_MODEL_ARG = "ALL_LEVELS_MODEL_ARG";
+    public static final String DOWNLOADED_FILE_ARG = "downloaded_file_arg";
 
     // IDS
     public static final String TANQUES_ID = "479";
@@ -40,4 +41,11 @@ public class Constants {
     public static final String EXTRA_FLAG_1 = "extra_flag_1";
     public static final String EXTRA_FLAG_2 = "extra_flag_2";
     public static final String EXTRA_FLAG_3 = "extra_flag_3";
+
+    
+    // Splash Activity broadcast actions
+    public static final String ACTION_DOWNLOAD_SUCCESS = "action_download_success";
+    public static final String ACTION_DOWNLOAD_FAILED = "action_download_failed";
+    public static final String ACTION_FILE_DOWNLOADED = "action_file_downloaded";
+
 }
