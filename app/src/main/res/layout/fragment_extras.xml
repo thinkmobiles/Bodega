@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="@dimen/description_extras_container_width"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:background="@drawable/bg_extra">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/extras_margin"
+        android:text="@string/extras"
+        android:textAllCaps="true"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/extras_title_size"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvExtras_FE"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/extras_margin"
+        android:layout_marginRight="@dimen/extras_margin"
+        android:layout_marginTop="@dimen/extras_margin"
+        android:overScrollMode="never"/>
+
+    <ImageView
+        android:id="@+id/ivDownBtn_FE"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/extras_back_btn_height"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/extras_bottom_margin"
+        android:padding="@dimen/extras_back_btn_padding"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_down"/>
+
+</LinearLayout>
