@@ -67,6 +67,9 @@
     <!-- EXTRAS -->
     <dimen name="extras_margin">20dp</dimen>
     <dimen name="extras_title_size">19dp</dimen>
+    <dimen name="extras_bottom_margin">5dp</dimen>
+    <dimen name="extras_back_btn_padding">15dp</dimen>
+    <dimen name="extras_back_btn_height">48dp</dimen>
 
 
 </resources>
