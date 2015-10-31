@@ -5,17 +5,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+
+import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,13 +26,16 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     private ItemWrapper mItemWrapper;
     private RecyclerView mRecyclerView;
-    private GalleryRecycleAdapter mAdapter;
-    private List<String> extralImages;
-    private GridLayoutManager mGridLayoutManager;
+    private RecyclerView.Adapter mAdapter;
+    private List<String> mExtralImages;
+    private List<ItemWrapper> mInerLevel;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private boolean horizontal;
 
-    public static BaseFragment newInstance(ItemWrapper _parentItem) {
+    public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal) {
         Bundle args = new Bundle();
         args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putBoolean(Constants.EXTRA_FLAG_1, _horizontal);
         BaseFragment fragment = new GalleryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -48,7 +52,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
             mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
-            Log.d("qqq", mItemWrapper.getName());
+            horizontal = args.getBoolean(Constants.EXTRA_FLAG_1);
         }
     }
 
@@ -59,6 +63,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         findView();
         initData();
         setRedBackground();
+        serLayoutManager();
+        setRecyclerAdapter();
         setUpRecycler();
         setBtnListeners();
         setListeners();
@@ -66,7 +72,9 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     private void initData() {
         setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
-        extralImages = mItemWrapper.getExtraImages();
+        mExtralImages = mItemWrapper.getExtraImages();
+        mInerLevel = mItemWrapper.getInnerLevel();
+
     }
 
     private void setBtnListeners() {
@@ -78,13 +86,28 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         mRecyclerView = $(R.id.rvRecycler_FG);
     }
 
+    private void serLayoutManager() {
+        if (!horizontal) {
+            mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
+                    } else {
+            mLayoutManager = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL,false);
+        }
+    }
+
+    private void setRecyclerAdapter() {
+        if (!horizontal) {
+            if (mExtralImages != null)
+            mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mExtralImages);
+        } else {
+            mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInerLevel);
+        }
+
+    }
+
     private void setUpRecycler() {
 
-        mGridLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
-        mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), extralImages);
-
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mGridLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -92,7 +115,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(extralImages, position, false));
+                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mExtralImages, position, false));
             }
         });
     }

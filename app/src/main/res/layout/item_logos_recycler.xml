@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/fragment_background">
+
+    <TextView
+        android:id="@+id/tv_title_ILR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/bigger_padding"
+        android:text="title" />
+
+    <ImageView
+        android:id="@+id/iv_image_ILR"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="@dimen/gallery_item_margin"
+        android:layout_below="@+id/tv_title_ILR"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/ib_more_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_image_ILR"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:src="@drawable/btn_moreinfo" />
+</RelativeLayout>
