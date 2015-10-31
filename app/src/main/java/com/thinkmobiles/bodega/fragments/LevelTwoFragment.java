@@ -120,9 +120,16 @@ public class LevelTwoFragment extends BaseFragment {
 
                 switch (item.getId()) {
                     case Constants.CARACTERISTICS_ID:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, true, false));
                         break;
                     case Constants.TIRAGE_ID:
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, true));
+                        break;
+                    case Constants.TANQUES_ID:
+                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
+                        break;
+                    case Constants.COMPRESSOR_ID:
+                    case Constants.ENFIRADORES_ID:
                         mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
                         break;
                     case Constants.STEEL_GALLERY_ID:

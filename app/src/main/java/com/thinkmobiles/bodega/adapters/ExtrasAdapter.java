@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ExtraWrapper;
@@ -62,18 +62,18 @@ public class ExtrasAdapter extends RecyclerView.Adapter<ExtrasAdapter.ViewHolder
         // TODO fix later
         if (!TextUtils.isEmpty(item.getImage())
                 && !TextUtils.isEmpty(item.getImageDescriprion())) {
-            Glide.with(mContext)
-                    .load(ApiManager.getPath(mContext) + item.getImage())
-                    .fitCenter()
+            Picasso.with(mContext)
+                    .load("file:" + ApiManager.getPath(mContext) + item.getImage())
+//                    .fitCenter()
                     .into(viewHolder.ivPreview);
-            viewHolder.ivPlayBtn.setVisibility(View.GONE);
+            viewHolder.ivPlayBtn.setVisibility(View.INVISIBLE);
             viewHolder.textView.setText(item.getImageDescriprion());
         }
         if (!TextUtils.isEmpty(item.getVideo())
                 && !TextUtils.isEmpty(item.getVideoDescription())) {
-            Glide.with(mContext)
+            Picasso.with(mContext)
                     .load("http://img.youtube.com/vi/" + item.getVideo() + "/default.jpg")
-                    .fitCenter()
+//                    .fitCenter()
                     .into(viewHolder.ivPreview);
             viewHolder.ivPlayBtn.setVisibility(View.VISIBLE);
             viewHolder.textView.setText(item.getVideoDescription());

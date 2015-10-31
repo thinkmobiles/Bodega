@@ -95,14 +95,11 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                     break;
             }
         }
-        if (mExtrasContainerIsShown)
+        if (mExtrasContainerIsShown) {
             llFragmentExtrasContainer.setVisibility(View.VISIBLE);
-            switch (mItem.getId()) {
-                case Constants.LOGISTICA_ID:
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(mItem))
-                            .commit();
-                    break;
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(mItem))
+                        .commit();
             }
         if (mImageViewIsShown)
             ivLeftImage.setVisibility(View.VISIBLE);
@@ -110,15 +107,19 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
 
     private void setUpData() {
         setActionBarTitle(TextUtils.isEmpty(mItem.getName()) ? "" : mItem.getName());
-//        String description = mItem.getDescription();
+        String description;
         // TODO fix later
-        String description = mItem.getInnerLevel()
-                .get(0)
-                .getInnerLevel()
-                .get(0)
-                .getInnerLevel()
-                .get(0)
-                .getDescription();
+        if (mItem.getId().equals(Constants.LOGISTICA_ID))
+            description = mItem.getInnerLevel()
+                    .get(0)
+                    .getInnerLevel()
+                    .get(0)
+                    .getInnerLevel()
+                    .get(0)
+                    .getDescription();
+        else
+            description = mItem.getDescription();
+
         if (!TextUtils.isEmpty(description))
             tvDescription.setText(Html.fromHtml(description));
         else

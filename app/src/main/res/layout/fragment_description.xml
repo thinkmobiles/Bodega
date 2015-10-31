@@ -100,7 +100,7 @@
     </com.thinkmobiles.bodega.utils.PercentLinearLayout>
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/description_padding"
         android:layout_marginStart="@dimen/description_padding"
         android:id="@+id/llFragmentExtrasContainer_FD"

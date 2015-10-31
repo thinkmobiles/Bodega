@@ -30,6 +30,8 @@ public class Constants {
     public static final String LOGS_ID = "502";
     public static final String APLICACIONES_ID = "501";
     public static final String ELEMENTOS_DECORATIVOS_ID = "487";
+    public static final String ENFIRADORES_ID = "478";
+    public static final String COMPRESSOR_ID = "476";
 
     public static final String INICIO_ID = "inicio";
     public static final String ENVIOS_ID = "envios";

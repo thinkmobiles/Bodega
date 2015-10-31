@@ -39,4 +39,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'de.greenrobot:greendao:2.0.0'
     compile files('libs/estrella-sdk-1.6.1.jar')
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
