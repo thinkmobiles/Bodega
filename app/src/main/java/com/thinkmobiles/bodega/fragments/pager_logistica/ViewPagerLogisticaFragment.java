@@ -10,7 +10,7 @@ import android.view.View;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.LogisticaPagerAdapter;
-import com.thinkmobiles.bodega.adapters.LogisticaPagerTabsAdapter;
+import com.thinkmobiles.bodega.adapters.LogisticaTabsAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
@@ -28,7 +28,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
     private ItemWrapper mItem;
     private ViewPager mPager;
     private LogisticaPagerAdapter mPagerAdapter;
-    private LogisticaPagerTabsAdapter mTabsAdapter;
+    private LogisticaTabsAdapter mTabsAdapter;
     private RecyclerView rvTabsView;
     private List<TabItem> mTabs;
     private int mCurrentItem;
@@ -99,7 +99,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
     }
 
     private void setupPager() {
-        mTabsAdapter = new LogisticaPagerTabsAdapter(getApplicationContext(), mTabs);
+        mTabsAdapter = new LogisticaTabsAdapter(getApplicationContext(), mTabs);
         rvTabsView.setHasFixedSize(true);
         rvTabsView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         rvTabsView.setAdapter(mTabsAdapter);

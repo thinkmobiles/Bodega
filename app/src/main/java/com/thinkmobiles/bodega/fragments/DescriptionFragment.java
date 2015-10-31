@@ -86,21 +86,17 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
 
     private void setContainers() {
         if (mBottomContainerIsShown) {
-            llBottomPagerContainer.setVisibility(View.VISIBLE);
             switch (mItem.getId()) {
                 case Constants.LOGISTICA_ID:
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.llBottomPagerContainer_FD, ViewPagerLogisticaFragment.newInstance(mItem))
-                            .commit();
+                    showBottomPager(ViewPagerLogisticaFragment.newInstance(mItem));
+                    break;
+                case Constants.TANQUES_ID:
+                    showBottomPager(GalleryFragment.newInstance(mItem, true));
                     break;
             }
         }
-        if (mExtrasContainerIsShown) {
-            llFragmentExtrasContainer.setVisibility(View.VISIBLE);
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(mItem))
-                        .commit();
-            }
+        if (mExtrasContainerIsShown)
+            showExtras(mItem);
         if (mImageViewIsShown)
             ivLeftImage.setVisibility(View.VISIBLE);
     }
@@ -136,5 +132,19 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void showBottomPager(BaseFragment _fragment) {
+        llBottomPagerContainer.setVisibility(View.VISIBLE);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.llBottomPagerContainer_FD, _fragment)
+                .commit();
+    }
+
+    private void showExtras(ItemWrapper _item) {
+        llFragmentExtrasContainer.setVisibility(View.VISIBLE);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(_item))
+                .commit();
     }
 }

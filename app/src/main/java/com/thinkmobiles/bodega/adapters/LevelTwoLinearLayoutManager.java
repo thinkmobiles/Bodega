@@ -10,7 +10,7 @@ import com.thinkmobiles.bodega.BuildConfig;
 /**
  * Created by illia on 26.10.15.
  */
-public class FloatingLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
+public class LevelTwoLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
 
     private static final int CHILD_WIDTH = 0;
     private static final int CHILD_HEIGHT = 1;
@@ -22,12 +22,12 @@ public class FloatingLinearLayoutManager extends android.support.v7.widget.Linea
     private boolean hasChildSize;
 
     @SuppressWarnings("UnusedDeclaration")
-    public FloatingLinearLayoutManager(Context context) {
+    public LevelTwoLinearLayoutManager(Context context) {
         super(context);
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    public FloatingLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+    public LevelTwoLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
     }
 

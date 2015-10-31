@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by illia on 29.10.15.
  */
-public class LogisticaPagerTabsAdapter extends RecyclerView.Adapter<LogisticaPagerTabsAdapter.ViewHolder> {
+public class LogisticaTabsAdapter extends RecyclerView.Adapter<LogisticaTabsAdapter.ViewHolder> {
 
     private List<TabItem> mItems;
     private Context mContext;
@@ -34,7 +34,7 @@ public class LogisticaPagerTabsAdapter extends RecyclerView.Adapter<LogisticaPag
         return mItems.get(position);
     }
 
-    public LogisticaPagerTabsAdapter(Context _ctx, List<TabItem> _items) {
+    public LogisticaTabsAdapter(Context _ctx, List<TabItem> _items) {
         mContext = _ctx;
         mItems = _items;
     }
@@ -56,7 +56,7 @@ public class LogisticaPagerTabsAdapter extends RecyclerView.Adapter<LogisticaPag
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_pager_tab, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_view_pager_tab_logistica, viewGroup, false);
         return new ViewHolder(v);
     }
 

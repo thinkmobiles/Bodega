@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by illia on 26.10.15.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class LevelTwoRecyclerAdapter extends RecyclerView.Adapter<LevelTwoRecyclerAdapter.ViewHolder> {
 
     private List<ItemWrapper> mItems;
     private Context mContext;
@@ -44,14 +44,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecyclerAdapter(Context _ctx, List<ItemWrapper> _items) {
+    public LevelTwoRecyclerAdapter(Context _ctx, List<ItemWrapper> _items) {
         mContext = _ctx;
         mItems = _items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recycler, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recycler_level_two, viewGroup, false);
         return new ViewHolder(v);
     }
 
