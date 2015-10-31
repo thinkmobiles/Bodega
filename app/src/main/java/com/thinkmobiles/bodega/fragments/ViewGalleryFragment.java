@@ -54,7 +54,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
             mImageList = args.getStringArrayList(Constants.EXTRA_ITEM);
             position = args.getInt(Constants.EXTRA_FLAG_1);
             mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
-            Log.d("qqq"," "+mImageList.get(position));
+//            Log.d("qqq"," "+mImageList.get(position));
         }
     }
 

@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:textSize="@dimen/description_text_size"
         android:layout_marginBottom="@dimen/bigger_padding"
         android:text="title" />
 
@@ -19,7 +20,7 @@
         android:layout_below="@+id/tv_title_ILR"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/ib_more_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

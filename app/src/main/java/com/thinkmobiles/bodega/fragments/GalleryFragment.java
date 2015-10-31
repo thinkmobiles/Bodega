@@ -17,6 +17,7 @@ import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,8 +116,17 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                if (!horizontal)
                 mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mExtralImages, position, false));
+                else {
+                    mExtralImages = new ArrayList<String>();
+                    for (ItemWrapper itemWrapper : mInerLevel) {
+                        mExtralImages.add(itemWrapper.getProductList().get(0).getImageSmall());
+                    }
+                    mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mExtralImages, position, false));
+                }
             }
+
         });
     }
 
