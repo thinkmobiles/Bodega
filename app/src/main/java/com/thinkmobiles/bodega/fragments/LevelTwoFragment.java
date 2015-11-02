@@ -36,7 +36,7 @@ public class LevelTwoFragment extends BaseFragment {
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         BaseFragment fragment = new LevelTwoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -57,7 +57,7 @@ public class LevelTwoFragment extends BaseFragment {
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mParentItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mParentItem = args.getParcelable(Constants.EXTRA_ITEM);
         }
     }
 

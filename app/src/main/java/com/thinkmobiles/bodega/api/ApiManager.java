@@ -13,6 +13,7 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class ApiManager {
     private AppModel model;
     private MainViewListener controller;
     private PrepareCallback prepareCallback;
+    private List<ItemWrapper> allLevelsList;
 
     public ApiManager(Context context) {
         this.context = context;
@@ -112,11 +114,9 @@ public class ApiManager {
             prepareCallback.dataIsReady();
     }
 
-    public AllLevelsModel getAllLevelsModel() {
-        return new AllLevelsModel(allLevelsList);
+    public ArrayList<ItemWrapper> getAllLevelsList() {
+        return new ArrayList<>(allLevelsList);
     }
-
-    private List<ItemWrapper> allLevelsList;
 
     private List<ItemWrapper> loadNestedLevel(int level, Item nestedItem) {
         List<Item> originalList = getListByLevelNum(level, nestedItem);

@@ -3,12 +3,19 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+
+    <!-- base font sizes-->
+    <dimen name="font_small">18sp</dimen>
+    <dimen name="font_normal">20sp</dimen>
+    <dimen name="font_big">22sp</dimen>
+
     <!-- base dimens-->
     <dimen name="small_padding">6dp</dimen>
     <dimen name="padding">8dp</dimen>
     <dimen name="double_padding">16dp</dimen>
     <dimen name="bigger_padding">20dp</dimen>
     <dimen name="triple_padding">24dp</dimen>
+    <dimen name="giant_padding">60dp</dimen>
 
     <!--Sliding Menu-->
     <dimen name="slidingmenu_swipe_threshold">100dp</dimen>
@@ -60,7 +67,7 @@
     <dimen name="gallery_button_margin">25dp</dimen>
     <dimen name="gallery_button_padding">35dp</dimen>
 
-    <!--View pager logstica-->
+    <!--View pager logistica-->
     <dimen name="top_bot_padding">16dp</dimen>
     <dimen name="left_right_padding">28dp</dimen>
     <dimen name="left_margin">124dp</dimen>
@@ -75,5 +82,9 @@
     <dimen name="extras_back_btn_padding">15dp</dimen>
     <dimen name="extras_back_btn_height">44dp</dimen>
 
-
+    <!-- Envios -->
+    <dimen name="envios_icon_width">100dp</dimen>
+    <dimen name="envios_item_height">90dp</dimen>
+    <dimen name="envios_top_divider_height">4dp</dimen>
+    <dimen name="envios_item_divider_height">1.5dp</dimen>
 </resources>

@@ -7,15 +7,17 @@
     <string name="inicio">Inicio</string>
     <string name="envios">Envíos</string>
     <string name="envios_caps">ENVÍOS</string>
+    <string name="enviar_caps">ENVIAR</string>
+    <string name="vaciar_caps">VACIAR</string>
     <string name="anadir_a_envios">AÑADIR A ENVÍOS</string>
     <string name="volver">VOLVER</string>
     <string name="fichas">FICHAS</string>
     <string name="locales">LOCALES</string>
 
     <!--Error-->
-    <string name="error_check_inet_connection">Connection with server is not available or some error occurred.</string>
-    <string name="error_check_inet_connection_retry_btn">Retry</string>
-    <string name="error_check_inet_connection_exit_btn">Exit</string>
+    <string name="error_check_inet_connection">Compruebe la conexión a Internet por favor</string>
+    <string name="error_check_inet_connection_retry_btn">Repita</string>
+    <string name="error_check_inet_connection_exit_btn">Salida</string>
 
     <!--EXTRAS Fragment-->
     <string name="extras">EXTRAS</string>
@@ -25,4 +27,32 @@
 
     <!-- Dummy-->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, eam te altera timeam deterruisset, ne dicant legere quaestio nec. Ne cum latine mandamus efficiendi, dolorum definitionem sea id. Cum cu vitae labitur, pro ea nulla deterruisset. Sed aliquid deleniti an, modo putant eum no. Vel ea iusto ubique lucilius, ea vel expetendis constituam. Tantas iracundia mei ex, no erant nostro rationibus vix. Te sed quod mollis definitiones, eu primis eleifend rationibus cum. Illum soluta accumsan ea qui. Duo ei corpora molestie tincidunt, no mei nemore maiorum voluptatum. Vix id posse persius, id usu purto honestatis intellegebat. At eam legimus reprimique efficiendi, simul menandri prodesset at vix, his ex dictas nostrum. Eum eu perfecto scribentur, mei no tota eleifend hendrerit, at facer salutatus assentior per. Ius ut inimicus molestiae, ne sit cibo definiebas. Discere deleniti maiestatis has no. Per an enim vidisse rationibus, dico elitr et per, paulo nonumes definitiones nec no. Pro habeo nemore id. Tale graeco pri id, vis zril consequat eu. Mel ei quis ipsum veritus, ponderum laboramus in mei. Magna vidisse argumentum nec eu, sanctus consetetur ex mea. Debet putant alterum ex mel. Et eos atqui quaeque convenire, lorem bonorum insolens no pro. Vix eros sensibus at, id tale rationibus sed, alii mutat contentiones quo eu. Et graece legimus nec, eum eruditi appellantur ea. Cu vix verterem petentium, eu vim aliquid praesent dissentiunt. In usu lorem perfecto euripidis. Postea persequeris ex cum. Cu vix cibo appellantur.</string>
+
+    <!-- Dialogs-->
+    <string name="anadir_ficha">AÑADIR FICHA A:</string>
+    <string name="want_continue">ESTA FICHA HA SIDO AÑADIDA</string>
+    <string name="no_productos">EL CARRITO ESTÁ VACIO.\nAÑADE AL MENOS UN 1 PRODUCTO</string>
+    <string name="button_cancel">CANCELAR</string>
+    <string name="button_accept">ACEPTAR</string>
+    <string name="ver_envio">VER ENVÍO</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="want_update">Quiere descargar nuevo contenido ahora?</string>
+    <string name="miss_content">Error en la descarga de datos. Reinicie la aplicación para descargar los datos de nuevo.</string>
+    <string name="error_connection">Error en el acceso a la información. ¿Desea descargar de nuevo toda la información?</string>
+
+    <!-- Toasts-->
+    <string name="enter_shop">Por favor, añade un local</string>
+    <string name="added_to_cart">Added to cart</string>
+    <string name="delete_shop">Un local eliminado correctamente</string>
+    <string name="delete_item">Item eliminado correctamente</string>
+    <string name="delete_all_item">All item deleted succesfull</string>
+    <string name="delete_all_shop">All shop deleted succesfull</string>
+    <string name="add_shop_succesfull">Shop add succesfull</string>
+    <string name="attachment_error">Attachment Error</string>
+    <string name="click_back">Por favor, haga clic de nuevo para salir</string>
+
+    <string name="email">ana.pascual@cristaliza.com</string>
+    <string name="send_mail">Send email…</string>
+    <string name="mail_topic_envio">Envío de fichas de producto</string>
+    <string name="mail_message_envio">Buenos días. Como hablamos, le envio las fichas de los productos que eligió…</string>
 </resources>

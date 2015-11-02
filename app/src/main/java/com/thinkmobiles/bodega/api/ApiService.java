@@ -25,15 +25,8 @@ public class ApiService extends IntentService {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d(LOG_TAG, "onCreate");
-
-    }
-
-    @Override
     protected void onHandleIntent(Intent intent) {
-        // Return all pending intent from query
+        // Return all pending intents from query
         if (alreadyExecuted)
             return;
         alreadyExecuted = true;
@@ -104,15 +97,8 @@ public class ApiService extends IntentService {
 
     private void sendBroadcast(String action) {
         Intent intent = new Intent(action);
-        intent.putExtra(Constants.ALL_LEVELS_MODEL_ARG, apiManager.getAllLevelsModel());
+        intent.putParcelableArrayListExtra(Constants.ALL_LEVELS_MODEL_ARG, apiManager.getAllLevelsList());
         intent.setPackage(getPackageName());
         sendBroadcast(intent);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(LOG_TAG, "onDestroy");
-
     }
 }

@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.AllLevelsModel;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.api.WrapperUtils;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
 import com.thinkmobiles.bodega.controllers.SlidingMenuController;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
+
+import java.util.ArrayList;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SlidingMenuController mSlidingMenuController;
     private FragmentNavigator mFragmentNavigator;
-    private AllLevelsModel allLevelsModel;
+    private ArrayList<ItemWrapper> allLevelsList;
     private TextView tvMenuTitle;
     private ImageView ivBackgroundMain;
 
@@ -51,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void extractBundle() {
-        allLevelsModel = getIntent().getParcelableExtra(Constants.ALL_LEVELS_MODEL_ARG);
-        WrapperUtils.printWrappedLevels(allLevelsModel.getAllLevelsList());
+        allLevelsList = getIntent().getParcelableArrayListExtra(Constants.ALL_LEVELS_MODEL_ARG);
+        WrapperUtils.printWrappedLevels(allLevelsList);
     }
 
-
     private void initSlidingMenu() {
-        mSlidingMenuController = new SlidingMenuController(this, allLevelsModel);
+        mSlidingMenuController = new SlidingMenuController(this, allLevelsList);
         mSlidingMenuController.attachSlidingMenu();
     }
 
@@ -72,11 +73,6 @@ public class MainActivity extends AppCompatActivity {
         ivBackgroundMain = (ImageView) findViewById(R.id.ivBackgroundMain);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     private void loadIndexFragment() {
         mFragmentNavigator.replaceFragment(IndexFragment.newInstance());
     }
@@ -85,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         return mFragmentNavigator;
     }
 
-    public AllLevelsModel getAllLevelsModel() {
-        return allLevelsModel;
+    public ArrayList<ItemWrapper> getAllLevelsList() {
+        return allLevelsList;
     }
 
     public void setActionBarTitle(String _title) {

@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.activities.MainActivity;
-import com.thinkmobiles.bodega.api.AllLevelsModel;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.controllers.FragmentNavigator;
+
+import java.util.ArrayList;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -21,7 +23,7 @@ public abstract class BaseFragment extends Fragment {
     protected MainActivity              mActivity;
     protected View                      inflatedView;
     protected FragmentNavigator         mFragmentNavigator;
-    protected AllLevelsModel            allLevelsModel;
+    protected ArrayList<ItemWrapper>    allLevelsList;
 
     //_____________________ Private variables ____________________//
     private int             fragmentResId = -1;
@@ -40,7 +42,7 @@ public abstract class BaseFragment extends Fragment {
 
         mActivity = (MainActivity) getActivity();
         mFragmentNavigator = mActivity.getFragmentNavigator();
-        allLevelsModel = mActivity.getAllLevelsModel();
+        allLevelsList = mActivity.getAllLevelsList();
     }
 
     @Override

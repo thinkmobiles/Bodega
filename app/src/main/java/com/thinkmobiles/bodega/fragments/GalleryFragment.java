@@ -35,7 +35,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         args.putBoolean(Constants.EXTRA_FLAG_1, _horizontal);
         BaseFragment fragment = new GalleryFragment();
         fragment.setArguments(args);
@@ -52,7 +52,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItemWrapper = args.getParcelable(Constants.EXTRA_ITEM);
+            Log.d("qqq", mItemWrapper.getName());
             horizontal = args.getBoolean(Constants.EXTRA_FLAG_1);
         }
     }
