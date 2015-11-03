@@ -91,7 +91,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                     showBottomPager(ViewPagerLogisticaFragment.newInstance(mItem));
                     break;
                 case Constants.TANQUES_ID:
-                    showBottomPager(GalleryFragment.newInstance(mItem, true));
+                    showBottomPager(GalleryFragment.newInstance(mItem, true, true));
                     break;
             }
         }

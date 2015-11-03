@@ -3,15 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_image_FVPIG"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/tv_information_FVPIG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="INFO"
+        android:visibility="gone" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_name_FVPIG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/gallery_item_margin" />
+        android:textSize="35sp"
+        android:layout_margin="@dimen/gallery_button_margin" />
+
+    <ImageView
+        android:id="@+id/iv_image_FVPIG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tv_information_FVPIG"
+        android:layout_below="@+id/tv_name_FVPIG"/>
+
 
 </RelativeLayout>

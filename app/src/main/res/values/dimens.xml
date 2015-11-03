@@ -64,8 +64,10 @@
 
     <!--Gallery Fragment-->
     <dimen name="gallery_item_margin">5dp</dimen>
+    <dimen name="logos_item_margin">30dp</dimen>
     <dimen name="gallery_button_margin">25dp</dimen>
     <dimen name="gallery_button_padding">35dp</dimen>
+    <dimen name="logos_text_size">15sp</dimen>
 
     <!--View pager logistica-->
     <dimen name="top_bot_padding">16dp</dimen>

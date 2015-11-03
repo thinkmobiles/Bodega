@@ -4,8 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.thinkmobiles.bodega.api.ProductWrapper;
-import com.thinkmobiles.bodega.fragments.pager_logistica.PagerItemGalleryFragment;
+import com.thinkmobiles.bodega.fragments.PagerItemGalleryFragment;
 
 import java.util.List;
 
@@ -14,22 +13,33 @@ import java.util.List;
  */
 public class ItemGalleryPagerAdapter extends FragmentPagerAdapter {
 
-    List<String> mItems;
+    private List<String> mImageList, mNamesList, mInformationList;
+
+    String sName, sInformation;
 
     public ItemGalleryPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-    public void setData(List<String> _items) {
-        this.mItems = _items;
+
+    public void setData(List<String> _itemsList, List<String> _namesList, List<String> _informationList) {
+        this.mImageList = _itemsList;
+        this.mNamesList = _namesList;
+        this.mInformationList = _informationList;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PagerItemGalleryFragment.newInstance(mItems.get(position));
+        if (mNamesList != null) {
+            sName = mNamesList.get(position);
+                    }
+        if (mInformationList != null) {
+            sInformation = mInformationList.get(position);
+        }
+        return PagerItemGalleryFragment.newInstance(mImageList.get(position), sName, sInformation);
     }
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return mImageList.size();
     }
 }

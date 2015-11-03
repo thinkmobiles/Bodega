@@ -2,17 +2,14 @@ package com.thinkmobiles.bodega.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
-import com.thinkmobiles.bodega.api.ItemWrapper;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ import java.util.List;
  */
 public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAdapter.ViewHolder> {
 
-    private List<String> mItems;
+    private List<String> mItemList;
     private Context mContext;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,12 +31,12 @@ public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAd
     }
 
     public String getItem(int position) {
-        return mItems.get(position);
+        return mItemList.get(position);
     }
 
     public GalleryRecycleAdapter(Context _ctx, List<String> _items) {
         mContext = _ctx;
-        mItems = _items;
+        mItemList = _items;
     }
 
     @Override
@@ -51,13 +48,13 @@ public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         Glide.with(mContext)
-                .load(ApiManager.getPath(mContext) + mItems.get(i))
+                .load(ApiManager.getPath(mContext) + mItemList.get(i))
                 .fitCenter()
                 .into(viewHolder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mItemList.size();
     }
 }
