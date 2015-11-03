@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class LogosRecyclerAdapter extends RecyclerView.Adapter<LogosRecyclerAdapter.ViewHolder> {
 
-    private List<ItemWrapper> mItems;
+    private List<ItemWrapper> mItemList;
     private Context mContext;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -35,12 +35,12 @@ public class LogosRecyclerAdapter extends RecyclerView.Adapter<LogosRecyclerAdap
     }
 
     public ItemWrapper getItem(int position) {
-        return mItems.get(position);
+        return mItemList.get(position);
     }
 
     public LogosRecyclerAdapter(Context _ctx, List<ItemWrapper> _items) {
         mContext = _ctx;
-        mItems = _items;
+        mItemList = _items;
     }
 
     @Override
@@ -51,16 +51,16 @@ public class LogosRecyclerAdapter extends RecyclerView.Adapter<LogosRecyclerAdap
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
-        viewHolder.textView.setText(mItems.get(i).getProductList().get(0).getName());
+        viewHolder.textView.setText(mItemList.get(i).getProductList().get(0).getName());
         Glide.with(mContext)
-                .load(ApiManager.getPath(mContext) + mItems.get(i).getProductList().get(0).getImageSmall())
+                .load(ApiManager.getPath(mContext) + mItemList.get(i).getProductList().get(0).getImageSmall())
                 .fitCenter()
                 .into(viewHolder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mItemList.size();
     }
 
 }

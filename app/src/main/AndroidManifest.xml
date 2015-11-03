@@ -24,6 +24,7 @@
 
         <activity
             android:name=".activities.SplashActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

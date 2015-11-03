@@ -31,7 +31,7 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         BaseFragment fragment = new ExtrasFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,7 +47,7 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItem = args.getParcelable(Constants.EXTRA_ITEM);
         }
     }
 

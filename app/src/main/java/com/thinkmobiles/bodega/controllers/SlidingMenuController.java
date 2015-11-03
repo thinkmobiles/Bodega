@@ -12,9 +12,9 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
-import com.thinkmobiles.bodega.api.AllLevelsModel;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
+import com.thinkmobiles.bodega.fragments.EnviosLocalesFragment;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
 
@@ -30,11 +30,11 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
     private SlidingMenu mSlidingMenu;
     private ListView mMenu;
     private SlidingMenuAdapter mAdapter;
-    private AllLevelsModel mAllLevelsModel;
+    private ArrayList<ItemWrapper> mAllLevelsModel;
     private List<ItemWrapper> mEntries;
     private FragmentNavigator mFragmentNavigator;
 
-    public SlidingMenuController(MainActivity _activity, AllLevelsModel _allLevelsModel) {
+    public SlidingMenuController(MainActivity _activity, ArrayList<ItemWrapper> _allLevelsModel) {
         mActivity = _activity;
         mAllLevelsModel = _allLevelsModel;
         mFragmentNavigator = mActivity.getFragmentNavigator();
@@ -55,9 +55,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         mSlidingMenu.setBackgroundColor(mActivity.getResources().getColor(R.color.black)); // no white line..
         mSlidingMenu.setTouchmodeMarginThreshold((int) mActivity.getResources().getDimension(R.dimen.slidingmenu_swipe_threshold));
-        //mSlidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         mSlidingMenu.setFadeEnabled(false);
-        //mSlidingMenu.setFadeDegree(0.3f);
         int screenWidthPx = mActivity.getResources().getDisplayMetrics().widthPixels;
         mSlidingMenu.setBehindWidth((int) (screenWidthPx * 0.333));
         mSlidingMenu.attachToActivity(mActivity, SlidingMenu.SLIDING_CONTENT);
@@ -71,8 +69,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
 
     private void initMenuEntries() {
         mEntries = new ArrayList<>();
-        List<ItemWrapper> levelList = mAllLevelsModel.getAllLevelsList();
-        getLevels(levelList);
+        getLevels(mAllLevelsModel);
     }
 
     private void getLevels(List<ItemWrapper> levelList) {
@@ -173,7 +170,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
                 mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.newInstance());
                 break;
             case Constants.ENVIOS_ID:
-                //
+                mFragmentNavigator.showFragmentWithoutBackStack(EnviosLocalesFragment.newInstance());
                 break;
             case Constants.LOGISTICA_ID:
                 mFragmentNavigator.showFragmentWithoutBackStack(DescriptionFragment.newInstance(_item, true, true, false));

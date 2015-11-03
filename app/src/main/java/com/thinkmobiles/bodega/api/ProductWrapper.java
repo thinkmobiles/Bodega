@@ -1,5 +1,8 @@
 package com.thinkmobiles.bodega.api;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.cristaliza.mvc.models.estrella.Product;
 
 import java.io.Serializable;
@@ -8,7 +11,7 @@ import java.util.List;
 /**
  * Created by denis on 23.10.15.
  */
-public class ProductWrapper implements Serializable {
+public class ProductWrapper implements Parcelable {
     private String id = null;
     private String name = null;
     private String category = null;
@@ -170,4 +173,56 @@ public class ProductWrapper implements Serializable {
     public void setGalleriesImages(List<String> galleriesImages) {
         this.galleriesImages = galleriesImages;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.category);
+        dest.writeStringList(this.families);
+        dest.writeStringList(this.familyImages);
+        dest.writeString(this.image);
+        dest.writeString(this.imageSmall);
+        dest.writeString(this.imageDescription);
+        dest.writeString(this.backgroundImage);
+        dest.writeString(this.EAN);
+        dest.writeStringList(this.packaging);
+        dest.writeString(this.update);
+        dest.writeStringList(this.options);
+        dest.writeStringList(this.optionsImages);
+        dest.writeStringList(this.galleriesImages);
+    }
+
+    protected ProductWrapper(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.category = in.readString();
+        this.families = in.createStringArrayList();
+        this.familyImages = in.createStringArrayList();
+        this.image = in.readString();
+        this.imageSmall = in.readString();
+        this.imageDescription = in.readString();
+        this.backgroundImage = in.readString();
+        this.EAN = in.readString();
+        this.packaging = in.createStringArrayList();
+        this.update = in.readString();
+        this.options = in.createStringArrayList();
+        this.optionsImages = in.createStringArrayList();
+        this.galleriesImages = in.createStringArrayList();
+    }
+
+    public static final Creator<ProductWrapper> CREATOR = new Creator<ProductWrapper>() {
+        public ProductWrapper createFromParcel(Parcel source) {
+            return new ProductWrapper(source);
+        }
+
+        public ProductWrapper[] newArray(int size) {
+            return new ProductWrapper[size];
+        }
+    };
 }

@@ -36,7 +36,7 @@ public class LevelTwoFragment extends BaseFragment {
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         BaseFragment fragment = new LevelTwoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -57,7 +57,7 @@ public class LevelTwoFragment extends BaseFragment {
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mParentItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mParentItem = args.getParcelable(Constants.EXTRA_ITEM);
         }
     }
 
@@ -128,16 +128,25 @@ public class LevelTwoFragment extends BaseFragment {
                     case Constants.TANQUES_ID:
                         mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
                         break;
-                    case Constants.COMPRESSOR_ID:
+                    case Constants.LOGOTIPOS_ID:
+                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, true, false));
+                        break;
                     case Constants.ENFIRADORES_ID:
                         mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
                         break;
-                    case Constants.STEEL_GALLERY_ID:
-                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, false));
+                    case Constants.EJEMPLOS_ID:
+                    case Constants.LEYENDA_ID:
+                    case Constants.GALERIA_DE_ACERO:
+                    case Constants.GALERIA_DE_COBRE:
+                    case Constants.CON_VOLUMEN_ID:
+                    case Constants.LONA_ID:
+                    case Constants.SPRAY_ID:
+                    case Constants.TEXTIL_ID:
+                    case Constants.TELA_DE_SACO_ID:
+                    case Constants.PAPEL_PINTADO_ID:
+                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, false, false));
                         break;
-                    case Constants.LOGS_ID:
-                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, true));
-                        break;
+
                 }
             }
         });

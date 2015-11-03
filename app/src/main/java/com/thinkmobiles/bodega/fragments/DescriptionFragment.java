@@ -36,7 +36,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _bottomContainerIsShown,
                                            boolean _extrasContainerIsShown, boolean _imageViewIsShown) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         args.putBoolean(Constants.EXTRA_FLAG_1, _bottomContainerIsShown);
         args.putBoolean(Constants.EXTRA_FLAG_2, _extrasContainerIsShown);
         args.putBoolean(Constants.EXTRA_FLAG_3, _imageViewIsShown);
@@ -55,7 +55,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItem = args.getParcelable(Constants.EXTRA_ITEM);
             mBottomContainerIsShown = args.getBoolean(Constants.EXTRA_FLAG_1);
             mExtrasContainerIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
             mImageViewIsShown = args.getBoolean(Constants.EXTRA_FLAG_3);
@@ -92,7 +92,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                     showBottomPager(ViewPagerLogisticaFragment.newInstance(mItem));
                     break;
                 case Constants.TANQUES_ID:
-                    showBottomPager(GalleryFragment.newInstance(mItem, true));
+                    showBottomPager(GalleryFragment.newInstance(mItem, true, true));
                     break;
                 case Constants.TIRAGE_ID:
                     showBottomPager(ViewPagerTirajeFragment.newInstance(mItem));

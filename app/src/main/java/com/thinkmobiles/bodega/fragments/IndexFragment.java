@@ -54,7 +54,7 @@ public class IndexFragment extends BaseFragment implements AdapterView.OnItemCli
 
     private void initData() {
         setActionBarTitle("");
-        mFirstLevel = mActivity.getAllLevelsModel().getAllLevelsList();
+        mFirstLevel = mActivity.getAllLevelsList();
         List<ItemWrapper> validItems = new ArrayList<>();
         for (ItemWrapper item : mFirstLevel) {
             if (!TextUtils.isEmpty(item.getName())

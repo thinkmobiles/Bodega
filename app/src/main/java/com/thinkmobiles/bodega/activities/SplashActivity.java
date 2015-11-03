@@ -1,6 +1,5 @@
 package com.thinkmobiles.bodega.activities;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,17 +7,21 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiService;
+import com.thinkmobiles.bodega.api.ItemWrapper;
+
+import java.util.ArrayList;
 
 /**
  * Created by BogDan on 10/19/2015.
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "SplashActivitySDK";
 
@@ -54,8 +57,11 @@ public class SplashActivity extends Activity {
     }
 
     private void runMainActivity(Intent intent) {
-        intent.setClass(this, MainActivity.class);
-        startActivity(intent);
+        Intent sendIntent = new Intent(this, MainActivity.class);
+        ArrayList<ItemWrapper> allLevelsModel = intent.getParcelableArrayListExtra(Constants.ALL_LEVELS_MODEL_ARG);
+        int size = allLevelsModel.size();
+        sendIntent.putExtra(Constants.ALL_LEVELS_MODEL_ARG, allLevelsModel);
+        startActivity(sendIntent);
         finish();
     }
 

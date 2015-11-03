@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by denis on 23.10.15.
  */
-public class ItemWrapper implements Serializable {
+public class ItemWrapper implements Parcelable {
 
     private int levelNumber = 0;
     private List<ItemWrapper> innerLevel = null;
@@ -229,4 +229,68 @@ public class ItemWrapper implements Serializable {
     public void setLevelNumber(int levelNumber) {
         this.levelNumber = levelNumber;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.levelNumber);
+        dest.writeTypedList(innerLevel);
+        dest.writeTypedList(productList);
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.sublevel);
+        dest.writeString(this.icon);
+        dest.writeString(this.backgroundImage);
+        dest.writeString(this.extraBackgroundImage);
+        dest.writeByte(isProduct ? (byte) 1 : (byte) 0);
+        dest.writeString(this.update);
+        dest.writeString(this.fichaCata);
+        dest.writeString(this.logo);
+        dest.writeStringList(this.prizes);
+        dest.writeStringList(this.extraImages);
+        dest.writeStringList(this.extraImagesDescription);
+        dest.writeStringList(this.extraVideos);
+        dest.writeStringList(this.extraVideosDescription);
+        dest.writeString(this.pdf);
+        dest.writeString(this.description);
+        dest.writeString(this.report);
+    }
+
+    protected ItemWrapper(Parcel in) {
+        this.levelNumber = in.readInt();
+        this.innerLevel = in.createTypedArrayList(ItemWrapper.CREATOR);
+        this.productList = in.createTypedArrayList(ProductWrapper.CREATOR);
+        this.id = in.readString();
+        this.name = in.readString();
+        this.sublevel = in.readString();
+        this.icon = in.readString();
+        this.backgroundImage = in.readString();
+        this.extraBackgroundImage = in.readString();
+        this.isProduct = in.readByte() != 0;
+        this.update = in.readString();
+        this.fichaCata = in.readString();
+        this.logo = in.readString();
+        this.prizes = in.createStringArrayList();
+        this.extraImages = in.createStringArrayList();
+        this.extraImagesDescription = in.createStringArrayList();
+        this.extraVideos = in.createStringArrayList();
+        this.extraVideosDescription = in.createStringArrayList();
+        this.pdf = in.readString();
+        this.description = in.readString();
+        this.report = in.readString();
+    }
+
+    public static final Creator<ItemWrapper> CREATOR = new Creator<ItemWrapper>() {
+        public ItemWrapper createFromParcel(Parcel source) {
+            return new ItemWrapper(source);
+        }
+
+        public ItemWrapper[] newArray(int size) {
+            return new ItemWrapper[size];
+        }
+    };
 }

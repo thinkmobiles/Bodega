@@ -5,19 +5,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
+
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,33 +29,41 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private ItemWrapper mItemWrapper;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<String> mExtralImages;
-    private List<ItemWrapper> mInerLevel;
+    private List<String> mImageList;
+    private List<ItemWrapper> mInnerLevel;
     private RecyclerView.LayoutManager mLayoutManager;
-    private boolean horizontal;
+    private boolean horizontal, isInContainer;
 
-    public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal) {
+    public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal, boolean _isInContainer) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         args.putBoolean(Constants.EXTRA_FLAG_1, _horizontal);
+        args.putBoolean(Constants.EXTRA_FLAG_2, _isInContainer);
         BaseFragment fragment = new GalleryFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_gallery);
-        checkArgument();
-    }
-
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItemWrapper = args.getParcelable(Constants.EXTRA_ITEM);
+            Log.d("qqq", mItemWrapper.getName());
             horizontal = args.getBoolean(Constants.EXTRA_FLAG_1);
+            isInContainer = args.getBoolean(Constants.EXTRA_FLAG_2);
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        checkArgument();
+        if (isInContainer) {
+            setContentView(R.layout.fragment_gallery_description);
+        } else {
+            setContentView(R.layout.fragment_gallery);
+        }
+
     }
 
     @Override
@@ -63,24 +72,38 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
         findView();
         initData();
+        setBtnListeners();
         setRedBackground();
         serLayoutManager();
         setRecyclerAdapter();
         setUpRecycler();
-        setBtnListeners();
         setListeners();
     }
 
     private void initData() {
         setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
-        mExtralImages = mItemWrapper.getExtraImages();
-        mInerLevel = mItemWrapper.getInnerLevel();
-
+        switch (mItemWrapper.getId()) {
+            case Constants.EJEMPLOS_ID:
+                mImageList = getImagesFromGalleriesImages();
+                break;
+            case Constants.CON_VOLUMEN_ID:
+            case Constants.LONA_ID:
+            case Constants.SPRAY_ID:
+            case Constants.TEXTIL_ID:
+            case Constants.TELA_DE_SACO_ID:
+            case Constants.LEYENDA_ID:
+            case Constants.PAPEL_PINTADO_ID:
+                mImageList = getImagesFromOptionsImages();
+                break;
+        }
+        mInnerLevel = mItemWrapper.getInnerLevel();
     }
 
     private void setBtnListeners() {
-        $(R.id.btnVolver_FG).setOnClickListener(this);
-        $(R.id.btnAddEnvio_FG).setOnClickListener(this);
+        if (!isInContainer) {
+            $(R.id.btnVolver_FG).setOnClickListener(this);
+            $(R.id.btnAddEnvio_FG).setOnClickListener(this);
+        }
     }
 
     private void findView() {
@@ -90,19 +113,18 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private void serLayoutManager() {
         if (!horizontal) {
             mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
-                    } else {
-            mLayoutManager = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL,false);
+        } else {
+            mLayoutManager = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         }
     }
 
     private void setRecyclerAdapter() {
         if (!horizontal) {
-            if (mExtralImages != null)
-            mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mExtralImages);
+            if (mImageList != null)
+                mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mImageList);
         } else {
-            mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInerLevel);
+            mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel);
         }
-
     }
 
     private void setUpRecycler() {
@@ -116,17 +138,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                if (!horizontal)
-                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mExtralImages, position, false));
-                else {
-                    mExtralImages = new ArrayList<String>();
-                    for (ItemWrapper itemWrapper : mInerLevel) {
-                        mExtralImages.add(itemWrapper.getProductList().get(0).getImageSmall());
-                    }
-                    mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mExtralImages, position, false));
-                }
+                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mItemWrapper, position, false));
             }
-
         });
     }
 
@@ -141,5 +154,13 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    public List<String> getImagesFromOptionsImages() {
+        return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getOptionsImages();
+    }
+
+    public List<String> getImagesFromGalleriesImages() {
+        return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
     }
 }

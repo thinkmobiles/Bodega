@@ -25,7 +25,7 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
 
     public static BaseFragment newInstance(ProductWrapper _product) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_PRODUCT, _product);
+        args.putParcelable(Constants.EXTRA_PRODUCT, _product);
         BaseFragment fragment = new ViewPagerLogisticaItemFragment();
         fragment.setArguments(args);
         return fragment;
@@ -41,7 +41,7 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mProduct = (ProductWrapper) args.getSerializable(Constants.EXTRA_PRODUCT);
+            mProduct = args.getParcelable(Constants.EXTRA_PRODUCT);
         }
     }
 

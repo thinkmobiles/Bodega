@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
+import com.thinkmobiles.bodega.api.ItemWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,8 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
 
     private boolean mTopBarIsShown;
 
-    private List<String> mImageList;
+    private List<String> mImageList, mNamesList, mInformationList;
+    private ItemWrapper mItemWrapper;
     private int position;
     private FrameLayout flTopBarButtonsContainer;
     private ImageButton ibPrev, ibNext, ibClose;
@@ -31,14 +33,23 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     private ItemGalleryPagerAdapter mAdapter;
 
 
-    public static BaseFragment newInstance(List<String> _parentItem, int _position, boolean _topBarIsShown) {
+    public static BaseFragment newInstance(ItemWrapper _parentItem, int _position, boolean _topBarIsShown) {
         Bundle args = new Bundle();
-        args.putStringArrayList(Constants.EXTRA_ITEM, (ArrayList<String>) _parentItem);
+        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
         args.putInt(Constants.EXTRA_FLAG_1, _position);
         args.putBoolean(Constants.EXTRA_FLAG_2, _topBarIsShown);
         BaseFragment fragment = new ViewGalleryFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void checkArgument() {
+        Bundle args = getArguments();
+        if (args != null && args.size() != 0) {
+            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            position = args.getInt(Constants.EXTRA_FLAG_1);
+            mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
+        }
     }
 
     @Override
@@ -48,25 +59,43 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
         checkArgument();
     }
 
-    private void checkArgument() {
-        Bundle args = getArguments();
-        if (args != null && args.size() != 0) {
-            mImageList = args.getStringArrayList(Constants.EXTRA_ITEM);
-            position = args.getInt(Constants.EXTRA_FLAG_1);
-            mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
-//            Log.d("qqq"," "+mImageList.get(position));
-        }
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initData();
         findView();
         setRedBackground();
         setBtnListeners();
         setContainers();
         setupPager();
+    }
+
+    private void initData() {
+        switch (mItemWrapper.getId()) {
+            case Constants.EJEMPLOS_ID:
+                mImageList = mItemWrapper.getExtraImages();
+                break;
+            case Constants.TANQUES_ID:
+            case Constants.LOGOTIPOS_ID:
+                mImageList = new ArrayList<String>();
+                mNamesList = new ArrayList<String>();
+                for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
+                    mImageList.add(itemWrapper.getProductList().get(0).getImageSmall());
+                    mNamesList.add(itemWrapper.getProductList().get(0).getName());
+                }
+                break;
+
+            case Constants.CON_VOLUMEN_ID:
+            case Constants.LONA_ID:
+            case Constants.LEYENDA_ID:
+            case Constants.SPRAY_ID:
+            case Constants.TEXTIL_ID:
+            case Constants.TELA_DE_SACO_ID:
+            case Constants.PAPEL_PINTADO_ID:
+                mImageList = getImagesFromOptionsImages();
+                break;
+        }
     }
 
     private void findView() {
@@ -94,7 +123,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
 
     private void setupPager() {
         mAdapter = new ItemGalleryPagerAdapter(getChildFragmentManager());
-        mAdapter.setData(mImageList);
+        mAdapter.setData(mImageList, mNamesList, mInformationList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
@@ -142,7 +171,6 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     public void onPageSelected(int position) {
         setVisibilityArrows();
         this.position = position;
-        Log.d("qqq", mImageList.size() + " " + position);
     }
 
     @Override
@@ -151,5 +179,9 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+
+    private List<String> getImagesFromOptionsImages() {
+        return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getOptionsImages();
     }
 }
