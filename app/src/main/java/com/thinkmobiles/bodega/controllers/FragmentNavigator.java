@@ -10,7 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.fragments.DescriptionFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
+import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 
 public final class FragmentNavigator  {
 
@@ -90,6 +92,13 @@ public final class FragmentNavigator  {
                     .commit();
     }
 
+    public void showFragment(boolean _withBackStack, BaseFragment baseFragment){
+        if (_withBackStack)
+            showFragment(baseFragment);
+        else
+            showFragmentWithoutBackStack(baseFragment);
+    }
+
     public void addFragment(BaseFragment baseFragment) {
         if (mFragmentManager != null)
             getTransaction()
@@ -162,6 +171,39 @@ public final class FragmentNavigator  {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    public void showThirdLevelFragment(ItemWrapper _item, boolean _withBackStack) {
+        switch (_item.getId()) {
+            case Constants.CARACTERISTICS_ID:
+                showFragment(_withBackStack, DescriptionFragment.newInstance(_item, false, true, false));
+                break;
+            case Constants.TIRAGE_ID:
+                showFragment(_withBackStack, DescriptionFragment.newInstance(_item, true, true, true));
+                break;
+            case Constants.TANQUES_ID:
+                showFragment(_withBackStack, DescriptionFragment.newInstance(_item, true, true, false));
+                break;
+            case Constants.LOGOTIPOS_ID:
+                showFragment(_withBackStack, GalleryFragment.newInstance(_item, true, false));
+                break;
+            case Constants.ENFIRADORES_ID:
+                showFragment(_withBackStack, DescriptionFragment.newInstance(_item, false, false, false));
+                break;
+            case Constants.EJEMPLOS_ID:
+            case Constants.LEYENDA_ID:
+            case Constants.GALERIA_DE_ACERO:
+            case Constants.GALERIA_DE_COBRE:
+            case Constants.CON_VOLUMEN_ID:
+            case Constants.LONA_ID:
+            case Constants.SPRAY_ID:
+            case Constants.TEXTIL_ID:
+            case Constants.TELA_DE_SACO_ID:
+            case Constants.PAPEL_PINTADO_ID:
+                showFragment(_withBackStack, GalleryFragment.newInstance(_item, false, false));
+                break;
+
         }
     }
 }

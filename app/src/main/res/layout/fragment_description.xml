@@ -65,6 +65,8 @@
                 android:layout_width="@dimen/description_image_view_side"
                 android:layout_height="@dimen/description_image_view_side"
                 android:layout_marginRight="@dimen/description_horizontal_padding"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
                 android:background="#ccd0cc"/>
 
             <ScrollView

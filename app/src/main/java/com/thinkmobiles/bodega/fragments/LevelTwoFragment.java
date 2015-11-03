@@ -18,7 +18,6 @@ import com.thinkmobiles.bodega.adapters.LevelTwoLinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.LevelTwoRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
-import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;
@@ -119,36 +118,7 @@ public class LevelTwoFragment extends BaseFragment {
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
 
-                switch (item.getId()) {
-                    case Constants.CARACTERISTICS_ID:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, true, false));
-                        break;
-                    case Constants.TIRAGE_ID:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, true));
-                        break;
-                    case Constants.TANQUES_ID:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, true, true, false));
-                        break;
-                    case Constants.LOGOTIPOS_ID:
-                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, true, false));
-                        break;
-                    case Constants.ENFIRADORES_ID:
-                        mFragmentNavigator.showFragment(DescriptionFragment.newInstance(item, false, false, false));
-                        break;
-                    case Constants.EJEMPLOS_ID:
-                    case Constants.LEYENDA_ID:
-                    case Constants.GALERIA_DE_ACERO:
-                    case Constants.GALERIA_DE_COBRE:
-                    case Constants.CON_VOLUMEN_ID:
-                    case Constants.LONA_ID:
-                    case Constants.SPRAY_ID:
-                    case Constants.TEXTIL_ID:
-                    case Constants.TELA_DE_SACO_ID:
-                    case Constants.PAPEL_PINTADO_ID:
-                        mFragmentNavigator.showFragment(GalleryFragment.newInstance(item, false, false));
-                        break;
-
-                }
+                mFragmentNavigator.showThirdLevelFragment(item, true);
             }
         });
     }

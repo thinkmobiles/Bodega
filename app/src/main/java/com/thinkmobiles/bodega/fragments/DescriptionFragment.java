@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.extras.ExtrasFragment;
 import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
@@ -103,7 +105,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         if (mExtrasContainerIsShown)
             showExtras(mItem);
         if (mImageViewIsShown)
-            ivLeftImage.setVisibility(View.VISIBLE);
+            showDescriptionImage();
     }
 
     private void setUpData() {
@@ -152,5 +154,13 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         getFragmentManager().beginTransaction()
                 .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(_item))
                 .commit();
+    }
+
+    private void showDescriptionImage() {
+        ivLeftImage.setVisibility(View.VISIBLE);
+        Glide.with(getApplicationContext())
+                .load(ApiManager.getPath(getApplicationContext()) + mItem.getIcon())
+                .fitCenter()
+                .into(ivLeftImage);
     }
 }

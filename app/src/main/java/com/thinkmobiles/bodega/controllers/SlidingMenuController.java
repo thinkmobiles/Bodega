@@ -146,13 +146,13 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
 
         switch (entry.getLevelNumber()) {
             case Constants.LEVEL_FIRST:
-                changeFirstLevelFragment(entry);
+                showSecondLevelFragment(entry);
                 break;
             case Constants.LEVEL_SECOND:
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(entry, false))
                     break;
                 else
-                    /////
+                    mFragmentNavigator.showThirdLevelFragment(entry, false);
                 break;
             case Constants.LEVEL_THIRD:
                 //
@@ -164,7 +164,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
         toggleAsync();
     }
 
-    private void changeFirstLevelFragment(ItemWrapper _item) {
+    private void showSecondLevelFragment(ItemWrapper _item) {
         switch (_item.getId()) {
             case Constants.INICIO_ID:
                 mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.newInstance());
