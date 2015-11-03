@@ -1,23 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/rlRootContainer_FATE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rlFirstContainer_FATE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingTop="@dimen/envios_dialog_vertical_padding"
+        android:layout_centerInParent="true"
+        android:background="@color/black_transparent"
+        android:clickable="true"
         android:paddingBottom="@dimen/envios_dialog_vertical_padding"
-        android:background="@color/black_transparent">
+        android:paddingTop="@dimen/envios_dialog_vertical_padding">
+
+        <TextView
+            android:id="@+id/tvAnadirFicha_FATE"
+            style="@style/EnviosDialogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/envios_dialog_padding"
+            android:text="@string/anadir_ficha" />
 
         <AutoCompleteTextView
             android:id="@+id/actvLocal_FATE"
-            android:layout_width="@dimen/envios_actv_width"
+            android:layout_width="@dimen/envios_dialog_content_width"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAnadirFicha_FATE"
             android:layout_centerHorizontal="true"
-            android:background="@color/text_white"
-            android:hint="@string/escribe_el_nombre"/>
+            android:layout_marginBottom="@dimen/envios_dialog_padding"
+            android:background="@color/white"
+            android:hint="@string/escribe_el_nombre"
+            android:padding="@dimen/small_padding"
+            android:singleLine="true"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/font_big" />
+
+        <LinearLayout
+            android:layout_width="@dimen/envios_dialog_content_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actvLocal_FATE"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancelar_FATE"
+                style="@style/EnviosDialogButton"
+                android:text="@string/button_cancel" />
+
+            <Space
+                android:layout_width="@dimen/envios_dialog_padding"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnAceptar_FATE"
+                style="@style/EnviosDialogButton"
+                android:text="@string/button_accept" />
+        </LinearLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSecondContainer_FATE"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/black_transparent"
+        android:clickable="true"
+        android:paddingBottom="@dimen/envios_dialog_vertical_padding"
+        android:paddingTop="@dimen/envios_dialog_vertical_padding">
+
+        <TextView
+            android:id="@+id/tvEstaFicha_FATE"
+            style="@style/EnviosDialogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/envios_dialog_padding"
+            android:text="@string/want_continue" />
+
+        <LinearLayout
+            android:layout_width="@dimen/envios_dialog_content_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvEstaFicha_FATE"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnVerEnvio_FATE"
+                style="@style/EnviosDialogButton"
+                android:text="@string/ver_envio" />
+
+            <Space
+                android:layout_width="@dimen/envios_dialog_padding"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnContinuar_FATE"
+                style="@style/EnviosDialogButton"
+                android:text="@string/continuar" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

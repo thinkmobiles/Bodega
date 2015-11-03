@@ -66,7 +66,7 @@ public class TirajeTabsAdapter extends RecyclerView.Adapter<TirajeTabsAdapter.Vi
         viewHolder.textView.setText(item.name);
         if (item.isSelected) {
             viewHolder.textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.black));
-            viewHolder.textView.setTextColor(ContextCompat.getColor(mContext, R.color.text_white));
+            viewHolder.textView.setTextColor(ContextCompat.getColor(mContext, R.color.white));
         }
         else {
             viewHolder.textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tiraje_tab_unselected));

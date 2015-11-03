@@ -8,10 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.thinkmobiles.bodega.Constants;
+import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
+import com.thinkmobiles.bodega.fragments.envios.AddToEnviosFragment;
 import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 
 public final class FragmentNavigator  {
@@ -205,5 +207,12 @@ public final class FragmentNavigator  {
                 break;
 
         }
+    }
+
+    public void showEnviosDialog(ItemWrapper _itemWrapper) {
+        mFragmentManager.beginTransaction()
+                .add(R.id.full_container, AddToEnviosFragment.newInstance(_itemWrapper))
+                .addToBackStack(AddToEnviosFragment.class.getSimpleName())
+                .commit();
     }
 }
