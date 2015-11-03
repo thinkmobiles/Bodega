@@ -37,7 +37,7 @@ public class ViewPagerTirajeItemFragment extends BaseFragment {
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mProduct = (ProductWrapper) args.getParcelable(Constants.EXTRA_PRODUCT);
+            mProduct = args.getParcelable(Constants.EXTRA_PRODUCT);
         }
     }
 

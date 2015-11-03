@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingTop="@dimen/envios_dialog_vertical_padding"
+        android:paddingBottom="@dimen/envios_dialog_vertical_padding"
+        android:background="@color/black_transparent">
+
+        <AutoCompleteTextView
+            android:id="@+id/actvLocal_FATE"
+            android:layout_width="@dimen/envios_actv_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/text_white"
+            android:hint="@string/escribe_el_nombre"/>
+    </RelativeLayout>
+
+</RelativeLayout>

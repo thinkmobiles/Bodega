@@ -60,7 +60,7 @@ public class ViewPagerTirajeFragment extends BaseFragment implements ItemClickSu
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItem = (ItemWrapper) args.getParcelable(Constants.EXTRA_ITEM);
+            mItem = args.getParcelable(Constants.EXTRA_ITEM);
         }
     }
 

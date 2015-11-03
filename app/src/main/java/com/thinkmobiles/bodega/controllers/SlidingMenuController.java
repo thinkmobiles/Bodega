@@ -14,7 +14,7 @@ import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
-import com.thinkmobiles.bodega.fragments.EnviosLocalesFragment;
+import com.thinkmobiles.bodega.fragments.envios.EnviosLocalesFragment;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
 

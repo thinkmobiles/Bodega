@@ -15,6 +15,7 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.envios.AddToEnviosFragment;
 import com.thinkmobiles.bodega.fragments.extras.ExtrasFragment;
 import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaFragment;
@@ -137,6 +138,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FD:
+                mFragmentNavigator.addFragment(new AddToEnviosFragment());
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
         }
