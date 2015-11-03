@@ -19,4 +19,7 @@
     <color name="fragment_background">#FFFFFF</color>
     <color name="pager_tab_grey">#E8E8E8</color>
 
+    <!--View Pager Tiraje-->
+    <color name="tiraje_tab_unselected">#EEEEEE</color>
+
 </resources>

@@ -33,6 +33,6 @@
         android:layout_gravity="center"
         android:padding="@dimen/extras_back_btn_padding"
         android:scaleType="fitCenter"
-        android:src="@drawable/btn_down"/>
+        android:src="@drawable/btn_down_white"/>
 
 </LinearLayout>

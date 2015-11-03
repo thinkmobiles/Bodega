@@ -74,6 +74,14 @@
     <dimen name="extras_text_size">12dp</dimen>
     <dimen name="extras_back_btn_padding">15dp</dimen>
     <dimen name="extras_back_btn_height">44dp</dimen>
+    <dimen name="extras_play_btn_side">50dp</dimen>
+
+    <!--View pager tiraje-->
+    <dimen name="selector_side">40dp</dimen>
+    <dimen name="arrow_height">35dp</dimen>
+    <dimen name="selector_text_size">24dp</dimen>
+    <dimen name="tiraje_fragment_height">220dp</dimen>
+    <dimen name="tiraje_pager_height">150dp</dimen>
 
 
 </resources>

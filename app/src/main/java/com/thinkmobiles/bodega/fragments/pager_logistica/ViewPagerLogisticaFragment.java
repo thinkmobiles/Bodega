@@ -33,7 +33,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
     private List<TabItem> mTabs;
     private int mCurrentItem;
 
-    private List<ProductWrapper> prods;
+    private List<ProductWrapper> mProds;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
@@ -75,21 +75,25 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
 
     private void generateDummyProducts() {
         // TODO delete wne data is ok
-        prods = new ArrayList<>();
-        ProductWrapper p1 = new ProductWrapper();
-        ProductWrapper p2 = new ProductWrapper();
-        ProductWrapper p3 = new ProductWrapper();
-        p1.setImageDescription("1 " + getString(R.string.lorem_ipsum));
-        p2.setImageDescription("2 " + getString(R.string.lorem_ipsum));
-        p3.setImageDescription("3 " + getString(R.string.lorem_ipsum));
-        prods.add(p1);
-        prods.add(p2);
-        prods.add(p3);
+        mProds = new ArrayList<>();
+        List<String> options = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getProductList().get(0).getOptions();
+        List<String> optionImages = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getProductList().get(0).getOptionsImages();
+        if (optionImages != null) {
+            for (int i = 0; i < optionImages.size(); i++) {
+                ProductWrapper p = new ProductWrapper();
+                p.setImage(optionImages.get(i));
+                if (options != null)
+                    p.setImageDescription(options.get(i));
+                else
+                    p.setImageDescription("1 " + getString(R.string.lorem_ipsum));
+                mProds.add(p);
+            }
+        }
     }
 
     private void generateTabs() {
         mTabs = new ArrayList<>();
-        for (int i=0; i < prods.size(); i++) {
+        for (int i=0; i < mProds.size(); i++) {
             TabItem item = new TabItem();
             item.name = getString(R.string.opcion) + " " + (i+1);
             if (i==0)
@@ -105,7 +109,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
         rvTabsView.setAdapter(mTabsAdapter);
 
         mPagerAdapter = new LogisticaPagerAdapter(getChildFragmentManager());
-        mPagerAdapter.setData(prods);
+        mPagerAdapter.setData(mProds);
         mPager.setAdapter(mPagerAdapter);
     }
 

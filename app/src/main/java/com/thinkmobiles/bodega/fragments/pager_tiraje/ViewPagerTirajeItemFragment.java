@@ -1,32 +1,28 @@
-package com.thinkmobiles.bodega.fragments.pager_logistica;
+package com.thinkmobiles.bodega.fragments.pager_tiraje;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.widget.ImageView;
+import android.text.Html;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 
 /**
- * Created by illia on 28.10.15.
+ * Created by illia on 31.10.15.
  */
-public class ViewPagerLogisticaItemFragment extends BaseFragment {
+public class ViewPagerTirajeItemFragment extends BaseFragment {
 
-    private TextView tvText;
-    private ImageView ivImage;
+    private TextView tvDescriprion;
 
     private ProductWrapper mProduct;
 
     public static BaseFragment newInstance(ProductWrapper _product) {
         Bundle args = new Bundle();
         args.putSerializable(Constants.EXTRA_PRODUCT, _product);
-        BaseFragment fragment = new ViewPagerLogisticaItemFragment();
+        BaseFragment fragment = new ViewPagerTirajeItemFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,7 +30,7 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_view_pager_item_logistica);
+        setContentView(R.layout.fragment_view_pager_item_tiraje);
         checkArgument();
     }
 
@@ -54,17 +50,11 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
     }
 
     private void findUi() {
-        tvText = $(R.id.tvText_FILP);
-        ivImage = $(R.id.ivImage_FILP);
+        tvDescriprion = $(R.id.tvDescription_FVPIT);
     }
 
     private void setData() {
         String text = mProduct.getImageDescription();
-        if (!TextUtils.isEmpty(text))
-            tvText.setText(text);
-        Glide.with(getApplicationContext())
-            .load(ApiManager.getPath(getApplicationContext()) + mProduct.getImage())
-            .fitCenter()
-            .into(ivImage);
+        tvDescriprion.setText(Html.fromHtml(text));
     }
 }

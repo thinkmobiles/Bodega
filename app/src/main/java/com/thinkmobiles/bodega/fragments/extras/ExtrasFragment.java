@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -26,7 +27,7 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
     private RecyclerView rvExtras;
     private ImageView ivDownBtn;
 
-    private List<ExtraWrapper> extras;
+    private List<ExtraWrapper> mExtras;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
@@ -67,24 +68,20 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
 
     private void generateExtras() {
         // TODO: fix to normal data
-        extras = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            ExtraWrapper extra = new ExtraWrapper();
-            if (i%2 > 0) {
-                extra.setImage(mItem.getIcon());
-                extra.setImageDescriprion((i+1) + " IMAGE Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum.");
-            } else {
-                extra.setVideo("Xc5fFvp8le4");
-                extra.setVideoDescription((i+1) + " VIDEO Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum.");
-            }
-            extras.add(extra);
-        }
+        mExtras = new ArrayList<>();
+        List<String> extraVids = mItem.getExtraVideos();
+        List<String> extraVidsDesc = mItem.getExtraVideosDescripton();
+        List<String> extraImgs = mItem.getExtraImages();
+        List<String> extraImgsDesc = mItem.getExtraImagesDescription();
+
+        collectVids(extraVids, extraVidsDesc);
+        collectImgs(extraImgs, extraImgsDesc);
     }
 
     private void setUpRecycler() {
         rvExtras.setHasFixedSize(true);
         rvExtras.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rvExtras.setAdapter(new ExtrasAdapter(getApplicationContext(), extras));
+        rvExtras.setAdapter(new ExtrasAdapter(getApplicationContext(), mExtras));
     }
 
     private void initListeners() {
@@ -98,5 +95,53 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
                 LinearLayoutManager llm = (LinearLayoutManager) rvExtras.getLayoutManager();
                 rvExtras.smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
         }
+    }
+
+    private void collectImgs(List<String> _imgs, List<String> _descs) {
+        ExtraWrapper extra;
+        if (validList(_imgs)) {
+            for (int i = 0; i < _imgs.size(); i++) {
+                extra = new ExtraWrapper();
+                if (!TextUtils.isEmpty(_imgs.get(i)))
+                    extra.setImage(_imgs.get(i));
+
+                if (validList(_descs)) {
+                    if (!TextUtils.isEmpty(_descs.get(i)))
+                        extra.setImageDescriprion(_descs.get(i));
+                }
+                if (validExtra(extra))
+                    mExtras.add(extra);
+            }
+        }
+    }
+
+    private void collectVids(List<String> _vids, List<String> _descs) {
+        ExtraWrapper extra;
+        if (validList(_vids)) {
+            for (int i = 0; i < _vids.size(); i++) {
+                extra = new ExtraWrapper();
+                if (!TextUtils.isEmpty(_vids.get(i)))
+                    extra.setVideo(_vids.get(i));
+
+                if (validList(_descs)) {
+                    if (!TextUtils.isEmpty(_descs.get(i)))
+                        extra.setVideoDescription(_descs.get(i));
+                }
+                if (validExtra(extra))
+                    mExtras.add(extra);
+            }
+        }
+    }
+
+    private boolean validList(List<String> _list) {
+        return !(_list == null
+                || _list.isEmpty());
+    }
+
+    private boolean validExtra(ExtraWrapper e) {
+        return !TextUtils.isEmpty(e.getImage())
+                || !TextUtils.isEmpty(e.getImageDescriprion())
+                || !TextUtils.isEmpty(e.getVideo())
+                || !TextUtils.isEmpty(e.getVideoDescription());
     }
 }

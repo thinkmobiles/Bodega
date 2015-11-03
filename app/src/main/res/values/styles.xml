@@ -36,4 +36,15 @@
         <item name="android:layout_width">@dimen/level_two_text_width</item>
         <item name="android:textSize">@dimen/level_two_text_size</item>
     </style>
+    <style name="TirajeTab" >
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/tiraje_tab_unselected</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_height">@dimen/selector_side</item>
+        <item name="android:layout_width">@dimen/selector_side</item>
+        <item name="android:textSize">@dimen/selector_text_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

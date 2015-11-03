@@ -72,7 +72,7 @@ public class ExtrasAdapter extends RecyclerView.Adapter<ExtrasAdapter.ViewHolder
         if (!TextUtils.isEmpty(item.getVideo())
                 && !TextUtils.isEmpty(item.getVideoDescription())) {
             Picasso.with(mContext)
-                    .load("http://img.youtube.com/vi/" + item.getVideo() + "/default.jpg")
+                    .load("http://img.youtube.com/vi/" + getVideoId(item.getVideo()) + "/hqdefault.jpg")
 //                    .fitCenter()
                     .into(viewHolder.ivPreview);
             viewHolder.ivPlayBtn.setVisibility(View.VISIBLE);
@@ -84,5 +84,10 @@ public class ExtrasAdapter extends RecyclerView.Adapter<ExtrasAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return mItems.size();
+    }
+
+    private String getVideoId(String _video) {
+        String[] split = _video.split("/embed/");
+        return split[1];
     }
 }

@@ -15,6 +15,7 @@ import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.extras.ExtrasFragment;
 import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaFragment;
+import com.thinkmobiles.bodega.fragments.pager_tiraje.ViewPagerTirajeFragment;
 
 /**
  * Created by illia on 27.10.15.
@@ -93,6 +94,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 case Constants.TANQUES_ID:
                     showBottomPager(GalleryFragment.newInstance(mItem, true));
                     break;
+                case Constants.TIRAGE_ID:
+                    showBottomPager(ViewPagerTirajeFragment.newInstance(mItem));
+                    break;
             }
         }
         if (mExtrasContainerIsShown)
@@ -105,16 +109,17 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         setActionBarTitle(TextUtils.isEmpty(mItem.getName()) ? "" : mItem.getName());
         String description;
         // TODO fix later
-        if (mItem.getId().equals(Constants.LOGISTICA_ID))
-            description = mItem.getInnerLevel()
-                    .get(0)
-                    .getInnerLevel()
-                    .get(0)
-                    .getInnerLevel()
-                    .get(0)
-                    .getDescription();
-        else
-            description = mItem.getDescription();
+        switch (mItem.getId()) {
+            case Constants.LOGISTICA_ID:
+                description = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getInnerLevel().get(0).getDescription();
+                break;
+            case Constants.TIRAGE_ID:
+                description = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getDescription();
+                break;
+            default:
+                description = mItem.getDescription();
+                break;
+        }
 
         if (!TextUtils.isEmpty(description))
             tvDescription.setText(Html.fromHtml(description));
