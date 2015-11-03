@@ -1,9 +1,10 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.envios;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
 
 /**
  * Created by denis on 30.10.15.

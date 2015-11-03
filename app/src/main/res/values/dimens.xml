@@ -97,4 +97,6 @@
     <dimen name="envios_item_height">90dp</dimen>
     <dimen name="envios_top_divider_height">4dp</dimen>
     <dimen name="envios_item_divider_height">1.5dp</dimen>
+    <dimen name="envios_dialog_vertical_padding">150dp</dimen>
+    <dimen name="envios_actv_width">400dp</dimen>
 </resources>
