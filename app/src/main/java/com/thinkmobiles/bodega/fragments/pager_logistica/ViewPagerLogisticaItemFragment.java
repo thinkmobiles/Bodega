@@ -15,7 +15,7 @@ import com.thinkmobiles.bodega.fragments.BaseFragment;
 /**
  * Created by illia on 28.10.15.
  */
-public class PagerItemLogisticaFrag extends BaseFragment {
+public class ViewPagerLogisticaItemFragment extends BaseFragment {
 
     private TextView tvText;
     private ImageView ivImage;
@@ -25,7 +25,7 @@ public class PagerItemLogisticaFrag extends BaseFragment {
     public static BaseFragment newInstance(ProductWrapper _product) {
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_PRODUCT, _product);
-        BaseFragment fragment = new PagerItemLogisticaFrag();
+        BaseFragment fragment = new ViewPagerLogisticaItemFragment();
         fragment.setArguments(args);
         return fragment;
     }
