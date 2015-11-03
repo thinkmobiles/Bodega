@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.gallery_lagistica;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;

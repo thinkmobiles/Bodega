@@ -1,9 +1,8 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.gallery_lagistica;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -13,6 +12,7 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
 
     public static BaseFragment newInstance(ItemWrapper _parentItem, int _position, boolean _topBarIsShown) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         args.putInt(Constants.EXTRA_FLAG_1, _position);
         args.putBoolean(Constants.EXTRA_FLAG_2, _topBarIsShown);
         BaseFragment fragment = new ViewGalleryFragment();
@@ -46,7 +46,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItemWrapper = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItemWrapper = (ItemWrapper) args.getParcelable(Constants.EXTRA_ITEM);
             position = args.getInt(Constants.EXTRA_FLAG_1);
             mTopBarIsShown = args.getBoolean(Constants.EXTRA_FLAG_2);
         }

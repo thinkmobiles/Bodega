@@ -18,6 +18,7 @@ import com.thinkmobiles.bodega.adapters.LevelTwoLinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.LevelTwoRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 
 import java.util.List;

@@ -44,7 +44,7 @@ public class ViewPagerTirajeFragment extends BaseFragment implements ItemClickSu
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         BaseFragment fragment = new ViewPagerTirajeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -60,7 +60,7 @@ public class ViewPagerTirajeFragment extends BaseFragment implements ItemClickSu
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mItem = (ItemWrapper) args.getSerializable(Constants.EXTRA_ITEM);
+            mItem = (ItemWrapper) args.getParcelable(Constants.EXTRA_ITEM);
         }
     }
 

@@ -14,6 +14,7 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.extras.ExtrasFragment;
+import com.thinkmobiles.bodega.fragments.gallery_lagistica.GalleryFragment;
 import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaFragment;
 import com.thinkmobiles.bodega.fragments.pager_tiraje.ViewPagerTirajeFragment;
 

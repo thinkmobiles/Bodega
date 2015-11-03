@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments;
+package com.thinkmobiles.bodega.fragments.gallery_lagistica;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
+import com.thinkmobiles.bodega.fragments.BaseFragment;
 
 /**
  * Created by sasha on 29.10.2015.

@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.thinkmobiles.bodega.fragments.PagerItemGalleryFragment;
+import com.thinkmobiles.bodega.fragments.gallery_lagistica.PagerItemGalleryFragment;
 
 import java.util.List;
 

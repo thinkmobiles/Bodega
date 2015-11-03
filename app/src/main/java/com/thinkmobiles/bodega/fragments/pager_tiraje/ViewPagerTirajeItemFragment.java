@@ -21,7 +21,7 @@ public class ViewPagerTirajeItemFragment extends BaseFragment {
 
     public static BaseFragment newInstance(ProductWrapper _product) {
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_PRODUCT, _product);
+        args.putParcelable(Constants.EXTRA_PRODUCT, _product);
         BaseFragment fragment = new ViewPagerTirajeItemFragment();
         fragment.setArguments(args);
         return fragment;
@@ -37,7 +37,7 @@ public class ViewPagerTirajeItemFragment extends BaseFragment {
     private void checkArgument() {
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
-            mProduct = (ProductWrapper) args.getSerializable(Constants.EXTRA_PRODUCT);
+            mProduct = (ProductWrapper) args.getParcelable(Constants.EXTRA_PRODUCT);
         }
     }
 
