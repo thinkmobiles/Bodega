@@ -1,5 +1,6 @@
 package com.thinkmobiles.bodega.fragments.extras;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +11,14 @@ import android.widget.ImageView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.activities.WebViewVideoActivity;
+import com.thinkmobiles.bodega.activities.youtube_api.YouTubePlayerActivity;
 import com.thinkmobiles.bodega.adapters.ExtrasAdapter;
 import com.thinkmobiles.bodega.api.ExtraWrapper;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.utils.ItemClickSupport;
+import com.thinkmobiles.bodega.utils.PackageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +26,12 @@ import java.util.List;
 /**
  * Created by illia on 29.10.15.
  */
-public class ExtrasFragment extends BaseFragment implements View.OnClickListener {
+public class ExtrasFragment extends BaseFragment implements View.OnClickListener, ItemClickSupport.OnItemClickListener {
 
     private ItemWrapper mItem;
     private RecyclerView rvExtras;
     private ImageView ivDownBtn;
+    private ExtrasAdapter mAdapter;
 
     private List<ExtraWrapper> mExtras;
 
@@ -81,11 +87,13 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
     private void setUpRecycler() {
         rvExtras.setHasFixedSize(true);
         rvExtras.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rvExtras.setAdapter(new ExtrasAdapter(getApplicationContext(), mExtras));
+        mAdapter = new ExtrasAdapter(getApplicationContext(), mExtras);
+        rvExtras.setAdapter(mAdapter);
     }
 
     private void initListeners() {
         ivDownBtn.setOnClickListener(this);
+        ItemClickSupport.addTo(rvExtras).setOnItemClickListener(this);
     }
 
     @Override
@@ -143,5 +151,22 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
                 || !TextUtils.isEmpty(e.getImageDescriprion())
                 || !TextUtils.isEmpty(e.getVideo())
                 || !TextUtils.isEmpty(e.getVideoDescription());
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        ExtraWrapper item = mAdapter.getItem(position);
+        if (!TextUtils.isEmpty(item.getVideo())) {
+            if (PackageUtils.isAppInstalled(Constants.YOUTUBE_PACKAGE_NAME,
+                    getApplicationContext()))
+                startVideoActivity(item, YouTubePlayerActivity.class);
+            else
+                startVideoActivity(item, WebViewVideoActivity.class);
+        }
+    }
+
+    private void startVideoActivity(ExtraWrapper item, Class _class) {
+        startActivity(new Intent(getApplicationContext(), _class)
+                .putExtra(Constants.EXTRA_VIDEO, item.getVideo()));
     }
 }
