@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments.gallery_lagistica;
+package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -66,6 +66,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
         initData();
         findView();
         setRedBackground();
+        setVisibilityArrows();
         setBtnListeners();
         setContainers();
         setupPager();
@@ -74,15 +75,24 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     private void initData() {
         switch (mItemWrapper.getId()) {
             case Constants.EJEMPLOS_ID:
-                mImageList = mItemWrapper.getExtraImages();
+            case Constants.GALERIA_DE_ACERO_ID:
+            case Constants.GALERIA_DE_COBRE_ID:
+            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
+            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
+            case Constants.TOLDOS_ID:
+            case Constants.VINILIS_ID:
+            case Constants.GRAFICAS_ID:
+                mImageList = mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
                 break;
             case Constants.TANQUES_ID:
             case Constants.LOGOTIPOS_ID:
                 mImageList = new ArrayList<String>();
                 mNamesList = new ArrayList<String>();
+                mInformationList = new ArrayList<String>();
                 for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
                     mImageList.add(itemWrapper.getProductList().get(0).getImageSmall());
                     mNamesList.add(itemWrapper.getProductList().get(0).getName());
+                    mInformationList.add(itemWrapper.getInnerLevel().get(0).getDescription());
                 }
                 break;
 

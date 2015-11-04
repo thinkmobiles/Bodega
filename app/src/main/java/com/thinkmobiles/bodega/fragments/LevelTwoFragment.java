@@ -114,7 +114,7 @@ public class LevelTwoFragment extends BaseFragment {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
-                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ID: "+ item.getId(), Toast.LENGTH_SHORT).show();
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
 

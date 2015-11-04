@@ -1,11 +1,11 @@
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/description_padding"
     android:background="@color/fragment_background"
     android:orientation="horizontal">
 
-    <android.support.percent.PercentFrameLayout
+    <FrameLayout
         android:id="@+id/flButtonsContainer_FG"
         android:layout_width="match_parent"
         android:layout_height="@dimen/description_buttons_container_height"
@@ -32,7 +32,7 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_add_envio" />
-    </android.support.percent.PercentFrameLayout>
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRecycler_FG"
@@ -43,4 +43,4 @@
         android:overScrollMode="never"
         android:paddingLeft="-7dp"
         android:paddingRight="-7dp" />
-</android.support.percent.PercentRelativeLayout>
+</RelativeLayout>

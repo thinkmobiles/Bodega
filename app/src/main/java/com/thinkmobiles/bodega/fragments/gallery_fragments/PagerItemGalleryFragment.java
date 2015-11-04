@@ -1,8 +1,9 @@
-package com.thinkmobiles.bodega.fragments.gallery_lagistica;
+package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +18,8 @@ import com.thinkmobiles.bodega.fragments.BaseFragment;
  */
 public class PagerItemGalleryFragment extends BaseFragment {
 
-    private TextView tvName, tvInformation;
+    private TextView tvName;
+    private WebView wvInformation;
     private ImageView ivImage;
 
     private String mImageItem;
@@ -61,7 +63,7 @@ public class PagerItemGalleryFragment extends BaseFragment {
     private void findView() {
         tvName = $(R.id.tv_name_FVPIG);
         ivImage = $(R.id.iv_image_FVPIG);
-        tvInformation = $(R.id.tv_information_FVPIG);
+        wvInformation = $(R.id.wv_information_FVPIG);
 
     }
 
@@ -78,8 +80,8 @@ public class PagerItemGalleryFragment extends BaseFragment {
         }
 
         if (mInformation != null) {
-            tvInformation.setVisibility(View.VISIBLE);
-            tvInformation.setText(mInformation);
+            wvInformation.setVisibility(View.VISIBLE);
+            wvInformation.loadData(mInformation, "text/html", "utf-8");
         }
     }
 }
