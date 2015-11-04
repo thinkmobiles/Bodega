@@ -8,6 +8,7 @@
     <dimen name="font_small">18sp</dimen>
     <dimen name="font_normal">20sp</dimen>
     <dimen name="font_big">22sp</dimen>
+    <dimen name="font_huge">24sp</dimen>
 
     <!-- base dimens-->
     <dimen name="small_padding">6dp</dimen>
@@ -97,6 +98,8 @@
     <dimen name="envios_item_height">90dp</dimen>
     <dimen name="envios_top_divider_height">4dp</dimen>
     <dimen name="envios_item_divider_height">1.5dp</dimen>
-    <dimen name="envios_dialog_vertical_padding">150dp</dimen>
-    <dimen name="envios_actv_width">400dp</dimen>
+    <dimen name="envios_dialog_vertical_padding">80dp</dimen>
+    <dimen name="envios_dialog_content_width">450dp</dimen>
+    <dimen name="envios_dialog_padding">20dp</dimen>
+    <dimen name="envios_dialog_actv_padding">5dp</dimen>
 </resources>

@@ -12,6 +12,7 @@ import com.thinkmobiles.bodega.db.daogen.DaoSession;
 import com.thinkmobiles.bodega.db.daogen.OrderItem;
 import com.thinkmobiles.bodega.db.daogen.OrderItemDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,6 +86,13 @@ public class DBManager {
     public List<Customer> getCustomers() {
         CustomerDao customerDao = mDaoSession.getCustomerDao();
         return customerDao.queryBuilder().orderAsc(CustomerDao.Properties.Name).list();
+    }
+
+    public List<String> getCustomerNames() {
+        List<String> result = new ArrayList<>();
+        for (Customer customer : getCustomers())
+            result.add(customer.getName());
+        return result;
     }
 
     public Customer addCustomer(String name) {

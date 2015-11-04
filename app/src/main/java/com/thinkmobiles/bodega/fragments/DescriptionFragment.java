@@ -138,7 +138,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FD:
-                mFragmentNavigator.addFragment(new AddToEnviosFragment());
+                mFragmentNavigator.showEnviosDialog(mItem);
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -146,14 +146,14 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
 
     private void showBottomPager(BaseFragment _fragment) {
         llBottomPagerContainer.setVisibility(View.VISIBLE);
-        getFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.llBottomPagerContainer_FD, _fragment)
                 .commit();
     }
 
     private void showExtras(ItemWrapper _item) {
         llFragmentExtrasContainer.setVisibility(View.VISIBLE);
-        getFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.llFragmentExtrasContainer_FD, ExtrasFragment.newInstance(_item))
                 .commit();
     }

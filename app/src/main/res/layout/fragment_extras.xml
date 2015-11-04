@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/extras_margin"
         android:text="@string/extras"
         android:textAllCaps="true"
-        android:textColor="@color/text_white"
+        android:textColor="@color/white"
         android:textSize="@dimen/extras_title_size"/>
 
     <android.support.v7.widget.RecyclerView

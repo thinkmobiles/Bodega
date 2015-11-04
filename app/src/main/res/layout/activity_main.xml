@@ -1,62 +1,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MainActivity"
-                android:background="@android:color/black">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/ivBackgroundMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ivBackgroundMain"
         android:scaleType="fitXY"
-        android:src="@drawable/background"/>
+        android:src="@drawable/background" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:id="@+id/llHeader"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_title_height"
+        android:layout_alignParentTop="true"
         android:gravity="center_vertical"
-        android:layout_alignParentTop="true">
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/ivMenuBtn"
                 android:layout_width="@dimen/menu_side_size"
                 android:layout_height="@dimen/menu_side_size"
-                android:src="@drawable/btn_menu"
+                android:layout_marginLeft="@dimen/action_bar_margin_left"
+                android:layout_marginRight="@dimen/menu_icon_margin_right"
                 android:padding="@dimen/double_padding"
                 android:scaleType="fitCenter"
-                android:layout_marginLeft="@dimen/action_bar_margin_left"
-                android:layout_marginRight="@dimen/menu_icon_margin_right"/>
+                android:src="@drawable/btn_menu" />
 
             <TextView
                 android:id="@+id/tvMenuTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/action_bar_title_txt"
-                android:textAllCaps="true"/>
+                android:textSize="@dimen/action_bar_title_txt" />
         </LinearLayout>
+
         <ImageView
-            android:layout_gravity="bottom"
-            android:layout_weight="1.1"
             android:id="@+id/tvLogoTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_hdr"
-            android:layout_marginRight="@dimen/action_bar_margin_right"/>
+            android:layout_gravity="bottom"
+            android:layout_marginRight="@dimen/action_bar_margin_right"
+            android:layout_weight="1.1"
+            android:src="@drawable/logo_hdr" />
     </LinearLayout>
+
     <FrameLayout
-        android:layout_below="@+id/llHeader"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llHeader" />
 
+    <FrameLayout
+        android:id="@+id/full_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

@@ -15,10 +15,12 @@
     </style>
 
     <style name="HeaderSlideMenuItem" parent="ItemSlideMenu">
+        <item name="android:background">@drawable/selector_black_btn</item>
         <item name="android:text">@string/inicio</item>
     </style>
 
     <style name="FooterSlideMenuItem" parent="ItemSlideMenu">
+        <item name="android:background">@drawable/selector_black_btn</item>
         <item name="android:text">@string/envios</item>
     </style>
 
@@ -51,6 +53,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="TirajeTab" >
         <item name="android:textStyle">bold</item>
         <item name="android:background">@color/tiraje_tab_unselected</item>
@@ -62,4 +65,17 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="EnviosDialogText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+    <style name="EnviosDialogButton">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/font_huge</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_white_btn</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

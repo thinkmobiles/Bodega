@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         initFragmentNavigator();
         extractBundle();
-        loadIndexFragment();
+
+        if (savedInstanceState == null)
+            loadIndexFragment();
 
         initSlidingMenu();
         initUI();
