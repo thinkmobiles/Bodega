@@ -10,7 +10,7 @@
         android:id="@+id/tvItemText_IE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_white"
+        android:textColor="@color/white"
         android:textSize="@dimen/extras_text_size"
         android:layout_marginBottom="@dimen/extras_small_margin"
         tools:text="Lorem Ipsum"/>

@@ -45,13 +45,8 @@
 
     <!-- Toasts-->
     <string name="enter_shop">Por favor, añade un local</string>
-    <string name="added_to_cart">Added to cart</string>
     <string name="delete_shop">Un local eliminado correctamente</string>
     <string name="delete_item">Item eliminado correctamente</string>
-    <string name="delete_all_item">All item deleted succesfull</string>
-    <string name="delete_all_shop">All shop deleted succesfull</string>
-    <string name="add_shop_succesfull">Shop add succesfull</string>
-    <string name="attachment_error">Attachment Error</string>
     <string name="click_back">Por favor, haga clic de nuevo para salir</string>
 
     <string name="email">ana.pascual@cristaliza.com</string>
