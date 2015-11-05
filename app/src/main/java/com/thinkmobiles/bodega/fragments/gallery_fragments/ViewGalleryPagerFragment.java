@@ -12,6 +12,7 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 
 import java.util.ArrayList;
@@ -107,23 +108,17 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
             case Constants.PAPEL_PINTADO_ID:
                 mImageList = getImagesFromOptionsImages();
                 break;
+            case Constants.LOGISTICA_ID:
+                mImageList = new ArrayList<String>();
+                mNamesList = new ArrayList<String>();
+                mInformationList = new ArrayList<String>();
+                //TODO
+                for (ProductWrapper productWrapper : mItemWrapper.getProductList()) {
+                    mImageList.add(productWrapper.getImage());
+                    mNamesList.add(productWrapper.getImageDescription());
+                    mInformationList.add(productWrapper.getImageDescription());
+                }
 
-//            case Constants.DIBOND_ID:
-//            case Constants.AZULEJO_ID:
-//            case Constants.MESA_VUELTA_ID:
-//            case Constants.COLONIAL_ID:
-//            case Constants.LEYENDA1_ID:
-//            case Constants.CAJA_DE_CERVEZAS_ID:
-//            case Constants.PALET_ID:
-//            case Constants.CHOPO_ID:
-//            case Constants.TELA_DE_SACO1_ID:
-//            case Constants.HAMACA_ID:
-//            case Constants.LONA_MICROPERFORADA_ID:
-//                mImageList = new ArrayList<String>();
-//                for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
-//                    mImageList.add(itemWrapper.getProductList().get(0).getImage());
-//                }
-//                break;
         }
     }
 

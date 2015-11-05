@@ -2,6 +2,7 @@ package com.thinkmobiles.bodega.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +60,11 @@ public class LevelTwoRecyclerAdapter extends RecyclerView.Adapter<LevelTwoRecycl
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         ItemWrapper item = mItems.get(i);
         viewHolder.textView.setText(item.getName());
+        String icon = item.getIcon();
+        if (icon == null||icon.equals("")) icon = item.getMenuImage();
+//        Log.d("qqq","MenuImage: "+item.getMenuImage());
         Glide.with(mContext)
-                .load(ApiManager.getPath(mContext) + item.getIcon())
+                .load(ApiManager.getPath(mContext) + icon)
                 .fitCenter()
                 .into(viewHolder.imageView);
     }

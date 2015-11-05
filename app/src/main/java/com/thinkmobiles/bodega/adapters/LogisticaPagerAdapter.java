@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.fragments.pager_logistica.ViewPagerLogisticaItemFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class LogisticaPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ViewPagerLogisticaItemFragment.newInstance(mProducts.get(position));
+        return ViewPagerLogisticaItemFragment.newInstance((ArrayList<ProductWrapper>)mProducts, position);
     }
 
     @Override
