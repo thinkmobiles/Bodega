@@ -187,7 +187,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     case Constants.TELA_DE_SACO1_ID:
                     case Constants.HAMACA_ID:
                     case Constants.LONA_MICROPERFORADA_ID:
-//                    case Constants.ARTICULOS_DE_USO_ID:
+                    case Constants.ARTICULOS_DE_USO_ID:
                         mFragmentNavigator.showFragment(ViewGalleryInfoFragment.newInstance(mItemWrapper, position));
                         break;
                     default:

@@ -21,7 +21,7 @@
 
     </ScrollView>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivImage_FILP"
         android:background="@null"
         android:src="@drawable/background"

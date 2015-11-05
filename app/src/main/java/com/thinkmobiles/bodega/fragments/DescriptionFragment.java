@@ -117,6 +117,8 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 description = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getInnerLevel().get(0).getDescription();
                 break;
             case Constants.TIRAGE_ID:
+            case Constants.ENFIRADORES_ID:
+            case Constants.COMPRESSOR_ID:
                 description = mItem.getInnerLevel().get(0).getInnerLevel().get(0).getDescription();
                 break;
             default:
