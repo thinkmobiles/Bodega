@@ -5,6 +5,9 @@ package com.thinkmobiles.bodega;
  */
 public class Constants {
 
+    public static final String YOUTUBE_API_KEY = "AIzaSyDsvbQ4n4y4t2P3-CnO3QvmhU_ut5gmFMQ";
+    public static final String YOUTUBE_PACKAGE_NAME = "com.google.android.youtube";
+
     // SHARED PREFS CONSTANTS
     public static final String SHARED_PREFS_NAME = "SHARED_PREFS_NAME";
     public static final String SHARED_PREFS_LAST_UPDATE_KEY = "SHARED_PREFS_LAST_UPDATE_KEY";
@@ -64,6 +67,7 @@ public class Constants {
     public static final String EXTRA_MODEL = "extra_model";
     public static final String EXTRA_ID = "extra_id";
     public static final String EXTRA_ITEM = "extra_item";
+    public static final String EXTRA_VIDEO = "extra_video";
     public static final String EXTRA_PRODUCT = "extra_product";
     public static final String EXTRA_FLAG_1 = "extra_flag_1";
     public static final String EXTRA_FLAG_2 = "extra_flag_2";

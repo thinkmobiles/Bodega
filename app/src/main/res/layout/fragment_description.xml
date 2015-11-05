@@ -71,6 +71,7 @@
 
             <ScrollView
                 android:layout_toRightOf="@+id/ivLeftImage_FD"
+                android:fadeScrollbars="false"
                 android:id="@+id/svScrollableText_FD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,8 +79,8 @@
                 tools:background="#ee5555">
 
                 <TextView
-                    android:paddingRight="@dimen/padding"
-                    android:paddingEnd="@dimen/padding"
+                    android:paddingRight="@dimen/double_padding"
+                    android:paddingEnd="@dimen/double_padding"
                     android:id="@+id/tvDescription_FD"
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
