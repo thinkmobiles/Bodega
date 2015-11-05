@@ -47,6 +47,7 @@ public class ItemWrapper implements Parcelable {
         name = item.getName();
         sublevel = item.getSublevel();
         icon = item.getIcon();
+        menuImage = item.getMenuImage();
         backgroundImage = item.getBackgroundImage();
         extraBackgroundImage = item.getExtraBackgroundImage();
         isProduct = item.isProduct();
