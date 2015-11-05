@@ -1,12 +1,13 @@
-package com.thinkmobiles.bodega.fragments.gallery_lagistica;
+package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
@@ -34,6 +35,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private List<ItemWrapper> mInnerLevel;
     private RecyclerView.LayoutManager mLayoutManager;
     private boolean horizontal, isInContainer;
+    private ImageButton ibPrev, ibNext;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal, boolean _isInContainer) {
         Bundle args = new Bundle();
@@ -49,7 +51,6 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         Bundle args = getArguments();
         if (args != null && args.size() != 0) {
             mItemWrapper = args.getParcelable(Constants.EXTRA_ITEM);
-            Log.d("qqq", mItemWrapper.getName());
             horizontal = args.getBoolean(Constants.EXTRA_FLAG_1);
             isInContainer = args.getBoolean(Constants.EXTRA_FLAG_2);
         }
@@ -85,6 +86,13 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
         switch (mItemWrapper.getId()) {
             case Constants.EJEMPLOS_ID:
+            case Constants.GALERIA_DE_ACERO_ID:
+            case Constants.GALERIA_DE_COBRE_ID:
+            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
+            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
+            case Constants.TOLDOS_ID:
+            case Constants.VINILIS_ID:
+            case Constants.GRAFICAS_ID:
                 mImageList = getImagesFromGalleriesImages();
                 break;
             case Constants.CON_VOLUMEN_ID:
@@ -104,16 +112,32 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         if (!isInContainer) {
             $(R.id.btnVolver_FG).setOnClickListener(this);
             $(R.id.btnAddEnvio_FG).setOnClickListener(this);
+        } else {
+            ibNext.setOnClickListener(this);
+            ibPrev.setOnClickListener(this);
         }
     }
 
     private void findView() {
         mRecyclerView = $(R.id.rvRecycler_FG);
+        if (isInContainer) {
+            ibNext = $(R.id.btn_next_FGD);
+            ibPrev = $(R.id.btn_prev_FGD);
+        }
     }
 
     private void serLayoutManager() {
         if (!horizontal) {
-            mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
+            switch (mItemWrapper.getId()) {
+                case Constants.TOLDOS_ID:
+                case Constants.VINILIS_ID:
+                case Constants.GRAFICAS_ID:
+                    mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 2);
+                    break;
+                default:
+                    mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
+                    break;
+            }
         } else {
             mLayoutManager = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         }
@@ -124,7 +148,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             if (mImageList != null)
                 mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mImageList);
         } else {
-            mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel);
+            if (isInContainer) {
+                mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel, true);
+            } else {
+                mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel, false);
+            }
         }
     }
 
@@ -133,13 +161,39 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        if (isInContainer) {
+            mRecyclerView.setOnScrollListener(new OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    setVisibilityArrows();
+                }
+            });
+        }
     }
 
     private void setListeners() {
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mItemWrapper, position, false));
+                switch (mItemWrapper.getId()) {
+                    case Constants.DIBOND_ID:
+                    case Constants.AZULEJO_ID:
+                    case Constants.MESA_VUELTA_ID:
+                    case Constants.COLONIAL_ID:
+                    case Constants.LEYENDA1_ID:
+                    case Constants.CAJA_DE_CERVEZAS_ID:
+                    case Constants.PALET_ID:
+                    case Constants.CHOPO_ID:
+                    case Constants.TELA_DE_SACO1_ID:
+                    case Constants.HAMACA_ID:
+                    case Constants.LONA_MICROPERFORADA_ID:
+//                    case Constants.ARTICULOS_DE_USO_ID:
+                        mFragmentNavigator.showFragment(ViewGalleryInfoFragment.newInstance(mItemWrapper, position));
+                        break;
+                    default:
+                        mFragmentNavigator.showFragment(ViewGalleryPagerFragment.newInstance(mItemWrapper, position, false));
+                        break;
+                }
             }
         });
     }
@@ -154,7 +208,21 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             case R.id.btnAddEnvio_FG:
                 Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.btn_next_FGD:
+                scrollRecyclerView(true);
+                break;
+            case R.id.btn_prev_FGD:
+                scrollRecyclerView(false);
+                break;
         }
+    }
+
+    private void scrollRecyclerView(boolean _scrollNext) {
+        LinearLayoutManager llm = (LinearLayoutManager) mLayoutManager;
+        if (_scrollNext)
+            mRecyclerView.smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
+        else mRecyclerView.smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 1);
+        setVisibilityArrows();
     }
 
     public List<String> getImagesFromOptionsImages() {
@@ -163,5 +231,20 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     public List<String> getImagesFromGalleriesImages() {
         return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
+    }
+
+    private void setVisibilityArrows() {
+        LinearLayoutManager llm = (LinearLayoutManager) mLayoutManager;
+
+        if (llm.findFirstVisibleItemPosition() == 0) {
+            ibNext.setVisibility(View.VISIBLE);
+            ibPrev.setVisibility(View.INVISIBLE);
+        } else if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1) {
+            ibPrev.setVisibility(View.VISIBLE);
+            ibNext.setVisibility(View.INVISIBLE);
+        } else {
+            ibPrev.setVisibility(View.VISIBLE);
+            ibNext.setVisibility(View.VISIBLE);
+        }
     }
 }

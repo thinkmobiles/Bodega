@@ -15,7 +15,7 @@
         android:textSize="@dimen/logos_text_size"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        />
+        android:gravity="center_horizontal" />
 
     <ImageView
         app:layout_heightPercent="15%"

@@ -4,6 +4,8 @@
     <!--Splash activity-->
     <string name="prepare_download_SA">Preparing download…</string>
 
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
     <string name="inicio">Inicio</string>
     <string name="envios">Envíos</string>
     <string name="envios_caps">ENVÍOS</string>

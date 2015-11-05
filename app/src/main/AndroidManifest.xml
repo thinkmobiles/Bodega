@@ -40,6 +40,20 @@
             android:screenOrientation="landscape">
         </activity>
 
+        <activity
+            android:name=".activities.WebViewVideoActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity
+            android:name=".activities.youtube_api.YouTubePlayerActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="landscape">
+        </activity>
+
         <service android:name=".api.ApiService"
             android:exported="false" />
     </application>

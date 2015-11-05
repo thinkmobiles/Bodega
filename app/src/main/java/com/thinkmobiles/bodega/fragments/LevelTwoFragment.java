@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by illia on 26.10.15.
  */
-public class LevelTwoFragment extends BaseFragment {
+public class LevelTwoFragment extends BaseFragment implements View.OnClickListener {
 
     private ImageView mHeadImage;
     private RecyclerView mRecyclerView;
@@ -114,12 +114,22 @@ public class LevelTwoFragment extends BaseFragment {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
-                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ID: "+ item.getId(), Toast.LENGTH_SHORT).show();
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
 
                 mFragmentNavigator.showThirdLevelFragment(item, true);
             }
         });
+        mHeadImage.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivHeadImage_FLT:
+                mFragmentNavigator.popBackStack();
+                break;
+        }
     }
 }

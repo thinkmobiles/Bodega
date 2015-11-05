@@ -1,4 +1,4 @@
-package com.thinkmobiles.bodega.fragments.gallery_lagistica;
+package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by sasha on 28.10.2015.
  */
-public class ViewGalleryFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class ViewGalleryPagerFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private boolean mTopBarIsShown;
 
@@ -38,7 +38,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
         args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
         args.putInt(Constants.EXTRA_FLAG_1, _position);
         args.putBoolean(Constants.EXTRA_FLAG_2, _topBarIsShown);
-        BaseFragment fragment = new ViewGalleryFragment();
+        BaseFragment fragment = new ViewGalleryPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,6 +66,7 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
         initData();
         findView();
         setRedBackground();
+        setVisibilityArrows();
         setBtnListeners();
         setContainers();
         setupPager();
@@ -74,15 +75,26 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
     private void initData() {
         switch (mItemWrapper.getId()) {
             case Constants.EJEMPLOS_ID:
-                mImageList = mItemWrapper.getExtraImages();
+            case Constants.GALERIA_DE_ACERO_ID:
+            case Constants.GALERIA_DE_COBRE_ID:
+            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
+            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
+            case Constants.TOLDOS_ID:
+            case Constants.VINILIS_ID:
+            case Constants.GRAFICAS_ID:
+                mImageList = mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
                 break;
+
             case Constants.TANQUES_ID:
             case Constants.LOGOTIPOS_ID:
+            case Constants.ARTICULOS_DE_USO_ID:
                 mImageList = new ArrayList<String>();
                 mNamesList = new ArrayList<String>();
+                mInformationList = new ArrayList<String>();
                 for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
                     mImageList.add(itemWrapper.getProductList().get(0).getImageSmall());
                     mNamesList.add(itemWrapper.getProductList().get(0).getName());
+                    mInformationList.add(itemWrapper.getInnerLevel().get(0).getDescription());
                 }
                 break;
 
@@ -95,6 +107,23 @@ public class ViewGalleryFragment extends BaseFragment implements View.OnClickLis
             case Constants.PAPEL_PINTADO_ID:
                 mImageList = getImagesFromOptionsImages();
                 break;
+
+//            case Constants.DIBOND_ID:
+//            case Constants.AZULEJO_ID:
+//            case Constants.MESA_VUELTA_ID:
+//            case Constants.COLONIAL_ID:
+//            case Constants.LEYENDA1_ID:
+//            case Constants.CAJA_DE_CERVEZAS_ID:
+//            case Constants.PALET_ID:
+//            case Constants.CHOPO_ID:
+//            case Constants.TELA_DE_SACO1_ID:
+//            case Constants.HAMACA_ID:
+//            case Constants.LONA_MICROPERFORADA_ID:
+//                mImageList = new ArrayList<String>();
+//                for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
+//                    mImageList.add(itemWrapper.getProductList().get(0).getImage());
+//                }
+//                break;
         }
     }
 

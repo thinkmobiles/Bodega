@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tv_information_FVPIG"
+    <WebView
+        android:id="@+id/wv_information_FVPIG"
+        app:layout_widthPercent="60%"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="INFO"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:scrollbars="none"
         android:visibility="gone" />
 
     <TextView
@@ -24,8 +28,8 @@
         android:id="@+id/iv_image_FVPIG"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tv_information_FVPIG"
-        android:layout_below="@+id/tv_name_FVPIG"/>
+        android:layout_above="@+id/wv_information_FVPIG"
+        />
 
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>
