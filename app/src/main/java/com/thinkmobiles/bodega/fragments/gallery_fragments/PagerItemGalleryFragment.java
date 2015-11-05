@@ -26,9 +26,9 @@ public class PagerItemGalleryFragment extends BaseFragment {
     private String mName;
     private String mInformation;
 
-    public static BaseFragment newInstance(String _item, String _name, String _information) {
+    public static BaseFragment newInstance(String _image, String _name, String _information) {
         Bundle args = new Bundle();
-        args.putString(Constants.EXTRA_FLAG_1, _item);
+        args.putString(Constants.EXTRA_FLAG_1, _image);
         args.putString(Constants.EXTRA_FLAG_2, _name);
         args.putString(Constants.EXTRA_FLAG_3, _information);
         BaseFragment fragment = new PagerItemGalleryFragment();

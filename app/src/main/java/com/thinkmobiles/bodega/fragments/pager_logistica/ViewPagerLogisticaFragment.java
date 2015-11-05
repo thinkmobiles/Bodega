@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.thinkmobiles.bodega.Constants;
@@ -14,6 +15,7 @@ import com.thinkmobiles.bodega.adapters.LogisticaTabsAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.api.ProductWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.fragments.gallery_fragments.ViewGalleryPagerFragment;
 import com.thinkmobiles.bodega.utils.ItemClickSupport;
 import com.thinkmobiles.bodega.utils.TabItem;
 
@@ -23,7 +25,7 @@ import java.util.List;
 /**
  * Created by illia on 28.10.15.
  */
-public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClickSupport.OnItemClickListener {
+public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClickSupport.OnItemClickListener, ViewPager.OnClickListener {
 
     private ItemWrapper mItem;
     private ViewPager mPager;
@@ -111,6 +113,7 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
         mPagerAdapter = new LogisticaPagerAdapter(getChildFragmentManager());
         mPagerAdapter.setData(mProds);
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOnClickListener(this);
     }
 
     private void initListeners() {
@@ -122,12 +125,13 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         setSelectedTab(position);
         mPager.setCurrentItem(position, true);
+
     }
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            //
+            Log.d("qqq","click");
         }
 
         @Override
@@ -147,5 +151,10 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
         mCurrentItem = position;
         mTabsAdapter.selectItem(position);
         rvTabsView.scrollToPosition(position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mFragmentNavigator.showFragment(ViewGalleryPagerFragment.newInstance(mItem, mCurrentItem, false));
     }
 }

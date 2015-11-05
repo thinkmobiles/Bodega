@@ -4,11 +4,14 @@
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/gallery_item_margin"
     android:layout_marginLeft="@dimen/gallery_item_margin"
+    android:layout_marginBottom="@dimen/gallery_item_bottom_margin"
     android:background="@null">
 
     <ImageView
         android:id="@+id/ivImage_IGR"
-        android:layout_width="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/level_two_image_height"
         android:layout_centerHorizontal="true" />
 

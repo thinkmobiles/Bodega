@@ -188,6 +188,18 @@ public final class FragmentNavigator  {
                 showFragment(_withBackStack, DescriptionFragment.newInstance(_item, true, true, false));
                 break;
             case Constants.LOGOTIPOS_ID:
+            case Constants.DIBOND_ID:
+            case Constants.AZULEJO_ID:
+            case Constants.MESA_VUELTA_ID:
+            case Constants.COLONIAL_ID:
+            case Constants.LEYENDA1_ID:
+            case Constants.CAJA_DE_CERVEZAS_ID:
+            case Constants.PALET_ID:
+            case Constants.CHOPO_ID:
+            case Constants.TELA_DE_SACO1_ID:
+            case Constants.HAMACA_ID:
+            case Constants.LONA_MICROPERFORADA_ID:
+            case Constants.ARTICULOS_DE_USO_ID:
                 showFragment(_withBackStack, GalleryFragment.newInstance(_item, true, false));
                 break;
             case Constants.ENFIRADORES_ID:

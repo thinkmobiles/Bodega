@@ -175,7 +175,25 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                mFragmentNavigator.showFragment(ViewGalleryFragment.newInstance(mItemWrapper, position, false));
+                switch (mItemWrapper.getId()) {
+                    case Constants.DIBOND_ID:
+                    case Constants.AZULEJO_ID:
+                    case Constants.MESA_VUELTA_ID:
+                    case Constants.COLONIAL_ID:
+                    case Constants.LEYENDA1_ID:
+                    case Constants.CAJA_DE_CERVEZAS_ID:
+                    case Constants.PALET_ID:
+                    case Constants.CHOPO_ID:
+                    case Constants.TELA_DE_SACO1_ID:
+                    case Constants.HAMACA_ID:
+                    case Constants.LONA_MICROPERFORADA_ID:
+//                    case Constants.ARTICULOS_DE_USO_ID:
+                        mFragmentNavigator.showFragment(ViewGalleryInfoFragment.newInstance(mItemWrapper, position));
+                        break;
+                    default:
+                        mFragmentNavigator.showFragment(ViewGalleryPagerFragment.newInstance(mItemWrapper, position, false));
+                        break;
+                }
             }
         });
     }
