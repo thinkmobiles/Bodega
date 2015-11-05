@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/giant_padding"
+    android:paddingRight="@dimen/giant_padding">
+
+    <RelativeLayout
+        android:id="@+id/rlTopBlock_FE"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/envios_item_height">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/envios_top_divider_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black" />
+
+        <TextView
+            style="@style/CommonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/locales" />
+
+        <TextView
+            android:id="@+id/tvVaciar_IE"
+            style="@style/CommonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/font_small"
+            android:layout_marginLeft="@dimen/bigger_padding"
+            android:drawableLeft="@drawable/btn_delete"
+            android:text="@string/vaciar_caps" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvEnvios_FE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnEnviar_FE"
+        android:layout_below="@+id/rlTopBlock_FE"
+        tools:listitem="@layout/item_envios_locale" />
+</RelativeLayout>

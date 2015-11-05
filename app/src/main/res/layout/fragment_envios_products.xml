@@ -21,16 +21,13 @@
 
         <TextView
             style="@style/CommonText"
+            android:id="@+id/tvVolver_FEP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="@string/locales" />
-
-        <ImageButton
-            android:id="@+id/btnDeleteItem_FE"
-            style="@style/EnviosItem"
-            android:layout_toLeftOf="@+id/tvVaciar_IE"
-            android:src="@drawable/btn_delete" />
+            android:drawablePadding="@dimen/padding"
+            android:drawableRight="@drawable/btn_volver"
+            android:text="@string/fichas" />
 
         <TextView
             android:id="@+id/tvVaciar_IE"
@@ -40,7 +37,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/bigger_padding"
-            android:text="@string/vaciar_caps" />
+            android:drawableLeft="@drawable/btn_delete"
+            android:text="@string/vaciar_caps"
+            android:textSize="@dimen/font_small" />
     </RelativeLayout>
 
     <ImageView
@@ -73,5 +72,5 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnEnviar_FE"
         android:layout_below="@+id/rlTopBlock_FE"
-        tools:listitem="@layout/item_envios" />
+        tools:listitem="@layout/item_envios_product" />
 </RelativeLayout>

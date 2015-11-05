@@ -120,12 +120,13 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
                 addCustomer();
                 break;
             case R.id.btnVerEnvio_FATE:
-                goToEnvio();
+                goToEnvios();
                 break;
         }
     }
 
-    private void goToEnvio() {
+    private void goToEnvios() {
+        mFragmentNavigator.popBackStack();
         mFragmentNavigator.showFragment(EnviosLocalesFragment.newInstance());
     }
 
@@ -139,7 +140,8 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
         String customerName = autoCompleteTextView.getText().toString();
         if (!customerName.isEmpty()) {
             DBManager dbManager = DBManager.getInstance(getApplicationContext());
-            dbManager.addCustomer(customerName);
+            Customer customer = dbManager.addCustomer(customerName);
+            dbManager.addOrder(mItem, customer);
             toggleContainersVisibility();
         } else {
             Toast.makeText(getActivity(), getString(R.string.enter_shop), Toast.LENGTH_SHORT).show();

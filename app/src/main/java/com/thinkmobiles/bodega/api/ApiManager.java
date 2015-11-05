@@ -1,6 +1,7 @@
 package com.thinkmobiles.bodega.api;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.cristaliza.mvc.controllers.estrella.MainController;
@@ -54,7 +55,7 @@ public class ApiManager {
     }
 
     public static String getPath(Context context) {
-        //Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
+        //return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
         return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
     }
 
@@ -115,6 +116,8 @@ public class ApiManager {
     }
 
     public ArrayList<ItemWrapper> getAllLevelsList() {
+        if (allLevelsList == null)
+            return null;
         return new ArrayList<>(allLevelsList);
     }
 

@@ -26,7 +26,6 @@ import com.thinkmobiles.bodega.fragments.pager_tiraje.ViewPagerTirajeFragment;
  */
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener {
 
-
     private TextView tvDescription;
     private ItemWrapper mItem;
     private boolean mBottomContainerIsShown;

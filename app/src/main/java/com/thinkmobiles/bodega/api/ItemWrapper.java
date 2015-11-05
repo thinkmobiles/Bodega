@@ -23,6 +23,7 @@ public class ItemWrapper implements Parcelable {
     private String name = null;
     private String sublevel = null;
     private String icon = null;
+    private String menuImage = null;
     private String backgroundImage = null;
     private String extraBackgroundImage = null;
     private boolean isProduct = false;
@@ -230,6 +231,14 @@ public class ItemWrapper implements Parcelable {
         this.levelNumber = levelNumber;
     }
 
+    public String getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(String menuImage) {
+        this.menuImage = menuImage;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -244,6 +253,7 @@ public class ItemWrapper implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.sublevel);
         dest.writeString(this.icon);
+        dest.writeString(this.menuImage);
         dest.writeString(this.backgroundImage);
         dest.writeString(this.extraBackgroundImage);
         dest.writeByte(isProduct ? (byte) 1 : (byte) 0);
@@ -268,6 +278,7 @@ public class ItemWrapper implements Parcelable {
         this.name = in.readString();
         this.sublevel = in.readString();
         this.icon = in.readString();
+        this.menuImage = in.readString();
         this.backgroundImage = in.readString();
         this.extraBackgroundImage = in.readString();
         this.isProduct = in.readByte() != 0;

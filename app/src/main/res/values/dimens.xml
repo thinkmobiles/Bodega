@@ -95,7 +95,7 @@
 
     <!-- Envios -->
     <dimen name="envios_icon_width">100dp</dimen>
-    <dimen name="envios_item_height">90dp</dimen>
+    <dimen name="envios_item_height">70dp</dimen>
     <dimen name="envios_top_divider_height">4dp</dimen>
     <dimen name="envios_item_divider_height">1.5dp</dimen>
     <dimen name="envios_dialog_vertical_padding">80dp</dimen>

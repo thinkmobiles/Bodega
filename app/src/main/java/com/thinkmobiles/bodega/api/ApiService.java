@@ -30,7 +30,7 @@ public class ApiService extends IntentService {
         if (alreadyExecuted)
             return;
         alreadyExecuted = true;
-        Log.d(LOG_TAG, "OnHandleIntent");
+        //Log.d(LOG_TAG, "OnHandleIntent");
         initApiManager();
         startDownload();
     }

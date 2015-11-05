@@ -46,8 +46,8 @@ public class DBManager {
         mDaoSession = daoMaster.newSession();
     }
 
-    public List<OrderItem> getOrders() {
-        return mDaoSession.getOrderItemDao().queryBuilder().list();
+    public List<OrderItem> getOrders(long customerId) {
+        return mDaoSession.getOrderItemDao().queryBuilder().where(OrderItemDao.Properties.CustomerId.eq(customerId)).list();
     }
 
     public List<OrderItem> addOrder(ItemWrapper itemWrapper, Customer customer) {
@@ -72,14 +72,18 @@ public class DBManager {
         return result;
     }
 
-    private Customer getCustomerById(long customerId) {
+    public Customer getCustomerById(long customerId) {
         return mDaoSession.getCustomerDao()
                 .queryBuilder()
                 .where(CustomerDao.Properties.Id.eq(customerId))
                 .list().get(0);
     }
 
-    public void deleteAllOrders() {
+    public void deleteAllOrders(long customerId) {
+        mDaoSession.getOrderItemDao().queryBuilder().where(OrderItemDao.Properties.CustomerId.eq(customerId)).buildDelete().executeDeleteWithoutDetachingEntities();
+    }
+
+    private void deleteAllOrders() {
         mDaoSession.getOrderItemDao().deleteAll();
     }
 

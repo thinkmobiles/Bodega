@@ -12,6 +12,7 @@ import java.util.List;
  * Created by denis on 23.10.15.
  */
 public class ProductWrapper implements Parcelable {
+
     private String id = null;
     private String name = null;
     private String category = null;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/envios_item_height"
+    android:background="@drawable/selector_white_btn"
+    android:id="@+id/rlRootContainer_IEL"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvItemName_IEL"
+        style="@style/CommonText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/btnDeleteItem_IEL"
+        android:text="Some item afdjk;ajf fkjfkfjfkjывввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввв" />
+
+    <ImageButton
+        android:id="@+id/btnDeleteItem_IEL"
+        style="@style/EnviosItem"
+        android:layout_toLeftOf="@+id/btnViewItem_IEL"
+        android:src="@drawable/btn_circle_delete" />
+
+    <ImageButton
+        android:id="@+id/btnViewItem_IEL"
+        style="@style/EnviosItem"
+        android:layout_toLeftOf="@+id/btnSendItem_IEL"
+        android:src="@drawable/btn_circle_see" />
+
+    <ImageButton
+        android:id="@+id/btnSendItem_IEL"
+        style="@style/EnviosItem"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_circle_send" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/envios_item_divider_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey" />
+
+</RelativeLayout>

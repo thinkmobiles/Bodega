@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
-import com.thinkmobiles.bodega.adapters.EnviosLocalesAdapter;
 import com.thinkmobiles.bodega.adapters.EnviosProductsAdapter;
 import com.thinkmobiles.bodega.db.DBManager;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
@@ -17,15 +17,19 @@ import com.thinkmobiles.bodega.fragments.BaseFragment;
 /**
  * Created by denis on 30.10.15.
  */
-public class EnviosLocalesFragment extends BaseFragment implements View.OnClickListener {
+public class EnviosProductsFragment extends BaseFragment implements View.OnClickListener {
 
     // UI
     private RecyclerView rvLocales;
-    private TextView tvDelete;
+    private TextView btnDelete;
+    private TextView btnBack;
 
-    public static BaseFragment newInstance() {
+    private long mCustomerId;
+
+    public static BaseFragment newInstance(long _customerId) {
         Bundle args = new Bundle();
-        BaseFragment fragment = new EnviosLocalesFragment();
+        args.putLong(Constants.EXTRA_ID, _customerId);
+        BaseFragment fragment = new EnviosProductsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,35 +37,47 @@ public class EnviosLocalesFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_envios_locales);
+        setContentView(R.layout.fragment_envios_products);
+        checkArgument();
+    }
+
+    private void checkArgument() {
+        Bundle args = getArguments();
+        if (args != null && args.size() != 0) {
+            mCustomerId = args.getLong(Constants.EXTRA_ID);
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setActionBarTitle(getString(R.string.envios_caps));
-        setRedBackground();
         findUI();
         setListeners();
         initRecyclerView();
+
+        setRedBackground();
+        String title = DBManager.getInstance(getApplicationContext()).getCustomerById(mCustomerId).getName();
+        setActionBarTitle(title);
     }
 
     private void findUI() {
         rvLocales = $(R.id.rvEnvios_FE);
-        tvDelete = $(R.id.tvVaciar_IE);
+        btnDelete = $(R.id.tvVaciar_IE);
+        btnBack = $(R.id.tvVolver_FEP);
     }
 
     private void initRecyclerView() {
-        EnviosLocalesAdapter mAdapter = new EnviosLocalesAdapter(this);
-        mAdapter.setData(DBManager.getInstance(getApplicationContext()).getCustomers());
+        EnviosProductsAdapter mAdapter = new EnviosProductsAdapter(getApplicationContext());
+        mAdapter.setData(DBManager.getInstance(getApplicationContext()).getOrders(mCustomerId));
         rvLocales.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvLocales.setItemAnimator(new DefaultItemAnimator());
         rvLocales.setAdapter(mAdapter);
     }
 
     private void setListeners() {
-        tvDelete.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
@@ -69,10 +85,12 @@ public class EnviosLocalesFragment extends BaseFragment implements View.OnClickL
         switch (v.getId()) {
             case R.id.tvVaciar_IE:
                 DBManager dbManager = DBManager.getInstance(getApplicationContext());
-                dbManager.deleteAllCustomers();
-                ((EnviosLocalesAdapter) rvLocales.getAdapter()).setData(dbManager.getCustomers());
+                dbManager.deleteAllOrders(mCustomerId);
+                ((EnviosProductsAdapter)rvLocales.getAdapter()).setData(dbManager.getOrders(mCustomerId));
+                break;
+            case R.id.tvVolver_FEP:
+                mFragmentNavigator.popBackStack();
                 break;
         }
     }
-
 }
