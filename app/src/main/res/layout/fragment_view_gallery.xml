@@ -19,8 +19,8 @@
             android:layout_height="@dimen/description_back_button_height"
             android:layout_gravity="start"
             android:background="@null"
-            android:paddingBottom="15dp"
-            android:paddingRight="15dp"
+            android:paddingBottom="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_volver" />
 
@@ -46,12 +46,13 @@
 
         <ImageButton
             android:id="@+id/btn_close_FVG"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/gallery_button_size"
+            android:layout_height="@dimen/gallery_button_size"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:paddingRight="@dimen/gallery_button_padding"
             android:paddingLeft="@dimen/gallery_button_padding"
             android:paddingBottom="@dimen/gallery_button_padding"
@@ -61,12 +62,13 @@
 
         <ImageButton
             android:id="@+id/btn_previous_image_FVG"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/gallery_button_size"
+            android:layout_height="@dimen/gallery_button_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:padding="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
             android:background="@null"
@@ -74,12 +76,13 @@
 
         <ImageButton
             android:id="@+id/btn_next_image_FVG"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/gallery_button_size"
+            android:layout_height="@dimen/gallery_button_size"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:padding="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
             android:background="@null"

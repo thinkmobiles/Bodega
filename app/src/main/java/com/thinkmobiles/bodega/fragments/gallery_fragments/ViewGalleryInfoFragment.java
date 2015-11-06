@@ -13,7 +13,6 @@ import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 
-import java.util.ArrayList;
 
 /**
  * Created by sasha on 04.11.2015.
@@ -85,7 +84,7 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     }
 
     private void findView() {
-        ivBigImage = $(R.id.iv_big_image_FVI);
+        ivBigImage = $(R.id.ivBigImage_FVI);
         ivSmallImage = $(R.id.iv_small_image_FVI);
         tvInformation =$(R.id.tv_info_FVI);
     }

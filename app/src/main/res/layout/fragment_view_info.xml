@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="@dimen/description_padding"
     android:background="@color/fragment_background"
     android:orientation="vertical">
@@ -9,8 +10,8 @@
 
     <ImageButton
         android:id="@+id/btn_close_FVI"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/gallery_button_size"
+        android:layout_height="@dimen/gallery_button_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -24,22 +25,25 @@
 
 
     <ImageView
-        android:id="@+id/iv_big_image_FVI"
+        android:id="@+id/ivBigImage_FVI"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        app:layout_widthPercent="46.5%"
         android:layout_marginRight="@dimen/info_image_margin"
         android:layout_marginBottom="@dimen/info_image_margin_bottom"
-        android:layout_below="@+id/btn_close_FVI" />
+        android:layout_below="@+id/btn_close_FVI"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
 
     <TextView
         android:id="@+id/tv_info_FVI"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/info_text_view_height"
         android:gravity="center"
         android:text="INFORMATION"
-        android:layout_toLeftOf="@+id/iv_big_image_FVI"
+        android:layout_toLeftOf="@+id/ivBigImage_FVI"
         android:textSize="@dimen/logos_text_size" />
 
     <ImageView
@@ -48,5 +52,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/info_image_margin_bottom"
         android:layout_below="@+id/tv_info_FVI"
-        android:layout_toLeftOf="@+id/iv_big_image_FVI"/>
-</RelativeLayout>
+        android:layout_toLeftOf="@id/ivBigImage_FVI"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+</android.support.percent.PercentRelativeLayout>

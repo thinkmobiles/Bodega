@@ -111,12 +111,12 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
             case Constants.LOGISTICA_ID:
                 mImageList = new ArrayList<String>();
                 mNamesList = new ArrayList<String>();
-                mInformationList = new ArrayList<String>();
-                //TODO
+//                mInformationList = new ArrayList<String>();
+
                 for (ProductWrapper productWrapper : mItemWrapper.getProductList()) {
                     mImageList.add(productWrapper.getImage());
-                    mNamesList.add(productWrapper.getImageDescription());
-                    mInformationList.add(productWrapper.getImageDescription());
+                    mNamesList.add(productWrapper.getName());
+//                    mInformationList.add(productWrapper.getImageDescription());
                 }
 
         }

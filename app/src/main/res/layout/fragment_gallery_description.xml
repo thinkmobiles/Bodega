@@ -6,25 +6,26 @@
 
     <ImageButton
         android:id="@+id/btn_prev_FGD"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/gallery_description_button_size"
+        android:layout_height="@dimen/gallery_description_button_size"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:background="@null"
-        android:padding="20dp"
+        android:padding="@dimen/gallery_description_button_padding"
         android:scaleType="fitCenter"
         android:src="@drawable/btn_prev"
         android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/btn_next_FGD"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/gallery_description_button_size"
+        android:layout_height="@dimen/gallery_description_button_size"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@null"
-        android:padding="20dp"
+        android:padding="@dimen/gallery_description_button_padding"
         android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:src="@drawable/btn_next" />
 
     <android.support.v7.widget.RecyclerView

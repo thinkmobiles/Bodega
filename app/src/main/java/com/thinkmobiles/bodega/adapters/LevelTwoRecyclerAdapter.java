@@ -62,7 +62,6 @@ public class LevelTwoRecyclerAdapter extends RecyclerView.Adapter<LevelTwoRecycl
         viewHolder.textView.setText(item.getName());
         String icon = item.getIcon();
         if (icon == null||icon.equals("")) icon = item.getMenuImage();
-//        Log.d("qqq","MenuImage: "+item.getMenuImage());
         Glide.with(mContext)
                 .load(ApiManager.getPath(mContext) + icon)
                 .fitCenter()

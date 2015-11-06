@@ -132,26 +132,26 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 case Constants.TOLDOS_ID:
                 case Constants.VINILIS_ID:
                 case Constants.GRAFICAS_ID:
-                    mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 2);
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                     break;
                 default:
-                    mLayoutManager = new GridLayoutManager(mActivity.getApplicationContext(), 4);
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(), 4);
                     break;
             }
         } else {
-            mLayoutManager = new LinearLayoutManager(mActivity.getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+            mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         }
     }
 
     private void setRecyclerAdapter() {
         if (!horizontal) {
             if (mImageList != null)
-                mAdapter = new GalleryRecycleAdapter(mActivity.getApplicationContext(), mImageList);
+                mAdapter = new GalleryRecycleAdapter(getApplicationContext(), mImageList);
         } else {
             if (isInContainer) {
-                mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel, true);
+                mAdapter = new LogosRecyclerAdapter(getApplicationContext(), mInnerLevel, true);
             } else {
-                mAdapter = new LogosRecyclerAdapter(mActivity.getApplicationContext(), mInnerLevel, false);
+                mAdapter = new LogosRecyclerAdapter(getApplicationContext(), mInnerLevel, false);
             }
         }
     }
@@ -162,7 +162,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         if (isInContainer) {
-            mRecyclerView.setOnScrollListener(new OnScrollListener() {
+            mRecyclerView.addOnScrollListener(new OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     setVisibilityArrows();
