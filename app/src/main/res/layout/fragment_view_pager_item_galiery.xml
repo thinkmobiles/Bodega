@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <WebView
         android:id="@+id/wv_information_FVPIG"
-        app:layout_widthPercent="60%"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -15,26 +14,28 @@
         android:layout_marginTop="@dimen/view_gallery_item_margin"
         android:gravity="center"
         android:scrollbars="none"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_widthPercent="60%" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_name_FVPIG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
         android:layout_marginBottom="@dimen/view_gallery_item_margin"
-        android:text="INFO"
-        android:textSize="@dimen/view_gallery_text_size"
+        android:layout_marginLeft="@dimen/info_image_margin"
         android:layout_marginTop="@dimen/gallery_button_margin"
-        android:layout_marginLeft="@dimen/info_image_margin" />
+        android:text="INFO"
+        android:textColor="@color/black"
+        android:textAllCaps="true"
+        android:textSize="@dimen/view_gallery_text_size"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_image_FVPIG"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/wv_information_FVPIG"
-        android:layout_below="@+id/tv_name_FVPIG"/>
+        android:layout_below="@+id/tv_name_FVPIG" />
 
 
 </android.support.percent.PercentRelativeLayout>

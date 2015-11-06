@@ -3,6 +3,7 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +23,9 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     private ItemWrapper mItemWrapper;
     private int mPosition;
     private ImageView ivSmallImage, ivBigImage;
+    ImageButton ibAddEnvio;
     private TextView tvInformation;
-    private String mSmalImage, mBigImage, mInformation;
+    private String mSmallImage, mBigImage, mInformation;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem, int _position) {
         Bundle args = new Bundle();
@@ -60,10 +62,6 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     }
 
     private void setUpData() {
-        Glide.with(getApplicationContext())
-                .load(ApiManager.getPath(getApplicationContext()) + mSmalImage)
-                .fitCenter()
-                .into(ivSmallImage);
 
         Glide.with(getApplicationContext())
                 .load(ApiManager.getPath(getApplicationContext()) + mBigImage)
@@ -71,26 +69,43 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
                 .into(ivBigImage);
 
         tvInformation.setText(mInformation);
+
+        if(mItemWrapper.getId().equals(Constants.ARTICULOS_DE_USO_ID)) {
+            ibAddEnvio.setVisibility(View.VISIBLE);
+            ivSmallImage.setVisibility(View.GONE);
+        } else {
+            Glide.with(getApplicationContext())
+                    .load(ApiManager.getPath(getApplicationContext()) + mSmallImage)
+                    .fitCenter()
+                    .into(ivSmallImage);
+        }
     }
 
     private void initData() {
-        mSmalImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImage();
+        mSmallImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImage();
         mBigImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImageSmall();
         mInformation = mItemWrapper.getInnerLevel().get(mPosition).getDescription();
     }
 
     private void setBtnListeners() {
         $(R.id.btn_close_FVI).setOnClickListener(this);
+        ibAddEnvio.setOnClickListener(this);
     }
 
     private void findView() {
         ivBigImage = $(R.id.ivBigImage_FVI);
         ivSmallImage = $(R.id.iv_small_image_FVI);
         tvInformation =$(R.id.tv_info_FVI);
+        ibAddEnvio=$(R.id.btnAddEnvio_FVI);
     }
 
     @Override
     public void onClick(View v) {
-        mFragmentNavigator.popBackStack();
+        switch (v.getId()) {
+            case R.id.btn_close_FVI:
+            mFragmentNavigator.popBackStack();
+                break;
+            case R.id.btnAddEnvio_FVI:
+        }
     }
 }

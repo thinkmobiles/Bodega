@@ -72,7 +72,8 @@
             android:padding="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
             android:background="@null"
-            android:src="@drawable/btn_prev" />
+            android:src="@drawable/btn_prev"
+            android:visibility="invisible"/>
 
         <ImageButton
             android:id="@+id/btn_next_image_FVG"

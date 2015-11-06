@@ -14,6 +14,7 @@ import com.thinkmobiles.bodega.fragments.BaseFragment;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
 import com.thinkmobiles.bodega.fragments.envios.AddToEnviosFragment;
+import com.thinkmobiles.bodega.fragments.gallery_fragments.ViewGalleryPagerFragment;
 import com.thinkmobiles.bodega.fragments.gallery_fragments.GalleryFragment;
 
 public final class FragmentNavigator  {
@@ -156,8 +157,6 @@ public final class FragmentNavigator  {
             case Constants.LEYENDA_ID:
             case Constants.GALERIA_DE_ACERO_ID:
             case Constants.GALERIA_DE_COBRE_ID:
-            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
-            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
             case Constants.TOLDOS_ID:
             case Constants.VINILIS_ID:
             case Constants.GRAFICAS_ID:
@@ -169,7 +168,10 @@ public final class FragmentNavigator  {
             case Constants.PAPEL_PINTADO_ID:
                 showFragment(_withBackStack, GalleryFragment.newInstance(_item, false, false));
                 break;
-
+            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
+            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
+                showFragment(_withBackStack, ViewGalleryPagerFragment.newInstance(_item, 0, false));
+                break;
         }
     }
 
