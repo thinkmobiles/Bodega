@@ -84,9 +84,9 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
     }
 
     private void setData() {
-        String text = mProductList.get(mPosition).getImageDescription();
-        if (!TextUtils.isEmpty(text))
-            tvText.setText(text);
+//        String text = mProductList.get(mPosition).getImageDescription();
+//        if (!TextUtils.isEmpty(text))
+//            tvText.setText(text);
         Glide.with(getApplicationContext())
             .load(ApiManager.getPath(getApplicationContext()) + mProductList.get(mPosition).getImage())
             .fitCenter()
