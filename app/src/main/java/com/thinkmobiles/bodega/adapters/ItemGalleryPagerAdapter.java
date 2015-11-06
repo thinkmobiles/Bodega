@@ -29,7 +29,8 @@ public class ItemGalleryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (mNamesList != null) {
+        if (mNamesList != null
+                && mNamesList.isEmpty()) {
             sName = mNamesList.get(position);
                     }
         if (mInformationList != null) {

@@ -203,6 +203,7 @@ public final class FragmentNavigator  {
                 showFragment(_withBackStack, GalleryFragment.newInstance(_item, true, false));
                 break;
             case Constants.ENFIRADORES_ID:
+            case Constants.COMPRESSOR_ID:
                 showFragment(_withBackStack, DescriptionFragment.newInstance(_item, false, false, false));
                 break;
             case Constants.EJEMPLOS_ID:

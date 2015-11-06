@@ -131,7 +131,6 @@ public class ViewPagerLogisticaFragment extends BaseFragment implements ItemClic
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            Log.d("qqq","click");
         }
 
         @Override
