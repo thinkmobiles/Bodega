@@ -2,8 +2,10 @@
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                android:layout_width="match_parent"
                                                android:layout_height="match_parent"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto">
+                                               xmlns:app="http://schemas.android.com/apk/res-auto"
+                                               xmlns:tools="http://schemas.android.com/tools">
     <ScrollView
+        android:visibility="gone"
         android:id="@+id/svTextContainer_FILP"
         android:fadeScrollbars="false"
         app:layout_widthPercent="51%"
@@ -24,11 +26,9 @@
     <ImageView
         android:id="@+id/ivImage_FILP"
         android:background="@null"
-        android:src="@drawable/background"
+        tools:src="@drawable/background"
         android:scaleType="fitCenter"
-        android:layout_toRightOf="@+id/svTextContainer_FILP"
-        android:layout_toEndOf="@+id/svTextContainer_FILP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.percent.PercentRelativeLayout>

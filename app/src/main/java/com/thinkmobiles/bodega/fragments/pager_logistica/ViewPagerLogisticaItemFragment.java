@@ -2,7 +2,6 @@ package com.thinkmobiles.bodega.fragments.pager_logistica;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,9 +58,9 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
     }
 
     private void setData() {
-        String text = mProduct.getImageDescription();
-        if (!TextUtils.isEmpty(text))
-            tvText.setText(text);
+//        String text = mProduct.getImageDescription();
+//        if (!TextUtils.isEmpty(text))
+//            tvText.setText(text);
         Glide.with(getApplicationContext())
             .load(ApiManager.getPath(getApplicationContext()) + mProduct.getImage())
             .fitCenter()
