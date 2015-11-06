@@ -83,20 +83,13 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
             case Constants.TOLDOS_ID:
             case Constants.VINILIS_ID:
             case Constants.GRAFICAS_ID:
-                mImageList = mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
+                mImageList = getImagesFromGalleryImages();
                 break;
 
             case Constants.TANQUES_ID:
             case Constants.LOGOTIPOS_ID:
             case Constants.ARTICULOS_DE_USO_ID:
-                mImageList = new ArrayList<String>();
-                mNamesList = new ArrayList<String>();
-                mInformationList = new ArrayList<String>();
-                for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
-                    mImageList.add(itemWrapper.getProductList().get(0).getImageSmall());
-                    mNamesList.add(itemWrapper.getProductList().get(0).getName());
-                    mInformationList.add(itemWrapper.getInnerLevel().get(0).getDescription());
-                }
+                createListsLogo();
                 break;
 
             case Constants.CON_VOLUMEN_ID:
@@ -109,16 +102,8 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
                 mImageList = getImagesFromOptionsImages();
                 break;
             case Constants.LOGISTICA_ID:
-                mImageList = new ArrayList<String>();
-                mNamesList = new ArrayList<String>();
-//                mInformationList = new ArrayList<String>();
-
-                for (ProductWrapper productWrapper : mItemWrapper.getProductList()) {
-                    mImageList.add(productWrapper.getImage());
-                    mNamesList.add(productWrapper.getName());
-//                    mInformationList.add(productWrapper.getImageDescription());
-                }
-
+                createListsLogistica();
+                break;
         }
     }
 
@@ -149,7 +134,7 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
         mAdapter = new ItemGalleryPagerAdapter(getChildFragmentManager());
         mAdapter.setData(mImageList, mNamesList, mInformationList);
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
     }
 
@@ -208,5 +193,32 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
 
     private List<String> getImagesFromOptionsImages() {
         return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getOptionsImages();
+    }
+
+    private List<String> getImagesFromGalleryImages() {
+        return mItemWrapper.getInnerLevel().get(0).getProductList().get(0).getGalleriesImages();
+    }
+
+    private void createListsLogistica() {
+        mImageList = new ArrayList<String>();
+        mNamesList = new ArrayList<String>();
+        mInformationList = new ArrayList<String>();
+        for (ProductWrapper productWrapper : mItemWrapper.getProductList()) {
+            //TODO correct when updated information
+            mImageList.add(productWrapper.getImage());
+            mNamesList.add(productWrapper.getImage());
+            mInformationList.add(productWrapper.getImage());
+        }
+    }
+
+    private void createListsLogo() {
+        mImageList = new ArrayList<String>();
+        mNamesList = new ArrayList<String>();
+        mInformationList = new ArrayList<String>();
+        for (ItemWrapper itemWrapper : mItemWrapper.getInnerLevel()) {
+            mImageList.add(itemWrapper.getProductList().get(0).getImageSmall());
+            mNamesList.add(itemWrapper.getProductList().get(0).getName());
+            mInformationList.add(itemWrapper.getInnerLevel().get(0).getDescription());
+        }
     }
 }

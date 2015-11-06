@@ -16,6 +16,7 @@ import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.thinkmobiles.bodega.adapters.LevelTwoLinearLayoutManager;
 import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
@@ -139,7 +140,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     break;
             }
         } else {
-            mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//            mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+            mLayoutManager = new LevelTwoLinearLayoutManager(getApplicationContext(), LevelTwoLinearLayoutManager.HORIZONTAL, false);
         }
     }
 
