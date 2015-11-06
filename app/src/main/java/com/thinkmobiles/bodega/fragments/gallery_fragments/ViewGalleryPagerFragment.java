@@ -6,8 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
@@ -162,7 +160,6 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
                 break;
             case R.id.btnAddEnvio_FVG:
                 mFragmentNavigator.showEnviosDialog(mItemWrapper);
-                //Toast.makeText(getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_close_FVG:
                 mFragmentNavigator.popBackStack();

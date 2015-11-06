@@ -3,19 +3,16 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.GalleryRecycleAdapter;
-
-import android.support.v7.widget.LinearLayoutManager;
-
 import com.thinkmobiles.bodega.adapters.LogosRecyclerAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
@@ -203,11 +200,10 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         int id = view.getId();
         switch (id) {
             case R.id.btnVolver_FG:
-                mFragmentNavigator.popBackStack();
+                mActivity.onBackPressed();
                 break;
             case R.id.btnAddEnvio_FG:
                 mFragmentNavigator.showEnviosDialog(mItemWrapper);
-                //Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_next_FGD:
                 scrollRecyclerView(true);

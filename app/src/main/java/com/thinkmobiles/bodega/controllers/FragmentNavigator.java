@@ -13,8 +13,8 @@ import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
-import com.thinkmobiles.bodega.fragments.gallery_fragments.GalleryFragment;
 import com.thinkmobiles.bodega.fragments.envios.AddToEnviosFragment;
+import com.thinkmobiles.bodega.fragments.gallery_fragments.GalleryFragment;
 
 public final class FragmentNavigator  {
 
@@ -44,25 +44,6 @@ public final class FragmentNavigator  {
         int id = entry.getId();
         mFragmentManager.popBackStackImmediate(id, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
-
-//    public void clearBackStackToFragmentOrShow(BaseFragment _baseFragment) {
-//        int entryCount = mFragmentManager.getBackStackEntryCount();
-//        String tag = _baseFragment.getClass().toString();
-//        FragmentManager.BackStackEntry searchedEntry = null;
-//        for (int i = 0; i < entryCount; ++i) {
-//            FragmentManager.BackStackEntry entry = mFragmentManager.getBackStackEntryAt(i);
-//            if (entry.getName().equals(tag)) {
-//                searchedEntry = entry;
-//                break;
-//            }
-//        }
-//
-//        if (searchedEntry == null)  {
-//            showFragment(_baseFragment);
-//        } else {
-//            mFragmentManager.popBackStackImmediate(searchedEntry.getId(), 0);
-//        }
-//    }
 
     /**
      * The method return true - if back stack not empty and true another. And call back stack in fragment manager
@@ -116,41 +97,6 @@ public final class FragmentNavigator  {
         }
     }
 
-//    public void showFragmentWithAnimation(BaseFragment _baseFragment) {
-//        if (mFragmentManager == null)
-//            return;
-//
-//
-//        getTransaction()
-//                .setCustomAnimations(R.anim.slide_left_enter, R.anim.slide_left,
-//                        R.anim.slide_right_enter, R.anim.slide_right)
-//                .replace(mContainerId, _baseFragment)
-//                .addToBackStack(_baseFragment.getClass().toString())
-//                .commit();
-//
-//    }
-//
-//    public void showFragmentWithAnimationBottomToTop(BaseFragment _baseFragment) {
-//        if (mFragmentManager == null)
-//            return;
-//
-//
-//        getTransaction()
-//                .setCustomAnimations(R.anim.slide_top_enter, R.anim.slide_top,
-//                        R.anim.slide_down_enter, R.anim.slide_down)
-//                .replace(mContainerId, _baseFragment)
-//                .addToBackStack(_baseFragment.getClass().toString())
-//                .commit();
-//
-//    }
-//
-//    public BaseFragment getTopFragment() {
-//        if (mFragmentManager == null)
-//            return null;
-//
-//        return (BaseFragment) mFragmentManager
-//                .findFragmentById(mContainerId);
-//    }
 
     /**
      * The method return fragment transaction
@@ -176,7 +122,7 @@ public final class FragmentNavigator  {
         }
     }
 
-    public void showThirdLevelFragment(ItemWrapper _item, boolean _withBackStack) {
+    public void showDescriptionOrGalleryFragment(ItemWrapper _item, boolean _withBackStack) {
         switch (_item.getId()) {
             case Constants.CARACTERISTICS_ID:
                 showFragment(_withBackStack, DescriptionFragment.newInstance(_item, false, true, false));

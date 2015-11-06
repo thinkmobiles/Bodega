@@ -21,13 +21,17 @@ import java.util.List;
  */
 public class IndexFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
+    private static IndexFragment mInstance;
+
     private GridView mGrid;
     private GridAdapter mAdapter;
 
     private List<ItemWrapper> mFirstLevel;
 
-    public static BaseFragment newInstance() {
-        return new IndexFragment();
+    public static BaseFragment getInstance() {
+        if (mInstance == null)
+            mInstance = new IndexFragment();
+        return mInstance;
     }
 
     @Override

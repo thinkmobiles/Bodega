@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadIndexFragment() {
-        mFragmentNavigator.replaceFragment(IndexFragment.newInstance());
+        mFragmentNavigator.replaceFragment(IndexFragment.getInstance());
     }
 
     public FragmentNavigator getFragmentNavigator() {
@@ -99,7 +99,13 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (mSlidingMenuController.isShown())
             mSlidingMenuController.close();
-        else
-            super.onBackPressed();
+        else {
+            if (IndexFragment.getInstance().isVisible()) {
+                super.onBackPressed();
+            } else {
+               if (!mFragmentNavigator.popBackStack())
+                   mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.getInstance());
+            }
+        }
     }
 }

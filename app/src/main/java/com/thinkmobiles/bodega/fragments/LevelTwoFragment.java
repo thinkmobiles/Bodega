@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
@@ -114,11 +113,9 @@ public class LevelTwoFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 ItemWrapper item = mAdapter.getItem(position);
-                Toast.makeText(mActivity.getApplicationContext(), item.getName() + " ID: "+ item.getId(), Toast.LENGTH_SHORT).show();
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(item, true))
                     return;
-
-                mFragmentNavigator.showThirdLevelFragment(item, true);
+                mFragmentNavigator.showDescriptionOrGalleryFragment(item, true);
             }
         });
         mHeadImage.setOnClickListener(this);
@@ -128,7 +125,7 @@ public class LevelTwoFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivHeadImage_FLT:
-                mFragmentNavigator.popBackStack();
+                mActivity.onBackPressed();
                 break;
         }
     }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
+import com.thinkmobiles.bodega.activities.ImageViewActivity;
 import com.thinkmobiles.bodega.activities.WebViewVideoActivity;
 import com.thinkmobiles.bodega.activities.youtube_api.YouTubePlayerActivity;
 import com.thinkmobiles.bodega.adapters.ExtrasAdapter;
@@ -156,12 +157,24 @@ public class ExtrasFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         ExtraWrapper item = mAdapter.getItem(position);
+        tryOpenVideo(item);
+        tryOpenImage(item);
+    }
+
+    private void tryOpenVideo(ExtraWrapper item) {
         if (!TextUtils.isEmpty(item.getVideo())) {
             if (PackageUtils.isAppInstalled(Constants.YOUTUBE_PACKAGE_NAME,
                     getApplicationContext()))
                 startVideoActivity(item, YouTubePlayerActivity.class);
             else
                 startVideoActivity(item, WebViewVideoActivity.class);
+        }
+    }
+
+    private void tryOpenImage(ExtraWrapper item) {
+        if (!TextUtils.isEmpty(item.getImage())) {
+            startActivity(new Intent(getApplicationContext(), ImageViewActivity.class)
+                    .putExtra(Constants.EXTRA_ITEM, item.getImage()));
         }
     }
 

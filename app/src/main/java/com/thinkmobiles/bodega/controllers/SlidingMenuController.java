@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.thinkmobiles.bodega.Constants;
@@ -14,9 +13,9 @@ import com.thinkmobiles.bodega.activities.MainActivity;
 import com.thinkmobiles.bodega.adapters.SlidingMenuAdapter;
 import com.thinkmobiles.bodega.api.ItemWrapper;
 import com.thinkmobiles.bodega.fragments.DescriptionFragment;
-import com.thinkmobiles.bodega.fragments.envios.EnviosLocalesFragment;
 import com.thinkmobiles.bodega.fragments.IndexFragment;
 import com.thinkmobiles.bodega.fragments.LevelTwoFragment;
+import com.thinkmobiles.bodega.fragments.envios.EnviosLocalesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,6 +141,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        toggleAsync();
         ItemWrapper entry = (ItemWrapper) parent.getItemAtPosition(position);
 
         switch (entry.getLevelNumber()) {
@@ -152,22 +152,18 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
                 if (mFragmentNavigator.checkSecondLevelFragmentOnThirdLvl(entry, false))
                     break;
                 else
-                    mFragmentNavigator.showThirdLevelFragment(entry, false);
+                    mFragmentNavigator.showDescriptionOrGalleryFragment(entry, false);
                 break;
             case Constants.LEVEL_THIRD:
-                //
+                mFragmentNavigator.showDescriptionOrGalleryFragment(entry, false);
                 break;
         }
-        Toast.makeText(mActivity, entry.getName() + " "
-                + entry.getId() + " "
-                + entry.getLevelNumber(), Toast.LENGTH_SHORT).show();
-        toggleAsync();
     }
 
     private void showSecondLevelFragment(ItemWrapper _item) {
         switch (_item.getId()) {
             case Constants.INICIO_ID:
-                mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.newInstance());
+                mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.getInstance());
                 break;
             case Constants.ENVIOS_ID:
                 mFragmentNavigator.showFragmentWithoutBackStack(EnviosLocalesFragment.newInstance());
