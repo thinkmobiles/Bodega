@@ -3,7 +3,6 @@ package com.thinkmobiles.bodega.fragments.envios;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -17,16 +16,16 @@ import com.thinkmobiles.bodega.db.DBManager;
 import com.thinkmobiles.bodega.db.daogen.Customer;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 
-import java.util.List;
-
 /**
  * Created by denis on 03.11.15.
  */
 public class AddToEnviosFragment extends BaseFragment implements View.OnClickListener {
 
     private ItemWrapper mItem;
+    private long mCustomerId;
 
     private static final String FIRST_BLOCK_VISIBLE_ARG = "first_block_visible_arg";
+    private static final String CUSTOMER_ID_ARG = "customer_id_arg";
 
     // UI
     private RelativeLayout rlRootContainer, rlFirstContainer, rlSecondContainer;
@@ -68,14 +67,15 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        restoreVisibility(savedInstanceState);
+        restoreSavedInstance(savedInstanceState);
     }
 
-    private void restoreVisibility(Bundle savedInstanceState) {
+    private void restoreSavedInstance(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             if (!savedInstanceState.getBoolean(FIRST_BLOCK_VISIBLE_ARG)) {
                 toggleContainersVisibility();
             }
+            mCustomerId = savedInstanceState.getLong(CUSTOMER_ID_ARG);
         }
     }
 
@@ -127,13 +127,14 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
 
     private void goToEnvios() {
         mFragmentNavigator.popBackStack();
-        mFragmentNavigator.showFragment(EnviosLocalesFragment.newInstance());
+        mFragmentNavigator.showFragment(EnviosProductsFragment.newInstance(mCustomerId));
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(FIRST_BLOCK_VISIBLE_ARG, rlFirstContainer.getVisibility() == View.VISIBLE);
+        outState.putLong(CUSTOMER_ID_ARG, mCustomerId);
     }
 
     private void addCustomer() {
@@ -142,6 +143,7 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
             DBManager dbManager = DBManager.getInstance(getApplicationContext());
             Customer customer = dbManager.addCustomer(customerName);
             dbManager.addOrder(mItem, customer);
+            mCustomerId = customer.getId();
             toggleContainersVisibility();
         } else {
             Toast.makeText(getActivity(), getString(R.string.enter_shop), Toast.LENGTH_SHORT).show();

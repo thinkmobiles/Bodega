@@ -206,7 +206,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FG:
-                Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
+                mFragmentNavigator.showEnviosDialog(mItemWrapper);
+                //Toast.makeText(mActivity.getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_next_FGD:
                 scrollRecyclerView(true);

@@ -161,7 +161,8 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
                 mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FVG:
-                Toast.makeText(getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
+                mFragmentNavigator.showEnviosDialog(mItemWrapper);
+                //Toast.makeText(getApplicationContext(), "Add Envio", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_close_FVG:
                 mFragmentNavigator.popBackStack();
