@@ -8,9 +8,10 @@
     <android.support.percent.PercentFrameLayout
         android:id="@+id/flButtonsContainer_FVG"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/description_buttons_container_height"
+        android:layout_height="@dimen/frame_layout_top_bar_height"
         android:layout_marginLeft="@dimen/description_padding"
         android:layout_marginRight="@dimen/description_padding"
+        android:layout_marginTop="@dimen/logos_item_margin"
         android:visibility="gone">
 
         <ImageButton

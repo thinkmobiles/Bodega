@@ -25,12 +25,14 @@ public class PagerItemGalleryFragment extends BaseFragment {
     private String mImageItem;
     private String mName;
     private String mInformation;
+    private String itemWrapperId;
 
-    public static BaseFragment newInstance(String _image, String _name, String _information) {
+    public static BaseFragment newInstance(String _image, String _name, String _information, String _itemWrapperId) {
         Bundle args = new Bundle();
         args.putString(Constants.EXTRA_FLAG_1, _image);
         args.putString(Constants.EXTRA_FLAG_2, _name);
         args.putString(Constants.EXTRA_FLAG_3, _information);
+        args.putString(Constants.EXTRA_FLAG_4, _itemWrapperId);
         BaseFragment fragment = new PagerItemGalleryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -42,6 +44,7 @@ public class PagerItemGalleryFragment extends BaseFragment {
             mImageItem = args.getString(Constants.EXTRA_FLAG_1);
             mName = args.getString(Constants.EXTRA_FLAG_2);
             mInformation = args.getString(Constants.EXTRA_FLAG_3);
+            itemWrapperId = args.getString(Constants.EXTRA_FLAG_4);
         }
     }
 
@@ -62,8 +65,19 @@ public class PagerItemGalleryFragment extends BaseFragment {
 
     private void findView() {
         tvName = $(R.id.tv_name_FVPIG);
-        ivImage = $(R.id.iv_image_FVPIG);
         wvInformation = $(R.id.wv_information_FVPIG);
+        switch (itemWrapperId) {
+            case Constants.LOGISTICA_ID:
+            case Constants.TANQUES_ID:
+                ivImage = $(R.id.iv_imageDescription_FVPIG);
+                break;
+            case Constants.LOGOTIPOS_ID:
+                ivImage = $(R.id.iv_imageLogo_FVPIG);
+                break;
+            default:
+                ivImage = $(R.id.iv_imageGalleryView_FVPIG);
+        }
+        ivImage.setVisibility(View.VISIBLE);
 
     }
 

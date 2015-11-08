@@ -69,7 +69,6 @@ public class ViewPagerLogisticaItemFragment extends BaseFragment {
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("qqq", "click111");
                 ItemWrapper itemWrapper = new ItemWrapper();
                 itemWrapper.setProductList(mProductList);
                 itemWrapper.setId(Constants.LOGISTICA_ID);

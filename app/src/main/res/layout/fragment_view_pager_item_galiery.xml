@@ -11,7 +11,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/gallery_item_bottom_margin"
-        android:layout_marginTop="@dimen/view_gallery_item_margin"
         android:gravity="center"
         android:scrollbars="none"
         android:visibility="gone"
@@ -21,21 +20,37 @@
         android:id="@+id/tv_name_FVPIG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/view_gallery_item_margin"
         android:layout_marginLeft="@dimen/info_image_margin"
         android:layout_marginTop="@dimen/gallery_button_margin"
         android:text="INFO"
-        android:textColor="@color/black"
         android:textAllCaps="true"
+        android:textColor="@color/black"
         android:textSize="@dimen/view_gallery_text_size"
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/iv_image_FVPIG"
+        android:id="@+id/iv_imageGalleryView_FVPIG"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/wv_information_FVPIG"
-        android:layout_below="@+id/tv_name_FVPIG" />
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_imageLogo_FVPIG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wv_information_FVPIG"
+        android:layout_margin="@dimen/view_gallery_item_margin_med"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_imageDescription_FVPIG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wv_information_FVPIG"
+        android:layout_below="@+id/tv_name_FVPIG"
+        android:layout_margin="@dimen/view_gallery_item_margin_big"
+        android:visibility="gone" />
 
 
 </android.support.percent.PercentRelativeLayout>

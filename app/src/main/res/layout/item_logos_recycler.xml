@@ -5,11 +5,12 @@
     android:background="@color/fragment_background">
 
     <TextView
+        android:layout_marginTop="30dp"
         android:id="@+id/tv_title_ILR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/bigger_padding"
+        android:layout_marginBottom="@dimen/padding"
         android:text="title"
         android:textColor="@color/black"
         android:textAllCaps="true"
@@ -19,6 +20,7 @@
         android:gravity="center_horizontal" />
 
     <ImageView
+        android:layout_marginBottom="30dp"
         app:layout_heightPercent="15%"
         android:id="@+id/ib_more_info"
         android:layout_width="wrap_content"
@@ -29,14 +31,16 @@
         android:src="@drawable/btn_moreinfo" />
 
     <ImageView
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:id="@+id/iv_image_ILR"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_heightPercent="80%"
+        app:layout_heightPercent="70%"
         android:layout_above="@+id/ib_more_info"
         android:layout_below="@+id/tv_title_ILR"
-        android:layout_marginLeft="@dimen/logos_item_margin"
-        android:layout_marginRight="@dimen/logos_item_margin"
+        android:layout_marginLeft="@dimen/view_gallery_item_margin_med"
+        android:layout_marginRight="@dimen/view_gallery_item_margin_med"
         android:layout_centerHorizontal="true"
         />
 

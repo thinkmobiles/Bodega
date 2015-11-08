@@ -32,9 +32,9 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
     private ItemGalleryPagerAdapter mAdapter;
 
 
-    public static BaseFragment newInstance(ItemWrapper _parentItem, int _position, boolean _topBarIsShown) {
+    public static BaseFragment newInstance(ItemWrapper _itemWrapper, int _position, boolean _topBarIsShown) {
         Bundle args = new Bundle();
-        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _itemWrapper);
         args.putInt(Constants.EXTRA_FLAG_1, _position);
         args.putBoolean(Constants.EXTRA_FLAG_2, _topBarIsShown);
         BaseFragment fragment = new ViewGalleryPagerFragment();
@@ -121,8 +121,12 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
     }
 
     private void setBtnListeners() {
-        $(R.id.btnVolver_FVG).setOnClickListener(this);
-        $(R.id.btnAddEnvio_FVG).setOnClickListener(this);
+        if (mItemWrapper.getId().equals(Constants.LOGOTIPOS_ID)){
+            flTopBarButtonsContainer.setVisibility(View.VISIBLE);
+            ibClose.setVisibility(View.INVISIBLE);
+            $(R.id.btnVolver_FVG).setOnClickListener(this);
+            $(R.id.btnAddEnvio_FVG).setOnClickListener(this);
+        }
         ibClose.setOnClickListener(this);
         ibPrev.setOnClickListener(this);
         ibNext.setOnClickListener(this);
@@ -130,7 +134,7 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
 
     private void setupPager() {
         mAdapter = new ItemGalleryPagerAdapter(getChildFragmentManager());
-        mAdapter.setData(mImageList, mNamesList, mInformationList);
+        mAdapter.setData(mImageList, mNamesList, mInformationList, mItemWrapper.getId());
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);

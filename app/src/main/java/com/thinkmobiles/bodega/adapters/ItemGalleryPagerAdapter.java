@@ -14,17 +14,18 @@ import java.util.List;
 public class ItemGalleryPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> mImageList, mNamesList, mInformationList;
-
-    String sName, sInformation;
+    private String itemWrapperId;
+    private String sName, sInformation;
 
     public ItemGalleryPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public void setData(List<String> _itemsList, List<String> _namesList, List<String> _informationList) {
+    public void setData(List<String> _itemsList, List<String> _namesList, List<String> _informationList, String _itemWrapperId) {
         this.mImageList = _itemsList;
         this.mNamesList = _namesList;
         this.mInformationList = _informationList;
+        this.itemWrapperId = _itemWrapperId;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class ItemGalleryPagerAdapter extends FragmentPagerAdapter {
         if (mInformationList != null) {
             sInformation = mInformationList.get(position);
         }
-        return PagerItemGalleryFragment.newInstance(mImageList.get(position), sName, sInformation);
+        return PagerItemGalleryFragment.newInstance(mImageList.get(position), sName, sInformation, itemWrapperId);
     }
 
     @Override

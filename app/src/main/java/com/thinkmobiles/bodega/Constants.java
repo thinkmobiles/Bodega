@@ -72,6 +72,7 @@ public class Constants {
     public static final String EXTRA_FLAG_1 = "extra_flag_1";
     public static final String EXTRA_FLAG_2 = "extra_flag_2";
     public static final String EXTRA_FLAG_3 = "extra_flag_3";
+    public static final String EXTRA_FLAG_4 = "extra_flag_4";
 
     
     // Splash Activity broadcast actions

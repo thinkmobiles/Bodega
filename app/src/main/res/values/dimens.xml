@@ -72,9 +72,11 @@
     <dimen name="gallery_description_button_size">70dp</dimen>
     <dimen name="gallery_button_size">100dp</dimen>
     <dimen name="gallery_description_button_padding">20dp</dimen>
-    <dimen name="view_gallery_item_margin">80dp</dimen>
+    <dimen name="view_gallery_item_margin_big">85dp</dimen>
+    <dimen name="view_gallery_item_margin_med">55dp</dimen>
     <dimen name="view_gallery_text_size">23sp</dimen>
-    <dimen name="logos_text_size">15sp</dimen>
+    <dimen name="logos_text_size">15dp</dimen>
+    <dimen name="frame_layout_top_bar_height">60dp</dimen>
     <dimen name="info_image_margin">45dp</dimen>
     <dimen name="info_image_margin_bottom">55dp</dimen>
     <dimen name="info_text_view_height">200dp</dimen>
