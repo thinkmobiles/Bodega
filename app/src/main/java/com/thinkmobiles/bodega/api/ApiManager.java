@@ -55,8 +55,9 @@ public class ApiManager {
     }
 
     public static String getPath(Context context) {
-        //return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
-        return context.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" + context.getPackageName();
+        //return context.getExternalFilesDir(null).getAbsolutePath();
+        //Log.d(LOG_TAG, context.getFilesDir().getAbsolutePath());
+        return context.getFilesDir().getAbsolutePath();
     }
 
     private EventListener prepareEventListener = new EventListener() {
@@ -92,7 +93,8 @@ public class ApiManager {
     public boolean needUpdate() {
         Log.d(LOG_TAG, "last update performed: " + SharedPrefUtils.getLastUpdate(context) + "; server update available: " + getLastModelUpdate());
         File file = new File(getPath(context));
-        return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate()) || !file.exists();
+        boolean fileExists = file.exists();
+        return !SharedPrefUtils.getLastUpdate(context).equals(getLastModelUpdate()) || !fileExists;
     }
 
     public String getLastModelUpdate() {

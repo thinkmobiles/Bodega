@@ -15,6 +15,7 @@ import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiService;
 import com.thinkmobiles.bodega.api.ItemWrapper;
+import com.thinkmobiles.bodega.utils.SharedPrefUtils;
 
 import java.util.ArrayList;
 
@@ -59,10 +60,14 @@ public class SplashActivity extends AppCompatActivity {
     private void runMainActivity(Intent intent) {
         Intent sendIntent = new Intent(this, MainActivity.class);
         ArrayList<ItemWrapper> allLevelsModel = intent.getParcelableArrayListExtra(Constants.ALL_LEVELS_MODEL_ARG);
-        int size = allLevelsModel.size();
         sendIntent.putExtra(Constants.ALL_LEVELS_MODEL_ARG, allLevelsModel);
-        startActivity(sendIntent);
-        finish();
+        if (allLevelsModel == null || allLevelsModel.size() == 0) {
+            SharedPrefUtils.setLastUpdate(this, "");
+            startDownload();
+        } else {
+            startActivity(sendIntent);
+            finish();
+        }
     }
 
     private synchronized void showCheckConnectionDialog() {

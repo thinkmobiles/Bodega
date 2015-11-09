@@ -1,6 +1,5 @@
 package com.thinkmobiles.bodega.adapters;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.thinkmobiles.bodega.db.DBManager;
 import com.thinkmobiles.bodega.db.daogen.Customer;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
 import com.thinkmobiles.bodega.fragments.envios.EnviosProductsFragment;
+import com.thinkmobiles.bodega.utils.PDFSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +105,7 @@ public class EnviosLocalesAdapter extends RecyclerView.Adapter<EnviosLocalesAdap
                             .commit();
                     break;
                 case R.id.btnSendItem_IEL:
-
+                    PDFSender.sendPDFsFromEnvio(mBaseFragment.getActivity(), customer.getId());
                     break;
             }
         }

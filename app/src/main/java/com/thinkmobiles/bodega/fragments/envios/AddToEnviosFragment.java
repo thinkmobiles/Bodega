@@ -2,10 +2,17 @@ package com.thinkmobiles.bodega.fragments.envios;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -31,6 +38,7 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
     private RelativeLayout rlRootContainer, rlFirstContainer, rlSecondContainer;
     private Button btnCancel, btnAccept, btnGoToEnvio, btnContinue;
     private AutoCompleteTextView autoCompleteTextView;
+    private CheckBox chbExpandSpinner;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem) {
         Bundle args = new Bundle();
@@ -60,14 +68,15 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
 
         setRedBackground();
         findUI();
-        setListeners();
-        initAutoCompleteTextView();
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         restoreSavedInstance(savedInstanceState);
+        setListeners();
+        initAutoCompleteTextView();
+        configureDropDown();
     }
 
     private void restoreSavedInstance(Bundle savedInstanceState) {
@@ -88,6 +97,7 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
         btnContinue = $(R.id.btnContinuar_FATE);
         rlFirstContainer = $(R.id.rlFirstContainer_FATE);
         rlSecondContainer = $(R.id.rlSecondContainer_FATE);
+        chbExpandSpinner = $(R.id.chbDropDown_FATE);
     }
 
     private void setListeners() {
@@ -96,7 +106,49 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
         btnCancel.setOnClickListener(this);
         btnContinue.setOnClickListener(this);
         btnGoToEnvio.setOnClickListener(this);
+        rlFirstContainer.setOnClickListener(this);
+        autoCompleteTextView.setOnClickListener(this);
+        autoCompleteTextView.setOnItemClickListener(onItemClickListener);
+        autoCompleteTextView.addTextChangedListener(textWatcher);
+        chbExpandSpinner.setOnCheckedChangeListener(dropDownListener);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            chbExpandSpinner.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    chbExpandSpinner.setChecked(autoCompleteTextView.isPopupShowing());
+                }
+            }, 100);
+        }
+    };
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            chbExpandSpinner.setChecked(false);
+        }
+    };
+
+    private CompoundButton.OnCheckedChangeListener dropDownListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+                autoCompleteTextView.showDropDown();
+            else
+                autoCompleteTextView.dismissDropDown();
+        }
+    };
 
     private void initAutoCompleteTextView() {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
@@ -105,11 +157,17 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
         autoCompleteTextView.setAdapter(arrayAdapter);
         autoCompleteTextView.setThreshold(1);
         autoCompleteTextView.requestFocus();
-        //autoCompleteTextView.showDropDown();
+    }
+
+    private void configureDropDown() {
+        if (autoCompleteTextView.getAdapter().getCount() == 0)
+            chbExpandSpinner.setEnabled(false);
+        chbExpandSpinner.setChecked(false);
     }
 
     @Override
     public void onClick(View v) {
+        chbExpandSpinner.setChecked(false);
         switch (v.getId()) {
             case R.id.rlRootContainer_FATE:
             case R.id.btnCancelar_FATE:
@@ -153,6 +211,11 @@ public class AddToEnviosFragment extends BaseFragment implements View.OnClickLis
     private void toggleContainersVisibility() {
         rlFirstContainer.setVisibility(View.GONE);
         rlSecondContainer.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        autoCompleteTextView.removeTextChangedListener(textWatcher);
     }
 }

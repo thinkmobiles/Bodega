@@ -117,5 +117,6 @@
     <dimen name="envios_dialog_vertical_padding">80dp</dimen>
     <dimen name="envios_dialog_content_width">450dp</dimen>
     <dimen name="envios_dialog_padding">20dp</dimen>
-    <dimen name="envios_dialog_actv_padding">5dp</dimen>
+    <dimen name="envios_dialog_actv_padding">7dp</dimen>
+    <dimen name="envios_dialog_actv_padding_right">50dp</dimen>
 </resources>
