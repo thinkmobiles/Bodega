@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 import com.thinkmobiles.bodega.api.ItemWrapper;
-import com.thinkmobiles.bodega.utils.PercentLinearLayout;
 
 import java.util.List;
 
@@ -29,11 +27,13 @@ public class LogosRecyclerAdapter extends RecyclerView.Adapter<LogosRecyclerAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        ImageView moreInfo;
         TextView textView;
 
         public ViewHolder(View _view) {
             super(_view);
             this.imageView = (ImageView) _view.findViewById(R.id.iv_image_ILR);
+            this.moreInfo = (ImageView) _view.findViewById(R.id.ivMoreInfo_ILR);
             this.textView = (TextView) _view.findViewById(R.id.tv_title_ILR);
         }
     }
@@ -69,6 +69,10 @@ public class LogosRecyclerAdapter extends RecyclerView.Adapter<LogosRecyclerAdap
                 .load(ApiManager.getPath(mContext) + mItemList.get(i).getProductList().get(0).getImageSmall())
                 .fitCenter()
                 .into(viewHolder.imageView);
+
+        Glide.with(mContext)
+                .load(mIsInContainer ? R.drawable.btn_moreinfo_cr : R.drawable.btn_moreinfo_cr_l)
+                .into(viewHolder.moreInfo);
     }
 
     @Override
