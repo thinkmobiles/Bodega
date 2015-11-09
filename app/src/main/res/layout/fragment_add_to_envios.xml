@@ -31,12 +31,26 @@
             android:layout_below="@+id/tvAnadirFicha_FATE"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/envios_dialog_padding"
+            android:paddingRight="@dimen/envios_dialog_actv_padding_right"
+            android:paddingLeft="@dimen/envios_dialog_actv_padding"
+            android:paddingTop="@dimen/envios_dialog_actv_padding"
+            android:paddingBottom="@dimen/envios_dialog_actv_padding"
             android:background="@color/white"
             android:hint="@string/escribe_el_nombre"
-            android:padding="@dimen/small_padding"
             android:singleLine="true"
             android:textColor="@color/grey"
             android:textSize="@dimen/font_big" />
+
+        <CheckBox
+            android:id="@+id/chbDropDown_FATE"
+            android:button="@drawable/selector_drop_down_btn"
+            android:background="@null"
+            android:layout_alignRight="@+id/actvLocal_FATE"
+            android:layout_alignTop="@+id/actvLocal_FATE"
+            android:layout_alignBottom="@+id/actvLocal_FATE"
+            android:paddingRight="@dimen/padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="@dimen/envios_dialog_content_width"

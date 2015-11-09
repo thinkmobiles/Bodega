@@ -55,7 +55,10 @@ public class DBManager {
         OrderItemDao orderItemDao = mDaoSession.getOrderItemDao();
         OrderItem orderItem = new OrderItem();
         orderItem.setName(itemWrapper.getName());
-        orderItem.setIcon(itemWrapper.getIcon());
+        String iconPath = null;
+        if (itemWrapper.getProductList() != null && itemWrapper.getProductList().size() > 0)
+            iconPath = itemWrapper.getProductList().get(0).getImageSmall();
+        orderItem.setIcon(iconPath);
         orderItem.setPdf(itemWrapper.getPdf());
         orderItem.setCustomerId(customer.getId());
         orderItemDao.insert(orderItem);

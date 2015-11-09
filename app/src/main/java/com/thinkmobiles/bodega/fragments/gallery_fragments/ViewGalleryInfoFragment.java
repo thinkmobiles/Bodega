@@ -106,6 +106,8 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
             mFragmentNavigator.popBackStack();
                 break;
             case R.id.btnAddEnvio_FVI:
+                mFragmentNavigator.showEnviosDialog(mItemWrapper);
+                break;
         }
     }
 }

@@ -42,7 +42,7 @@ public class WrapperUtils {
                 for (int j = 1; j < itemWrapper.getLevelNumber(); j++) {
                     tab += "\t";
                 }
-                Log.d(LOG_TAG, tab + itemWrapper.getName() + " " + itemWrapper.getMenuImage());
+                Log.d(LOG_TAG, tab + itemWrapper.getName() + " " + itemWrapper.getPdf());
                 printWrappedLevels(itemWrapper.getInnerLevel());
             }
         }

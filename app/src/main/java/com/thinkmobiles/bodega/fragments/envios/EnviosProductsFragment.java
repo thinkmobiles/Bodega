@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.thinkmobiles.bodega.Constants;
@@ -13,6 +14,7 @@ import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.EnviosProductsAdapter;
 import com.thinkmobiles.bodega.db.DBManager;
 import com.thinkmobiles.bodega.fragments.BaseFragment;
+import com.thinkmobiles.bodega.utils.PDFSender;
 
 /**
  * Created by denis on 30.10.15.
@@ -23,6 +25,7 @@ public class EnviosProductsFragment extends BaseFragment implements View.OnClick
     private RecyclerView rvLocales;
     private TextView btnDelete;
     private TextView btnBack;
+    private Button btnEnviar;
 
     private long mCustomerId;
 
@@ -65,6 +68,7 @@ public class EnviosProductsFragment extends BaseFragment implements View.OnClick
         rvLocales = $(R.id.rvEnvios_FE);
         btnDelete = $(R.id.tvVaciar_IE);
         btnBack = $(R.id.tvVolver_FEP);
+        btnEnviar = $(R.id.btnEnviar_FE);
     }
 
     private void initRecyclerView() {
@@ -78,6 +82,7 @@ public class EnviosProductsFragment extends BaseFragment implements View.OnClick
     private void setListeners() {
         btnDelete.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        btnEnviar.setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +95,9 @@ public class EnviosProductsFragment extends BaseFragment implements View.OnClick
                 break;
             case R.id.tvVolver_FEP:
                 mFragmentNavigator.popBackStack();
+                break;
+            case R.id.btnEnviar_FE:
+                PDFSender.sendPDFsFromEnvio(getActivity(), mCustomerId);
                 break;
         }
     }

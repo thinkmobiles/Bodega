@@ -53,4 +53,5 @@
     <string name="send_mail">Send email…</string>
     <string name="mail_topic_envio">Envío de fichas de producto</string>
     <string name="mail_message_envio">Buenos días. Como hablamos, le envio las fichas de los productos que eligió…</string>
+    <string name="error_send_email">There are no email clients installed.</string>
 </resources>
