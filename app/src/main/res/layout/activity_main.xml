@@ -51,7 +51,8 @@
             android:id="@+id/tvLogoTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/padding"
             android:layout_marginRight="@dimen/action_bar_margin_right"
             android:layout_weight="1.1"
             android:src="@drawable/logo_hdr" />
