@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,7 +25,8 @@ import com.thinkmobiles.bodega.fragments.pager_tiraje.ViewPagerTirajeFragment;
  */
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView tvDescription;
+    private WebView tvDescription;
+//    private TextView tvDescription;
     private ItemWrapper mItem;
     private boolean mBottomContainerIsShown;
     private boolean mExtrasContainerIsShown;
@@ -125,9 +127,11 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (!TextUtils.isEmpty(description))
-            tvDescription.setText(Html.fromHtml(description));
+//            tvDescription.setText(Html.fromHtml(description));
+            tvDescription.loadDataWithBaseURL(null, description, "text/html", "utf-8", null);
         else
-            tvDescription.setText(getString(R.string.lorem_ipsum));
+//            tvDescription.setText(getString(R.string.lorem_ipsum));
+            tvDescription.loadDataWithBaseURL (null, getString(R.string.lorem_ipsum), "text/html", "utf-8", null);
     }
 
     @Override

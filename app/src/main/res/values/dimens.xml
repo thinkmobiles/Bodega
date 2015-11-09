@@ -79,6 +79,9 @@
     <dimen name="frame_layout_top_bar_height">60dp</dimen>
     <dimen name="info_image_margin">45dp</dimen>
     <dimen name="info_image_margin_bottom">55dp</dimen>
+    <dimen name="title_recycle_item_weight">150dp</dimen>
+    <dimen name="image_info_margin_top">8dp</dimen>
+    <dimen name="image_info_margin_bottom">12dp</dimen>
     <dimen name="info_text_view_height">200dp</dimen>
     <dimen name="info_image_weight">550dp</dimen>
 

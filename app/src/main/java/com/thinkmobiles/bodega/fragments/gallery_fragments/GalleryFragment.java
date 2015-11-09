@@ -221,9 +221,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     private void scrollRecyclerView(boolean _scrollNext) {
         LinearLayoutManager llm = (LinearLayoutManager) mLayoutManager;
+        int firstVisibleItem = llm.findFirstVisibleItemPosition();
         if (_scrollNext)
             mRecyclerView.smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
-        else mRecyclerView.smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 1);
+        else {if (firstVisibleItem == 0){firstVisibleItem = 1;}
+            mRecyclerView.smoothScrollToPosition(firstVisibleItem - 1);}
         setVisibilityArrows();
     }
 
@@ -238,7 +240,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private void setVisibilityArrows() {
         LinearLayoutManager llm = (LinearLayoutManager) mLayoutManager;
 
-        if (llm.findFirstVisibleItemPosition() == 0) {
+
+        if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1 && llm.findFirstVisibleItemPosition() == 0) {
+            ibPrev.setVisibility(View.VISIBLE);
+            ibNext.setVisibility(View.VISIBLE);
+        } else if (llm.findFirstVisibleItemPosition() == 0) {
             ibNext.setVisibility(View.VISIBLE);
             ibPrev.setVisibility(View.INVISIBLE);
         } else if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1) {
