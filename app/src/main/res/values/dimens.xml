@@ -76,7 +76,8 @@
     <dimen name="view_gallery_item_margin_med">55dp</dimen>
     <dimen name="view_gallery_text_size">23sp</dimen>
     <dimen name="logos_text_size">15dp</dimen>
-    <dimen name="frame_layout_top_bar_height">60dp</dimen>
+    <dimen name="frame_layout_top_bar_height">80dp</dimen>
+    <dimen name="frame_layout_top_bar_margin">40dp</dimen>
     <dimen name="info_image_margin">45dp</dimen>
     <dimen name="info_image_margin_bottom">55dp</dimen>
     <dimen name="title_recycle_item_weight">150dp</dimen>
