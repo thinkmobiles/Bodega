@@ -128,11 +128,9 @@ public final class FragmentNavigator  {
             case Constants.CARACTERISTICS_ID:
                 showFragment(_withBackStack, DescriptionFragment.newInstance(_item, false, true, false));
                 break;
+            case Constants.TANQUES_ID:
             case Constants.TIRAGE_ID:
                 showFragment(_withBackStack, DescriptionFragment.newInstance(_item, true, true, true));
-                break;
-            case Constants.TANQUES_ID:
-                showFragment(_withBackStack, DescriptionFragment.newInstance(_item, true, true, false));
                 break;
             case Constants.LOGOTIPOS_ID:
             case Constants.DIBOND_ID:
