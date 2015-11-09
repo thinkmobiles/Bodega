@@ -74,11 +74,11 @@
                 android:fadeScrollbars="false"
                 android:id="@+id/svScrollableText_FD"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:overScrollMode="never"
                 tools:background="#ee5555">
 
-                <TextView
+                <WebView
                     android:paddingRight="@dimen/double_padding"
                     android:paddingEnd="@dimen/double_padding"
                     android:id="@+id/tvDescription_FD"

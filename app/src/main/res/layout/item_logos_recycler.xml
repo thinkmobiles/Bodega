@@ -1,4 +1,5 @@
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,28 +8,33 @@
     <TextView
         android:layout_marginTop="30dp"
         android:id="@+id/tv_title_ILR"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/title_recycle_item_weight"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/padding"
-        android:text="title"
+        android:layout_marginBottom="@dimen/double_padding"
+        tools:text="title"
         android:textColor="@color/black"
         android:textAllCaps="true"
         android:textSize="@dimen/logos_text_size"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/gallery_description_button_padding"
+        android:layout_marginRight="@dimen/gallery_description_button_padding"
+        android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
 
     <ImageView
-        android:layout_marginBottom="30dp"
-        app:layout_heightPercent="15%"
+        android:layout_marginTop="@dimen/image_info_margin_top"
+        android:layout_marginBottom="@dimen/image_info_margin_bottom"
+        app:layout_heightPercent="16%"
+        app:layout_widthPercent="23%"
         android:id="@+id/ib_more_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@null"
-        android:src="@drawable/btn_moreinfo" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_moreinfo_cr" />
 
     <ImageView
         android:scaleType="fitCenter"

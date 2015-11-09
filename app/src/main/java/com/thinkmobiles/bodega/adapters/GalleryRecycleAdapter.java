@@ -1,6 +1,7 @@
 package com.thinkmobiles.bodega.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.api.ApiManager;
 
@@ -49,8 +51,12 @@ public class GalleryRecycleAdapter extends RecyclerView.Adapter<GalleryRecycleAd
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         Glide.with(mContext)
                 .load(ApiManager.getPath(mContext) + mItemList.get(i))
-                .fitCenter()
+//                .fitCenter()
                 .into(viewHolder.imageView);
+//        Picasso.with(mContext)
+//                .load("file:" + ApiManager.getPath(mContext) + mItemList.get(i))
+//                .fit()
+//                .into(viewHolder.imageView);
     }
 
     @Override
