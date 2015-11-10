@@ -34,6 +34,33 @@
             android:src="@drawable/btn_add_envio" />
     </FrameLayout>
 
+    <ImageButton
+        android:id="@+id/btn_prev_FG"
+        android:layout_width="@dimen/gallery_description_button_size"
+        android:layout_height="@dimen/gallery_description_button_size"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:padding="@dimen/gallery_description_button_padding"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_prev"
+        android:visibility="gone"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_next_FG"
+        android:layout_width="@dimen/gallery_description_button_size"
+        android:layout_height="@dimen/gallery_description_button_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:padding="@dimen/gallery_description_button_padding"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:src="@drawable/btn_next"
+        android:visibility="gone"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRecycler_FG"
         android:layout_width="wrap_content"
@@ -42,5 +69,8 @@
         android:layout_centerInParent="true"
         android:overScrollMode="never"
         android:paddingLeft="-7dp"
-        android:paddingRight="-7dp" />
+        android:paddingRight="-7dp"
+        android:layout_toLeftOf="@+id/btn_next_FG"
+        android:layout_toRightOf="@+id/btn_prev_FG"
+        />
 </RelativeLayout>

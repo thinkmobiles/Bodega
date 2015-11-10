@@ -2,6 +2,7 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -82,6 +83,7 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     }
 
     private void initData() {
+        setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
         mSmallImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImage();
         mBigImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImageSmall();
         mInformation = mItemWrapper.getInnerLevel().get(mPosition).getDescription();

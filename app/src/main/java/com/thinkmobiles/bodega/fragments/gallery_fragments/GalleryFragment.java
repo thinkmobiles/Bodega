@@ -38,9 +38,9 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private boolean horizontal, isInContainer;
     private ImageButton ibPrev, ibNext;
 
-    public static BaseFragment newInstance(ItemWrapper _parentItem, boolean _horizontal, boolean _isInContainer) {
+    public static BaseFragment newInstance(ItemWrapper _itemWrapper, boolean _horizontal, boolean _isInContainer) {
         Bundle args = new Bundle();
-        args.putParcelable(Constants.EXTRA_ITEM, _parentItem);
+        args.putParcelable(Constants.EXTRA_ITEM, _itemWrapper);
         args.putBoolean(Constants.EXTRA_FLAG_1, _horizontal);
         args.putBoolean(Constants.EXTRA_FLAG_2, _isInContainer);
         BaseFragment fragment = new GalleryFragment();
@@ -117,6 +117,15 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             ibNext.setOnClickListener(this);
             ibPrev.setOnClickListener(this);
         }
+//        switch (mItemWrapper.getId()) {
+//            case Constants.LOGOTIPOS_ID:
+//                ibNext.setVisibility(View.VISIBLE);
+//                ibPrev.setVisibility(View.VISIBLE);
+//                ibNext.setOnClickListener(this);
+//                ibPrev.setOnClickListener(this);
+//                setRecyclerAdapter();
+//                break;
+//        }
     }
 
     private void findView() {
@@ -125,6 +134,10 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             ibNext = $(R.id.btn_next_FGD);
             ibPrev = $(R.id.btn_prev_FGD);
         }
+//        else {
+//            ibNext = $(R.id.btn_next_FG);
+//            ibPrev = $(R.id.btn_prev_FG);
+//        }
     }
 
     private void serLayoutManager() {
@@ -171,6 +184,14 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 }
             });
         }
+//        if (horizontal) {
+//            mRecyclerView.addOnScrollListener(new OnScrollListener() {
+//                @Override
+//                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                    setVisibilityArrows();
+//                }
+//            });
+//        }
     }
 
     private void setListeners() {
@@ -216,6 +237,12 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             case R.id.btn_prev_FGD:
                 scrollRecyclerView(false);
                 break;
+            case R.id.btn_next_FG:
+                scrollRecyclerView(true);
+                break;
+            case R.id.btn_prev_FG:
+                scrollRecyclerView(false);
+                break;
         }
     }
 
@@ -224,8 +251,12 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         int firstVisibleItem = llm.findFirstVisibleItemPosition();
         if (_scrollNext)
             mRecyclerView.smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
-        else {if (firstVisibleItem == 0){firstVisibleItem = 1;}
-            mRecyclerView.smoothScrollToPosition(firstVisibleItem - 1);}
+        else {
+            if (firstVisibleItem == 0) {
+                firstVisibleItem = 1;
+            }
+            mRecyclerView.smoothScrollToPosition(firstVisibleItem - 1);
+        }
         setVisibilityArrows();
     }
 
@@ -240,14 +271,27 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     private void setVisibilityArrows() {
         LinearLayoutManager llm = (LinearLayoutManager) mLayoutManager;
 
+//        if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1 && llm.findFirstVisibleItemPosition() == 0) {
+//            ibPrev.setVisibility(View.VISIBLE);
+//            ibNext.setVisibility(View.VISIBLE);
+//        } else if (llm.findFirstVisibleItemPosition() == 0) {
+//            ibNext.setVisibility(View.VISIBLE);
+//            ibPrev.setVisibility(View.INVISIBLE);
+//        } else if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1) {
+//            ibPrev.setVisibility(View.VISIBLE);
+//            ibNext.setVisibility(View.INVISIBLE);
+//        } else {
+//            ibPrev.setVisibility(View.VISIBLE);
+//            ibNext.setVisibility(View.VISIBLE);
+//        }
 
-        if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1 && llm.findFirstVisibleItemPosition() == 0) {
-            ibPrev.setVisibility(View.VISIBLE);
-            ibNext.setVisibility(View.VISIBLE);
-        } else if (llm.findFirstVisibleItemPosition() == 0) {
+        if (mInnerLevel.size() <4 ){
+            ibPrev.setVisibility(View.GONE);
+            ibNext.setVisibility(View.GONE);
+        } else  if (llm.findFirstCompletelyVisibleItemPosition() == 0) {
             ibNext.setVisibility(View.VISIBLE);
             ibPrev.setVisibility(View.INVISIBLE);
-        } else if (llm.findLastVisibleItemPosition() == mInnerLevel.size() - 1) {
+        } else if (llm.findLastCompletelyVisibleItemPosition() == mInnerLevel.size() - 1) {
             ibPrev.setVisibility(View.VISIBLE);
             ibNext.setVisibility(View.INVISIBLE);
         } else {

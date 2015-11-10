@@ -3,6 +3,7 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -72,6 +73,7 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
     }
 
     private void initData() {
+        setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
         switch (mItemWrapper.getId()) {
             case Constants.EJEMPLOS_ID:
             case Constants.GALERIA_DE_ACERO_ID:
