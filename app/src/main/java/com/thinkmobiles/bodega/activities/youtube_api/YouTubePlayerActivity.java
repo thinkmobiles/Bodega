@@ -64,4 +64,11 @@ public class YouTubePlayerActivity extends YouTubeFailureRecoveryActivity implem
     public void onFullscreen(boolean b) {
         // nothing
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mYouTubePlayer.release();
+        this.finish();
+    }
 }

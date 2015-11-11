@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ItemWrapper> allLevelsList;
     private TextView tvMenuTitle;
     private ImageView ivBackgroundMain;
+    private long mBackPressedAt;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -101,7 +103,12 @@ public class MainActivity extends AppCompatActivity {
             mSlidingMenuController.close();
         else {
             if (IndexFragment.getInstance().isVisible()) {
-                super.onBackPressed();
+                if (mBackPressedAt + 2000 > System.currentTimeMillis()) {
+                    super.onBackPressed();
+                } else {
+                    mBackPressedAt = System.currentTimeMillis();
+                    Toast.makeText(this, getString(R.string.click_back), Toast.LENGTH_SHORT).show();
+                }
             } else {
                if (!mFragmentNavigator.popBackStack())
                    mFragmentNavigator.showFragmentWithoutBackStack(IndexFragment.getInstance());
