@@ -147,13 +147,13 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
         int id = view.getId();
         switch (id) {
             case R.id.btnVolver_FVG:
-                mFragmentNavigator.popBackStack();
+                mActivity.onBackPressed();
                 break;
             case R.id.btnAddEnvio_FVG:
                 mFragmentNavigator.showEnviosDialog(mItemWrapper);
                 break;
             case R.id.btn_close_FVG:
-                mFragmentNavigator.popBackStack();
+                mActivity.onBackPressed();
                 break;
             case R.id.btn_previous_image_FVG:
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);

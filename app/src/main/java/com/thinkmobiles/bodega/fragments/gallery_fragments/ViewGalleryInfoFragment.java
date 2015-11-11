@@ -105,7 +105,7 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_close_FVI:
-            mFragmentNavigator.popBackStack();
+                mActivity.onBackPressed();
                 break;
             case R.id.btnAddEnvio_FVI:
                 mFragmentNavigator.showEnviosDialog(mItemWrapper);

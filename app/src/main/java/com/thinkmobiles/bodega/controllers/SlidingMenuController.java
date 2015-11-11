@@ -81,7 +81,7 @@ public class SlidingMenuController implements AdapterView.OnItemClickListener {
                     mEntries.add(item);
                     if (!Constants.TANQUES_ID.equals(item.getId())
                             && !Constants.LOGOTIPOS_ID.equals(item.getId())
-                            && !Constants.COLUMNAS_ID.equals(item.getId())
+//                            && !Constants.COLUMNAS_ID.equals(item.getId())
                             && !Constants.ARTICULOS_DE_USO_ID.equals(item.getId())) {
                         getLevels(item.getInnerLevel());
                     }
