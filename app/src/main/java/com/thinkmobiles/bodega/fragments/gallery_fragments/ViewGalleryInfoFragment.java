@@ -3,7 +3,9 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,9 +26,10 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     private ItemWrapper mItemWrapper;
     private int mPosition;
     private ImageView ivSmallImage, ivBigImage;
-    ImageButton ibAddEnvio;
-    private TextView tvInformation;
-    private String mSmallImage, mBigImage, mInformation;
+    private ImageButton ibAddEnvio;
+    private WebView tvInformation;
+   private TextView tvName;
+    private String mSmallImage, mBigImage, mInformation, mName;
 
     public static BaseFragment newInstance(ItemWrapper _parentItem, int _position) {
         Bundle args = new Bundle();
@@ -69,7 +72,7 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
                 .fitCenter()
                 .into(ivBigImage);
 
-        tvInformation.setText(mInformation);
+        tvInformation.loadData(mInformation, "text/html", "utf-8");
 
         if(mItemWrapper.getId().equals(Constants.ARTICULOS_DE_USO_ID)) {
             ibAddEnvio.setVisibility(View.VISIBLE);
@@ -80,13 +83,21 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
                     .fitCenter()
                     .into(ivSmallImage);
         }
+        Log.d("qqq",mItemWrapper.getId());
+        if (mItemWrapper.getId().equals(Constants.ARTICULOS_DE_USO_ID)){
+            tvName.setVisibility(View.VISIBLE);
+            tvName.setText(mName);
+        }
     }
 
     private void initData() {
         setActionBarTitle(TextUtils.isEmpty(mItemWrapper.getName()) ? "" : mItemWrapper.getName());
         mSmallImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImage();
         mBigImage = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getImageSmall();
-        mInformation = mItemWrapper.getInnerLevel().get(mPosition).getDescription();
+        mInformation = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getDescription();
+        mName = mItemWrapper.getInnerLevel().get(mPosition).getProductList().get(0).getName();
+//                if (mInformation==null||mInformation.equals(""))
+//            mInformation = mItemWrapper.getInnerLevel().get(mPosition).getInnerLevel().get(0).getProductList().get(0).getPackaging().get(0);
     }
 
     private void setBtnListeners() {
@@ -97,8 +108,10 @@ public class ViewGalleryInfoFragment extends BaseFragment implements View.OnClic
     private void findView() {
         ivBigImage = $(R.id.ivBigImage_FVI);
         ivSmallImage = $(R.id.iv_small_image_FVI);
-        tvInformation =$(R.id.tv_info_FVI);
+        tvInformation =$(R.id.wv_info_FVI);
         ibAddEnvio=$(R.id.btnAddEnvio_FVI);
+        tvName = $ (R.id.tv_name_FVI);
+
     }
 
     @Override

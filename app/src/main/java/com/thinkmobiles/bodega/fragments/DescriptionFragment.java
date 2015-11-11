@@ -2,13 +2,11 @@ package com.thinkmobiles.bodega.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.thinkmobiles.bodega.Constants;
@@ -25,8 +23,8 @@ import com.thinkmobiles.bodega.fragments.pager_tiraje.ViewPagerTirajeFragment;
  */
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener {
 
-    private WebView tvDescription;
-//    private TextView tvDescription;
+    private WebView wvDescription;
+//    private TextView wvDescription;
     private ItemWrapper mItem;
     private boolean mBottomContainerIsShown;
     private boolean mExtrasContainerIsShown;
@@ -77,7 +75,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void findUi() {
-        tvDescription = $(R.id.tvDescription_FD);
+        wvDescription = $(R.id.tvDescription_FD);
         llBottomPagerContainer = $(R.id.llBottomPagerContainer_FD);
         llFragmentExtrasContainer = $(R.id.llFragmentExtrasContainer_FD);
         ivLeftImage = $(R.id.ivLeftImage_FD);
@@ -127,11 +125,11 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (!TextUtils.isEmpty(description))
-//            tvDescription.setText(Html.fromHtml(description));
-            tvDescription.loadDataWithBaseURL(null, description, "text/html", "utf-8", null);
+//            wvDescription.setText(Html.fromHtml(description));
+            wvDescription.loadDataWithBaseURL(null, description, "text/html", "utf-8", null);
         else
-//            tvDescription.setText(getString(R.string.lorem_ipsum));
-            tvDescription.loadDataWithBaseURL (null, getString(R.string.lorem_ipsum), "text/html", "utf-8", null);
+//            wvDescription.setText(getString(R.string.lorem_ipsum));
+            wvDescription.loadDataWithBaseURL (null, getString(R.string.lorem_ipsum), "text/html", "utf-8", null);
     }
 
     @Override

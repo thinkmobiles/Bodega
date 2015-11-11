@@ -51,21 +51,39 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/tv_info_FVI"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/info_text_view_height"
-        android:layout_toLeftOf="@+id/ivBigImage_FVI"
-        android:gravity="center"
-        android:text="INFORMATION"
-        android:textSize="@dimen/logos_text_size" />
+        android:id="@+id/tv_name_FVI"
+        android:text="NAME"
+        android:layout_width="@dimen/description_add_button_width"
+        android:layout_height="@dimen/description_add_button_height"
+        android:layout_marginTop="@dimen/bigger_padding"
+        android:layout_marginLeft="@dimen/info_image_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/index_text_size"
+        android:textAllCaps="true"
+        android:visibility="gone"
+         />
+
 
     <ImageView
         android:id="@+id/iv_small_image_FVI"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_info_FVI"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/info_image_margin_bottom"
         android:layout_toLeftOf="@id/ivBigImage_FVI"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        app:layout_heightPercent="55%" />
+
+    <WebView
+        android:id="@+id/wv_info_FVI"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/iv_small_image_FVI"
+        android:layout_below="@+id/tv_name_FVI"
+        android:layout_marginLeft="@dimen/info_image_margin"
+        android:layout_marginRight="@dimen/info_image_margin"
+        android:layout_marginTop="@dimen/logos_item_margin"
+        android:layout_toLeftOf="@+id/btnAddEnvio_FVI"
+        android:gravity="center" />
 </android.support.percent.PercentRelativeLayout>
