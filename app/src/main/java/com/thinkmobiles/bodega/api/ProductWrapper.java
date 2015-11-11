@@ -15,6 +15,7 @@ public class ProductWrapper implements Parcelable {
 
     private String id = null;
     private String name = null;
+    private String description = null;
     private String category = null;
     private List<String> families = null;
     private List<String> familyImages = null;
@@ -35,6 +36,7 @@ public class ProductWrapper implements Parcelable {
     public ProductWrapper(Product product) {
         id = product.getId();
         name = product.getName();
+        description = product.getDescription();
         category = product.getCategory();
         families = product.getFamilies();
         familyImages = product.getFamilyImages();
@@ -175,6 +177,14 @@ public class ProductWrapper implements Parcelable {
         this.galleriesImages = galleriesImages;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -184,6 +194,7 @@ public class ProductWrapper implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.description);
         dest.writeString(this.category);
         dest.writeStringList(this.families);
         dest.writeStringList(this.familyImages);
@@ -202,6 +213,7 @@ public class ProductWrapper implements Parcelable {
     protected ProductWrapper(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
+        this.description = in.readString();
         this.category = in.readString();
         this.families = in.createStringArrayList();
         this.familyImages = in.createStringArrayList();
