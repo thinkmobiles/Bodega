@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
 import com.thinkmobiles.bodega.Constants;
 import com.thinkmobiles.bodega.R;
 import com.thinkmobiles.bodega.adapters.ItemGalleryPagerAdapter;
@@ -28,7 +29,7 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
     private ItemWrapper mItemWrapper;
     private int position;
     private FrameLayout flTopBarButtonsContainer;
-    private ImageButton ibPrev, ibNext, ibClose;
+    private ImageButton ibPrev, ibNext, ibClose, ibPrevV, ibNextV, ibCloseV;
     private ViewPager mViewPager;
     private ItemGalleryPagerAdapter mAdapter;
 
@@ -113,19 +114,24 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
         ibPrev = $(R.id.btn_previous_image_FVG);
         ibNext = $(R.id.btn_next_image_FVG);
         ibClose = $(R.id.btn_close_FVG);
+        ibPrevV = $(R.id.btn_previous_image_view_FVG);
+        ibNextV = $(R.id.btn_next_image_view_FVG);
+        ibCloseV = $(R.id.btn_close_view_FVG);
     }
 
     private void setContainers() {
         if (mTopBarIsShown) {
             flTopBarButtonsContainer.setVisibility(View.VISIBLE);
             ibClose.setVisibility(View.GONE);
+            ibCloseV.setVisibility(View.GONE);
         }
     }
 
     private void setBtnListeners() {
-        if (mItemWrapper.getId().equals(Constants.LOGOTIPOS_ID)){
+        if (mItemWrapper.getId().equals(Constants.LOGOTIPOS_ID)) {
             flTopBarButtonsContainer.setVisibility(View.VISIBLE);
             ibClose.setVisibility(View.INVISIBLE);
+            ibCloseV.setVisibility(View.INVISIBLE);
             $(R.id.btnVolver_FVG).setOnClickListener(this);
             $(R.id.btnAddEnvio_FVG).setOnClickListener(this);
         }
@@ -168,15 +174,23 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
         if (mImageList.size() == 1) {
             ibNext.setVisibility(View.GONE);
             ibPrev.setVisibility(View.GONE);
+            ibNextV.setVisibility(View.GONE);
+            ibPrevV.setVisibility(View.GONE);
         } else if (mViewPager.getCurrentItem() == 0) {
             ibNext.setVisibility(View.VISIBLE);
             ibPrev.setVisibility(View.GONE);
+            ibNextV.setVisibility(View.VISIBLE);
+            ibPrevV.setVisibility(View.GONE);
         } else if (mViewPager.getCurrentItem() + 1 == mImageList.size()) {
             ibPrev.setVisibility(View.VISIBLE);
             ibNext.setVisibility(View.GONE);
+            ibPrevV.setVisibility(View.VISIBLE);
+            ibNextV.setVisibility(View.GONE);
         } else {
             ibPrev.setVisibility(View.VISIBLE);
             ibNext.setVisibility(View.VISIBLE);
+            ibPrevV.setVisibility(View.VISIBLE);
+            ibNextV.setVisibility(View.VISIBLE);
         }
     }
 

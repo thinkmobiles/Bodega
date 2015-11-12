@@ -46,20 +46,48 @@
             android:layout_height="match_parent" />
 
         <ImageButton
+            android:id="@+id/btn_close_view_FVG"
+            android:layout_width="@dimen/arrows_size"
+            android:layout_height="@dimen/arrows_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/arrows_size"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:padding="@dimen/arrows_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_close" />
+
+        <ImageButton
             android:id="@+id/btn_close_FVG"
             android:layout_width="@dimen/gallery_button_size"
             android:layout_height="@dimen/gallery_button_size"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:paddingRight="@dimen/gallery_button_padding"
-            android:paddingLeft="@dimen/gallery_button_padding"
-            android:paddingBottom="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
+            android:adjustViewBounds="true"
             android:background="@null"
-            android:src="@drawable/btn_close" />
+            android:paddingBottom="@dimen/gallery_button_padding"
+            android:paddingLeft="@dimen/gallery_button_padding"
+            android:paddingRight="@dimen/gallery_button_padding"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:id="@+id/btn_previous_image_view_FVG"
+            android:layout_width="@dimen/arrows_size"
+            android:layout_height="@dimen/arrows_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/arrows_size"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:padding="@dimen/arrows_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_prev"
+            />
 
         <ImageButton
             android:id="@+id/btn_previous_image_FVG"
@@ -68,13 +96,27 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:padding="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
+            android:adjustViewBounds="true"
             android:background="@null"
-            android:src="@drawable/btn_prev"
-            android:visibility="invisible"/>
+            android:padding="@dimen/gallery_button_padding"
+            android:scaleType="fitCenter"
+            android:visibility="invisible" />
+
+        <ImageButton
+
+            android:id="@+id/btn_next_image_view_FVG"
+            android:layout_width="@dimen/arrows_size"
+            android:layout_height="@dimen/arrows_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/arrows_size"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:padding="@dimen/arrows_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_next" />
 
         <ImageButton
             android:id="@+id/btn_next_image_FVG"
@@ -83,11 +125,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:padding="@dimen/gallery_button_padding"
             android:layout_margin="@dimen/gallery_button_margin"
+            android:adjustViewBounds="true"
             android:background="@null"
-            android:src="@drawable/btn_next" />
+            android:padding="@dimen/gallery_button_padding"
+            android:scaleType="fitCenter" />
     </RelativeLayout>
 </android.support.percent.PercentRelativeLayout>

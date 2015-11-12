@@ -86,6 +86,11 @@
     <dimen name="info_text_view_height">200dp</dimen>
     <dimen name="info_image_weight">550dp</dimen>
 
+    <!--Arrows-->
+    <dimen name="arrows_size">45dp</dimen>
+    <dimen name="arrows_padding">8dp</dimen>
+    arrows_s
+
     <!--View pager logistica-->
     <dimen name="top_bot_padding">16dp</dimen>
     <dimen name="left_right_padding">28dp</dimen>
