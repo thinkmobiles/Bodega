@@ -30,10 +30,10 @@ public class ItemGalleryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (mNamesList != null) {
+        if (mNamesList != null && mNamesList.size()>0) {
             sName = mNamesList.get(position);
                     }
-        if (mInformationList != null) {
+        if (mInformationList != null && mInformationList.size()>0) {
             sInformation = mInformationList.get(position);
         }
         return PagerItemGalleryFragment.newInstance(mImageList.get(position), sName, sInformation, itemWrapperId);

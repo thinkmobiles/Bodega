@@ -223,8 +223,8 @@ public class ViewGalleryPagerFragment extends BaseFragment implements View.OnCli
         for (ProductWrapper productWrapper : mItemWrapper.getProductList()) {
             //TODO correct when updated information
             mImageList.add(productWrapper.getImage());
-            mNamesList.add(" \n");
-            mInformationList.add(" \n");
+//            mNamesList.add(" \n");
+//            mInformationList.add(" \n");
         }
     }
 

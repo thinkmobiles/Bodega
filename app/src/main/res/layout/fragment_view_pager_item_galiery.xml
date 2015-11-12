@@ -6,7 +6,7 @@
 
     <WebView
         android:id="@+id/wv_information_FVPIG"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -58,6 +58,15 @@
         android:layout_above="@+id/wv_information_FVPIG"
         android:layout_below="@+id/tv_name_FVPIG"
         android:layout_margin="@dimen/view_gallery_item_margin_big"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_imageDescriptionCamion_FVPIG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wv_information_FVPIG"
+        android:layout_below="@+id/tv_name_FVPIG"
+        android:layout_margin="180dp"
         android:visibility="gone" />
 
 

@@ -59,7 +59,6 @@ public class Constants {
     public static final String ELEMENTOS_DECORATIVOS_ID = "487";
     public static final String ENFIRADORES_ID = "478";
     public static final String COMPRESSOR_ID = "476";
-
     public static final String INICIO_ID = "inicio";
     public static final String ENVIOS_ID = "envios";
 
@@ -80,4 +79,7 @@ public class Constants {
     public static final String ACTION_DOWNLOAD_FAILED = "action_download_failed";
     public static final String ACTION_FILE_DOWNLOADED = "action_file_downloaded";
 
+
+    public static final String HTML_STYLE = "style=\"border-collapse:collapse; width:100%\"";
+    public static final String HTML_KEY = "cellspacing=\"5\"";
 }

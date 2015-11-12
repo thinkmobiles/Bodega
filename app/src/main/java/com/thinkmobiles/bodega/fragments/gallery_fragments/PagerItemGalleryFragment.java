@@ -2,6 +2,8 @@ package com.thinkmobiles.bodega.fragments.gallery_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ public class PagerItemGalleryFragment extends BaseFragment {
     private String mName;
     private String mInformation;
     private String itemWrapperId;
+    private String strBody;
 
     public static BaseFragment newInstance(String _image, String _name, String _information, String _itemWrapperId) {
         Bundle args = new Bundle();
@@ -60,7 +63,16 @@ public class PagerItemGalleryFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         findView();
+        checkInformation();
         setData();
+    }
+
+    private void checkInformation() {
+        if (mInformation != null && mInformation.contains(Constants.HTML_KEY) && !mInformation.contains(Constants.HTML_STYLE) ) {
+            String a = mInformation.split(Constants.HTML_KEY)[0];
+            String b = mInformation.substring(mInformation.indexOf(Constants.HTML_KEY) + 1);
+            mInformation = a + Constants.HTML_STYLE + b;
+        }
     }
 
     private void findView() {
@@ -68,6 +80,8 @@ public class PagerItemGalleryFragment extends BaseFragment {
         wvInformation = $(R.id.wv_information_FVPIG);
         switch (itemWrapperId) {
             case Constants.LOGISTICA_ID:
+                ivImage = $(R.id.iv_imageDescriptionCamion_FVPIG);
+                break;
             case Constants.TANQUES_ID:
                 ivImage = $(R.id.iv_imageDescription_FVPIG);
                 break;
