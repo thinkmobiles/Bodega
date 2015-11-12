@@ -32,7 +32,14 @@
         android:id="@+id/iv_imageGalleryView_FVPIG"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/wv_information_FVPIG"
         android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_imageLogoView_FVPIG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/wv_information_FVPIG"
         android:visibility="gone" />
 

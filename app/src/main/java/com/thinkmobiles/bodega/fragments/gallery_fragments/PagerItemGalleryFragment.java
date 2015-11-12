@@ -74,6 +74,10 @@ public class PagerItemGalleryFragment extends BaseFragment {
             case Constants.LOGOTIPOS_ID:
                 ivImage = $(R.id.iv_imageLogo_FVPIG);
                 break;
+            case Constants.FICHA_TACNICA_DE_BANDEJAS_ID:
+            case Constants.FICHA_TACNICA_DE_COLUMNAS_ID:
+                ivImage = $(R.id.iv_imageLogoView_FVPIG);
+                break;
             default:
                 ivImage = $(R.id.iv_imageGalleryView_FVPIG);
         }
