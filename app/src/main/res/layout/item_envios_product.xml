@@ -8,8 +8,9 @@
     <ImageView
         android:id="@+id/ivItemLogo_IEP"
         android:layout_width="@dimen/envios_icon_width"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
+        android:background="@color/light_grey"
         android:layout_marginRight="@dimen/double_padding"
         android:paddingBottom="@dimen/small_padding"
         android:paddingTop="@dimen/small_padding" />
